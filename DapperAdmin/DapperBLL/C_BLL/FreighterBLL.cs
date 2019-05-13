@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DapperBLL.BaseBLL;
 
 namespace DapperBLL.C_BLL
 {
-    public class FreighterBLL
+    /// <summary>
+    /// 测试业务处理层
+    /// </summary>
+    public class FreighterBLL: BaseBLLS
     {
        
     }
