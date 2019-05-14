@@ -116,6 +116,16 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Text\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DapperBLL\DapperBLL.csproj">
+      <Project>{8abb6838-3b61-4f35-9666-5843ac4c6195}</Project>
+      <Name>DapperBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperModel\DapperModel.csproj">
+      <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
+      <Name>DapperModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
