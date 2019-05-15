@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="BaseDAL\BaseDALS.cs" />
     <Compile Include="C_DAL\FreighterDAL.cs" />
+    <Compile Include="DB_DAL\DBDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,10 @@
     <ProjectReference Include="..\DapperHelp\DapperHelp.csproj">
       <Project>{67B8EE29-7C4B-44BE-B8DC-AB5CC394B81D}</Project>
       <Name>DapperHelp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperModel\DapperModel.csproj">
+      <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
+      <Name>DapperModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

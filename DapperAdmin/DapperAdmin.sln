@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDAL", "DapperDAL\Dapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperBLL", "DapperBLL\DapperBLL.csproj", "{8ABB6838-3B61-4F35-9666-5843AC4C6195}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8ABB6838-3B61-4F35-9666-5843AC4C6195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ABB6838-3B61-4F35-9666-5843AC4C6195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ABB6838-3B61-4F35-9666-5843AC4C6195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

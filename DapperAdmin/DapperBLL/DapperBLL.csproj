@@ -43,12 +43,17 @@
   <ItemGroup>
     <Compile Include="BaseBLL\BaseBLLS.cs" />
     <Compile Include="C_BLL\FreighterBLL.cs" />
+    <Compile Include="DB_BLL\DBBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperDAL\DapperDAL.csproj">
       <Project>{fa114d67-030c-4c08-b39d-92695148c0ac}</Project>
       <Name>DapperDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperModel\DapperModel.csproj">
+      <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
+      <Name>DapperModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

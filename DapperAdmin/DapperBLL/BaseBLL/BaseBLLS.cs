@@ -1,4 +1,4 @@
-﻿using DapperDAL.C_DAL;
+﻿using DapperDAL.DB_DAL;
 using System;
 
 namespace DapperBLL.BaseBLL

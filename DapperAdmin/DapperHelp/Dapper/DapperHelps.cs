@@ -90,7 +90,8 @@ namespace DapperHelp.Dapper
                 using (IDbConnection conn = GetConnection(useWriteConn))
                 {
                     OpenConnect(conn);
-                    return conn.Query<T>(sql, param, commandTimeout: commandTimeout, transaction: transaction).AsList<T>();
+                    var a= conn.Query<T>(sql, param, commandTimeout: commandTimeout, transaction: transaction).AsList<T>();
+                    return a;
                 }
             }
             else

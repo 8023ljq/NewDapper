@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonModel\DBModel.cs" />
+    <Compile Include="CommonModel\DBTableModel.cs" />
     <Compile Include="DBModel\C_Freighter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

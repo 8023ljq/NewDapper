@@ -1,6 +1,6 @@
 ﻿using DapperBLL.BaseBLL;
 
-namespace DapperBLL.C_BLL
+namespace DapperBLL.DB_BLL
 {
     /// <summary>
     /// 测试业务处理层

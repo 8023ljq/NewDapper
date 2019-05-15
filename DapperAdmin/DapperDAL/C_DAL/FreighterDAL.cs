@@ -1,6 +1,6 @@
 ﻿using DapperDAL.BaseDAL;
 
-namespace DapperDAL.C_DAL
+namespace DapperDAL.DB_DAL
 {
     /// <summary>
     /// 测试数据访问层

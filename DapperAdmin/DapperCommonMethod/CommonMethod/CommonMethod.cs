@@ -3,7 +3,10 @@ using DapperCommonMethod.CommonModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Web.Hosting;
 
 namespace DapperCommonMethod.CommonMethod
@@ -56,6 +59,40 @@ namespace DapperCommonMethod.CommonMethod
                 msg.msg = "银行卡格式错误";
             }
             return msg;
+        }
+
+        /// <summary>
+        /// 这个函数把文件的每一行读入list(暂时无用)
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void ReadInfoFromFile(string filePath = "")
+        {
+            filePath = "G:\\GIT\\NewDapper\\DapperAdmin\\DapperAdmin\\File\\DBModel.txt";
+            if (File.Exists(filePath))
+            {
+                StreamReader reader = new StreamReader(filePath, Encoding.Default);
+                String a = reader.ReadToEnd();
+                //将a.hhp文件中bb替换为cc。
+                a = a.Replace("{Description}", "测试数据");
+
+                var url = HostingEnvironment.MapPath("~/") + "\\Model";
+
+                if (!Directory.Exists(url))
+                {
+                    //创建文件夹
+                    Directory.CreateDirectory(url);
+                }
+
+                StreamWriter readTxt = new StreamWriter(url + '\\' + "Model.cs", false, Encoding.Default);
+                readTxt.Write(a);
+                readTxt.Flush();
+                readTxt.Close();
+                reader.Close();
+                //b.hhp重命名为a.hhp,并删除b.hhp
+                //File.Copy(@"b.hhp", @"a.hhp", true);
+                //File.Delete(@"b.hhp");
+            }
         }
     }
 }

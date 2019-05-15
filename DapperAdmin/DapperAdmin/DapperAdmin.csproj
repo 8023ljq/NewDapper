@@ -88,12 +88,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="File\DBModel.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\TextController.cs" />
+    <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -104,6 +105,7 @@
     <Content Include="Configs\AppSettings.config" />
     <Content Include="Configs\ConnectionStrings.config" />
     <None Include="packages.config" />
+    <Content Include="Views\Code\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -120,6 +122,10 @@
     <ProjectReference Include="..\DapperBLL\DapperBLL.csproj">
       <Project>{8abb6838-3b61-4f35-9666-5843ac4c6195}</Project>
       <Name>DapperBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperCommonMethod\DapperCommonMethod.csproj">
+      <Project>{E8359DB9-E0C6-4CEC-9247-364F2278A219}</Project>
+      <Name>DapperCommonMethod</Name>
     </ProjectReference>
     <ProjectReference Include="..\DapperModel\DapperModel.csproj">
       <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
