@@ -47,19 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonConfig\CommonConfigs.cs" />
-    <Compile Include="CommonEnum\EnumSqlType.cs" />
+    <Compile Include="CommonEnum\SqlTypeEnum.cs" />
     <Compile Include="CommonEnum\RandNumEnum.cs" />
+    <Compile Include="CommonEnum\ResultTypeEnum.cs" />
+    <Compile Include="CommonJson\JosnHelp.cs" />
     <Compile Include="CommonMethod\CommonMethod.cs" />
     <Compile Include="CommonMethod\EnumMethod.cs" />
     <Compile Include="CommonMethod\ExpandMethod.cs" />
     <Compile Include="CommonMethod\RegexUtilsMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
-    <Compile Include="CommonModel\ResultMsg.cs" />
-    <Compile Include="CommonModel\WhereModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CommonJson\BankCode.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DapperModel\DapperModel.csproj">
+      <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
+      <Name>DapperModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

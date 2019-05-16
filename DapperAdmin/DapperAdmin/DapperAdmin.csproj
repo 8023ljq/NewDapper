@@ -44,6 +44,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -90,6 +94,21 @@
   <ItemGroup>
     <Content Include="File\DBModel.txt" />
     <Content Include="Global.asax" />
+    <Content Include="Package\css\framework-font.css" />
+    <Content Include="Package\fonts\css\font-awesome.css" />
+    <Content Include="Package\fonts\css\font-awesome.min.css" />
+    <Content Include="Package\fonts\fonts\fontawesome-webfont.svg" />
+    <Content Include="Package\fonts\HELP-US-OUT.txt" />
+    <Content Include="Package\js\common\common.js" />
+    <Content Include="Package\js\dialog\dialog.css" />
+    <Content Include="Package\js\dialog\dialog.js" />
+    <Content Include="Package\js\dialog\img\icon-ext.png" />
+    <Content Include="Package\js\dialog\img\icon.png" />
+    <Content Include="Package\js\dialog\img\loading-0.gif" />
+    <Content Include="Package\js\dialog\img\loading-1.gif" />
+    <Content Include="Package\js\dialog\img\loading-2.gif" />
+    <Content Include="Package\js\dialog\img\loading-3.gif" />
+    <Content Include="Package\js\jquery-3.3.1.min.js" />
     <Content Include="Package\js\layui\css\layui.css" />
     <Content Include="Package\js\layui\css\layui.mobile.css" />
     <Content Include="Package\js\layui\css\modules\code.css" />
@@ -100,7 +119,6 @@
     <Content Include="Package\js\layui\css\modules\layer\default\loading-0.gif" />
     <Content Include="Package\js\layui\css\modules\layer\default\loading-1.gif" />
     <Content Include="Package\js\layui\css\modules\layer\default\loading-2.gif" />
-    <Content Include="Package\js\layui\font\iconfont.svg" />
     <Content Include="Package\js\layui\images\face\0.gif" />
     <Content Include="Package\js\layui\images\face\1.gif" />
     <Content Include="Package\js\layui\images\face\10.gif" />
@@ -196,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -211,10 +230,40 @@
     <Content Include="Views\Code\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Package\js\layui\font\iconfont.eot" />
-    <Content Include="Package\js\layui\font\iconfont.ttf" />
-    <Content Include="Package\js\layui\font\iconfont.woff" />
     <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Package\fonts\fonts\fontawesome-webfont.eot" />
+    <Content Include="Package\fonts\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Package\fonts\fonts\fontawesome-webfont.woff" />
+    <Content Include="Package\fonts\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Package\fonts\fonts\FontAwesome.otf" />
+    <Content Include="Package\fonts\less\animated.less" />
+    <Content Include="Package\fonts\less\bordered-pulled.less" />
+    <Content Include="Package\fonts\less\core.less" />
+    <Content Include="Package\fonts\less\fixed-width.less" />
+    <Content Include="Package\fonts\less\font-awesome.less" />
+    <Content Include="Package\fonts\less\icons.less" />
+    <Content Include="Package\fonts\less\larger.less" />
+    <Content Include="Package\fonts\less\list.less" />
+    <Content Include="Package\fonts\less\mixins.less" />
+    <Content Include="Package\fonts\less\path.less" />
+    <Content Include="Package\fonts\less\rotated-flipped.less" />
+    <Content Include="Package\fonts\less\screen-reader.less" />
+    <Content Include="Package\fonts\less\stacked.less" />
+    <Content Include="Package\fonts\less\variables.less" />
+    <Content Include="Package\fonts\scss\font-awesome.scss" />
+    <Content Include="Package\fonts\scss\_animated.scss" />
+    <Content Include="Package\fonts\scss\_bordered-pulled.scss" />
+    <Content Include="Package\fonts\scss\_core.scss" />
+    <Content Include="Package\fonts\scss\_fixed-width.scss" />
+    <Content Include="Package\fonts\scss\_icons.scss" />
+    <Content Include="Package\fonts\scss\_larger.scss" />
+    <Content Include="Package\fonts\scss\_list.scss" />
+    <Content Include="Package\fonts\scss\_mixins.scss" />
+    <Content Include="Package\fonts\scss\_path.scss" />
+    <Content Include="Package\fonts\scss\_rotated-flipped.scss" />
+    <Content Include="Package\fonts\scss\_screen-reader.scss" />
+    <Content Include="Package\fonts\scss\_stacked.scss" />
+    <Content Include="Package\fonts\scss\_variables.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -225,7 +274,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Package\css\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperBLL\DapperBLL.csproj">

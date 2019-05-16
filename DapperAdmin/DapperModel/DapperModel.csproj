@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="CommonModel\DBModel.cs" />
     <Compile Include="CommonModel\DBTableModel.cs" />
+    <Compile Include="CommonModel\ResultMsg.cs" />
+    <Compile Include="CommonModel\WhereModel.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Manager.cs" />

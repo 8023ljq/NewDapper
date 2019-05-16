@@ -31,39 +31,39 @@ namespace DapperHelp.Dapper
                     var itemValue = item.Value;
                     switch (itemValue.InquireManner)
                     {
-                        case (int)EnumSqlType.Equal:
+                        case (int)SqlTypeEnum.Equal:
                             sql += " and [" + itemKey + "]=@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.NoEqual:
+                        case (int)SqlTypeEnum.NoEqual:
                             sql += " and [" + itemKey + "]!=@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.Big:
+                        case (int)SqlTypeEnum.Big:
                             sql += " and [" + itemKey + "]>@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.BigEqual:
+                        case (int)SqlTypeEnum.BigEqual:
                             sql += " and [" + itemKey + "]>=@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.Small:
+                        case (int)SqlTypeEnum.Small:
                             sql += " and [" + itemKey + "]<@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.SmallEqual:
+                        case (int)SqlTypeEnum.SmallEqual:
                             sql += " and [" + itemKey + "]<=@" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.In:
+                        case (int)SqlTypeEnum.In:
                             sql += " and [" + itemKey + "] in @" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.Like:
+                        case (int)SqlTypeEnum.Like:
                             sql += " and [" + itemKey + "] Like @" + itemKey + "";
                             parameters.Add("@" + itemKey + "", itemValue.Content);
                             break;
-                        case (int)EnumSqlType.BetweenAnd:
+                        case (int)SqlTypeEnum.BetweenAnd:
                             sql += " and [" + itemKey + "] Like @" + itemKey + "";
 
                             parameters.Add("@" + itemKey + "", itemValue.Content);
