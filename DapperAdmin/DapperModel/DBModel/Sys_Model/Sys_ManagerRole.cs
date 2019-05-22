@@ -1,63 +1,114 @@
 using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DapperModel.DBModel.SysModel
+
+namespace Code
 {
     /// <summary>
-    /// ºóÌ¨¹ÜÀíÔ±½ÇÉ«±í
+    /// æ–‡ç« å†…å®¹è¡¨
     /// </summary>
-    public class Sys_ManagerRole
+    public class Sys_Article
     {
+	     
         /// <summary>
-        /// Ö÷¼üId
-        /// </summary>
+        /// ä¸»é”®Id
+        /// </summary>	
         public string Id { get; set; }
-
+ 
         /// <summary>
-        /// ½ÇÉ«Ãû³Æ
-        /// </summary>
-        public string RoleName { get; set; }
-
+        /// åˆ†ç±»ID
+        /// </summary>	
+        public string CategoryId { get; set; }
+ 
         /// <summary>
-        /// ½ÇÉ«ÀàĞÍ(1:³¬¹Ü2:Ïµ¹Ü[¾ßÌå²é¿´ÏîÄ¿Ã¶¾Ù])
-        /// </summary>
-        public int RoleType { get; set; }
-
+        /// æ–‡ç« æ ‡é¢˜
+        /// </summary>	
+        public string Title { get; set; }
+ 
         /// <summary>
-        /// ÊÇ·ñÄ¬ÈÏ(Ö»¿ÉÔÚÊı¾İ½øĞĞĞŞ¸Ä)
-        /// </summary>
-        public bool IsDefault { get; set; }
-
+        /// æ–‡ç« å‰¯æ ‡é¢˜
+        /// </summary>	
+        public string SubTitle { get; set; }
+ 
         /// <summary>
-        /// Ìí¼ÓÈË
-        /// </summary>
+        /// æ–‡ç« å†…å®¹
+        /// </summary>	
+        public string Content { get; set; }
+ 
+        /// <summary>
+        /// æµè§ˆæ¬¡æ•°
+        /// </summary>	
+        public int ViewCount { get; set; }
+ 
+        /// <summary>
+        /// å›¾ç‰‡åœ°å€
+        /// </summary>	
+        public string ImageUrl { get; set; }
+ 
+        /// <summary>
+        /// æ’åº
+        /// </summary>	
+        public int Sort { get; set; }
+ 
+        /// <summary>
+        /// SEOæ ‡é¢˜
+        /// </summary>	
+        public string SeoTitle { get; set; }
+ 
+        /// <summary>
+        /// åˆ†ç±»SEOå…³é”®å­—
+        /// </summary>	
+        public string SeoKeywords { get; set; }
+ 
+        /// <summary>
+        /// åˆ†ç±»SEOæè¿°
+        /// </summary>	
+        public string SeoDescription { get; set; }
+ 
+        /// <summary>
+        /// æ·»åŠ äºº
+        /// </summary>	
         public string AddUserId { get; set; }
-
+ 
         /// <summary>
-        /// Ìí¼ÓÊ±¼ä
-        /// </summary>
-        public DateTime AddTime { get; set; }
-
+        /// æ·»åŠ æ—¶é—´
+        /// </summary>	
+        public System.DateTime AddTime { get; set; }
+ 
         /// <summary>
-        /// ĞŞ¸ÄÈË
-        /// </summary>
+        /// ä¿®æ”¹äºº
+        /// </summary>	
         public string UpdateUserId { get; set; }
-
+ 
         /// <summary>
-        /// ĞŞ¸ÄÊ±¼ä
-        /// </summary>
-        public DateTime UpdateTime { get; set; }
-
+        /// ä¿®æ”¹æ—¶é—´
+        /// </summary>	
+        public System.DateTime UpdateTime { get; set; }
+ 
         /// <summary>
-        /// ÊÇ·ñÉ¾³ı(0:·ñ1:ÊÇ)
-        /// </summary>
-        public bool IsDelete { get; set; }
-
+        /// æ˜¯å¦ç½®é¡¶
+        /// </summary>	
+        public bool IsTop { get; set; }
+ 
         /// <summary>
-        /// ±¸×¢
-        /// </summary>
-        public string Remarks { get; set; }
+        /// æ˜¯å¦çƒ­é—¨
+        /// </summary>	
+        public bool IsRed { get; set; }
+ 
+        /// <summary>
+        /// æ˜¯å¦å‘å¸ƒ
+        /// </summary>	
+        public bool IsPublish { get; set; }
+ 
+        /// <summary>
+        /// æ˜¯å¦åˆ é™¤
+        /// </summary>	
+        public bool IsDeleted { get; set; }
+
     }
 }
+
+

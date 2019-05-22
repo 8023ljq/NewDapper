@@ -1,103 +1,114 @@
 using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DapperModel.DBModel.SysModel
+
+namespace Code
 {
     /// <summary>
-    /// ºóÌ¨¹ÜÀíÔ±
+    /// æ–‡ç« å†…å®¹è¡¨
     /// </summary>
-    public class Sys_Manager
+    public class Sys_Article
     {
+	     
         /// <summary>
-        /// Ö÷¼üId
-        /// </summary>
+        /// ä¸»é”®Id
+        /// </summary>	
         public string Id { get; set; }
-
+ 
         /// <summary>
-        /// ½ÇÉ«ID
-        /// </summary>
-        public string RoleId { get; set; }
-
+        /// åˆ†ç±»ID
+        /// </summary>	
+        public string CategoryId { get; set; }
+ 
         /// <summary>
-        /// ÓÃ»§Ãû
-        /// </summary>
-        public string Name { get; set; }
-
+        /// æ–‡ç« æ ‡é¢˜
+        /// </summary>	
+        public string Title { get; set; }
+ 
         /// <summary>
-        /// µÇÂ¼ÃÜÂë
-        /// </summary>
-        public string Password { get; set; }
-
+        /// æ–‡ç« å‰¯æ ‡é¢˜
+        /// </summary>	
+        public string SubTitle { get; set; }
+ 
         /// <summary>
-        /// ÓÃ»§Í·Ïñ
-        /// </summary>
-        public string Avatar { get; set; }
-
+        /// æ–‡ç« å†…å®¹
+        /// </summary>	
+        public string Content { get; set; }
+ 
         /// <summary>
-        /// ÓÃ»§êÇ³Æ
-        /// </summary>
-        public string Nickname { get; set; }
-
+        /// æµè§ˆæ¬¡æ•°
+        /// </summary>	
+        public int ViewCount { get; set; }
+ 
         /// <summary>
-        /// ÊÖ»úºÅ
-        /// </summary>
-        public string Phone { get; set; }
-
+        /// å›¾ç‰‡åœ°å€
+        /// </summary>	
+        public string ImageUrl { get; set; }
+ 
         /// <summary>
-        /// ÓÊÏäµØÖ·
-        /// </summary>
-        public string Email { get; set; }
-
+        /// æ’åº
+        /// </summary>	
+        public int Sort { get; set; }
+ 
         /// <summary>
-        /// µÇÂ¼´ÎÊı
-        /// </summary>
-        public int LoginTimes { get; set; }
-
+        /// SEOæ ‡é¢˜
+        /// </summary>	
+        public string SeoTitle { get; set; }
+ 
         /// <summary>
-        /// ×îºóÒ»´ÎµÇÂ¼IP
-        /// </summary>
-        public string LastLoginIP { get; set; }
-
+        /// åˆ†ç±»SEOå…³é”®å­—
+        /// </summary>	
+        public string SeoKeywords { get; set; }
+ 
         /// <summary>
-        /// ×îºóÒ»´ÎµÇÂ¼Ê±¼ä
-        /// </summary>
-        public DateTime LastLoginTime { get; set; }
-
+        /// åˆ†ç±»SEOæè¿°
+        /// </summary>	
+        public string SeoDescription { get; set; }
+ 
         /// <summary>
-        /// Ìí¼ÓÈË
-        /// </summary>
+        /// æ·»åŠ äºº
+        /// </summary>	
         public string AddUserId { get; set; }
-
+ 
         /// <summary>
-        /// Ìí¼ÓÊ±¼ä
-        /// </summary>
-        public DateTime AddTime { get; set; }
-
+        /// æ·»åŠ æ—¶é—´
+        /// </summary>	
+        public System.DateTime AddTime { get; set; }
+ 
         /// <summary>
-        /// ĞŞ¸ÄÈË
-        /// </summary>
+        /// ä¿®æ”¹äºº
+        /// </summary>	
         public string UpdateUserId { get; set; }
-
+ 
         /// <summary>
-        /// ĞŞ¸ÄÊ±¼ä
-        /// </summary>
-        public DateTime UpdateTime { get; set; }
-
+        /// ä¿®æ”¹æ—¶é—´
+        /// </summary>	
+        public System.DateTime UpdateTime { get; set; }
+ 
         /// <summary>
-        /// ÊÇ·ñËø¶¨(0:·ñ1:ÊÇ)
-        /// </summary>
-        public bool IsLocking { get; set; }
-
+        /// æ˜¯å¦ç½®é¡¶
+        /// </summary>	
+        public bool IsTop { get; set; }
+ 
         /// <summary>
-        /// ÊÇ·ñÉ¾³ı(0:·ñ1:ÊÇ)
-        /// </summary>
-        public bool IsDelete { get; set; }
-
+        /// æ˜¯å¦çƒ­é—¨
+        /// </summary>	
+        public bool IsRed { get; set; }
+ 
         /// <summary>
-        /// ±¸×¢
-        /// </summary>
-        public string Remarks { get; set; }
+        /// æ˜¯å¦å‘å¸ƒ
+        /// </summary>	
+        public bool IsPublish { get; set; }
+ 
+        /// <summary>
+        /// æ˜¯å¦åˆ é™¤
+        /// </summary>	
+        public bool IsDeleted { get; set; }
+
     }
 }
+
+
