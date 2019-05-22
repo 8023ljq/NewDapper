@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DapperAdminApi.Controllers.Base;
+using DapperAdminApi.Models.RequestModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,7 +13,7 @@ namespace DapperAdminApi.Controllers.SysControllers
     /// Author：Geek Dog  Content：登录接口 AddTime：2019-5-22 15:33:13  
     /// </summary>
     [RoutePrefix("v1/api/login")]
-    public class LoginController : ApiController
+    public class LoginController : BaseController
     {
         /// <summary>
         /// Author：Geek Dog  Content：后台登录 AddTime：2019-5-22 15:32:55  
@@ -21,8 +23,9 @@ namespace DapperAdminApi.Controllers.SysControllers
         [HttpPost]
         [AllowAnonymous]
         [Route("loginact")]
-        public IHttpActionResult LoginAct()
+        public IHttpActionResult LoginAct(LoginModel Model)
         {
+
             return Ok();
         }
     }

@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperBLL", "DapperBLL\Dapp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGeneration", "CodeGeneration\CodeGeneration.csproj", "{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperApi", "DapperApi\DapperApi.csproj", "{5AC28B7C-DD7F-4937-BCE4-6753EB65BA81}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperAdminApi", "DapperAdminApi\DapperAdminApi.csproj", "{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}"
 EndProject
 Global
@@ -61,10 +59,6 @@ Global
 		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B5774C5-35A4-4A26-9F56-A7C4A9426F8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AC28B7C-DD7F-4937-BCE4-6753EB65BA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AC28B7C-DD7F-4937-BCE4-6753EB65BA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AC28B7C-DD7F-4937-BCE4-6753EB65BA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AC28B7C-DD7F-4937-BCE4-6753EB65BA81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Release|Any CPU.ActiveCfg = Release|Any CPU
