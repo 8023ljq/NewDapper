@@ -70,5 +70,14 @@ namespace DapperCommonMethod.CommonMethod
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// 根据枚举的int值取出string值
+        /// </summary>
+        public static string GetEnunCallFunction<T>(int i)
+        {
+            T call = (T)Enum.Parse(typeof(T), i.ToString());
+            return call.ToString();
+        }
     }
 }

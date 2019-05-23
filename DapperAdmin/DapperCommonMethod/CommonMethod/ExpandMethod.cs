@@ -12,10 +12,11 @@ namespace DapperCommonMethod.CommonMethod
     public class ExpandMethod
     {
         /// <summary>
-        /// 生成随机位数的随机数(纯数字)
+        /// 生成随机位数的随机数
         /// </summary>
         /// <param name="Num">生成位数</param>
         /// <param name="Sleep">是否挂起线程</param>
+        /// <param name="EnumType">生成类型</param>
         /// <returns></returns>
         public static string GetRandNum(int Num, bool Sleep, int EnumType)
         {

@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Code
+namespace DapperCommonMethod.DBModel.Sys_Model
 {
     /// <summary>
-    /// 文章内容表
+    /// 后台管理员角色表
     /// </summary>
-    public class Sys_Article
+    public class Sys_ManagerRole
     {
 	     
         /// <summary>
@@ -19,54 +19,19 @@ namespace Code
         public string Id { get; set; }
  
         /// <summary>
-        /// 分类ID
+        /// 角色名称
         /// </summary>	
-        public string CategoryId { get; set; }
+        public string RoleName { get; set; }
  
         /// <summary>
-        /// 文章标题
+        /// 角色类型(1:超管2:系管[具体查看项目枚举])
         /// </summary>	
-        public string Title { get; set; }
+        public int RoleType { get; set; }
  
         /// <summary>
-        /// 文章副标题
+        /// 是否默认(只可在数据进行修改)
         /// </summary>	
-        public string SubTitle { get; set; }
- 
-        /// <summary>
-        /// 文章内容
-        /// </summary>	
-        public string Content { get; set; }
- 
-        /// <summary>
-        /// 浏览次数
-        /// </summary>	
-        public int ViewCount { get; set; }
- 
-        /// <summary>
-        /// 图片地址
-        /// </summary>	
-        public string ImageUrl { get; set; }
- 
-        /// <summary>
-        /// 排序
-        /// </summary>	
-        public int Sort { get; set; }
- 
-        /// <summary>
-        /// SEO标题
-        /// </summary>	
-        public string SeoTitle { get; set; }
- 
-        /// <summary>
-        /// 分类SEO关键字
-        /// </summary>	
-        public string SeoKeywords { get; set; }
- 
-        /// <summary>
-        /// 分类SEO描述
-        /// </summary>	
-        public string SeoDescription { get; set; }
+        public bool IsDefault { get; set; }
  
         /// <summary>
         /// 添加人
@@ -76,7 +41,7 @@ namespace Code
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public System.DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; }
  
         /// <summary>
         /// 修改人
@@ -86,27 +51,17 @@ namespace Code
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public System.DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
  
         /// <summary>
-        /// 是否置顶
+        /// 是否删除(0:否1:是)
         /// </summary>	
-        public bool IsTop { get; set; }
+        public bool IsDelete { get; set; }
  
         /// <summary>
-        /// 是否热门
+        /// 备注
         /// </summary>	
-        public bool IsRed { get; set; }
- 
-        /// <summary>
-        /// 是否发布
-        /// </summary>	
-        public bool IsPublish { get; set; }
- 
-        /// <summary>
-        /// 是否删除
-        /// </summary>	
-        public bool IsDeleted { get; set; }
+        public string Remarks { get; set; }
 
     }
 }

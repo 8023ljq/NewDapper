@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Code
+namespace DapperCommonMethod.DBModel.Sys_Model
 {
     /// <summary>
-    /// 文章内容表
+    /// 系统菜单
     /// </summary>
-    public class Sys_Article
+    public class Sys_Menu
     {
 	     
         /// <summary>
@@ -19,54 +19,49 @@ namespace Code
         public string Id { get; set; }
  
         /// <summary>
-        /// 分类ID
+        /// 父级Id
         /// </summary>	
-        public string CategoryId { get; set; }
+        public string ParentId { get; set; }
  
         /// <summary>
-        /// 文章标题
+        /// 菜单名称
         /// </summary>	
-        public string Title { get; set; }
+        public string FullName { get; set; }
  
         /// <summary>
-        /// 文章副标题
+        /// 菜单层级
         /// </summary>	
-        public string SubTitle { get; set; }
+        public int Layers { get; set; }
  
         /// <summary>
-        /// 文章内容
+        /// 图标地址
         /// </summary>	
-        public string Content { get; set; }
+        public string IconUrl { get; set; }
  
         /// <summary>
-        /// 浏览次数
+        /// 连接地址
         /// </summary>	
-        public int ViewCount { get; set; }
+        public string AddressUrl { get; set; }
  
         /// <summary>
-        /// 图片地址
-        /// </summary>	
-        public string ImageUrl { get; set; }
- 
-        /// <summary>
-        /// 排序
+        /// 排序字段
         /// </summary>	
         public int Sort { get; set; }
  
         /// <summary>
-        /// SEO标题
+        /// 操作权限
         /// </summary>	
-        public string SeoTitle { get; set; }
+        public string Purview { get; set; }
  
         /// <summary>
-        /// 分类SEO关键字
+        /// 是否显示
         /// </summary>	
-        public string SeoKeywords { get; set; }
+        public bool IsShow { get; set; }
  
         /// <summary>
-        /// 分类SEO描述
+        /// 是否默认
         /// </summary>	
-        public string SeoDescription { get; set; }
+        public bool IsDefault { get; set; }
  
         /// <summary>
         /// 添加人
@@ -76,7 +71,7 @@ namespace Code
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public System.DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; }
  
         /// <summary>
         /// 修改人
@@ -86,27 +81,17 @@ namespace Code
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public System.DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
  
         /// <summary>
-        /// 是否置顶
+        /// 是否删除(0:否1:是)
         /// </summary>	
-        public bool IsTop { get; set; }
+        public bool IsDelete { get; set; }
  
         /// <summary>
-        /// 是否热门
+        /// 备注
         /// </summary>	
-        public bool IsRed { get; set; }
- 
-        /// <summary>
-        /// 是否发布
-        /// </summary>	
-        public bool IsPublish { get; set; }
- 
-        /// <summary>
-        /// 是否删除
-        /// </summary>	
-        public bool IsDeleted { get; set; }
+        public string Remarks { get; set; }
 
     }
 }

@@ -5,48 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Code
+namespace DapperCommonMethod.DBModel.Sys_Model
 {
     /// <summary>
-    /// 文章内容表
+    /// 文章类别
     /// </summary>
-    public class Sys_Article
+    public class Sys_ArticleCategory
     {
 	     
         /// <summary>
-        /// 主键Id
+        /// 主键
         /// </summary>	
         public string Id { get; set; }
  
         /// <summary>
-        /// 分类ID
-        /// </summary>	
-        public string CategoryId { get; set; }
- 
-        /// <summary>
-        /// 文章标题
+        /// 分类标题
         /// </summary>	
         public string Title { get; set; }
  
         /// <summary>
-        /// 文章副标题
+        /// 父分类ID
         /// </summary>	
-        public string SubTitle { get; set; }
+        public string ParentId { get; set; }
  
         /// <summary>
-        /// 文章内容
+        /// 类别ID列表(逗号分隔开)
         /// </summary>	
-        public string Content { get; set; }
+        public string ClassList { get; set; }
  
         /// <summary>
-        /// 浏览次数
+        /// 类别深度
         /// </summary>	
-        public int ViewCount { get; set; }
- 
-        /// <summary>
-        /// 图片地址
-        /// </summary>	
-        public string ImageUrl { get; set; }
+        public int ClassLayer { get; set; }
  
         /// <summary>
         /// 排序
@@ -54,7 +44,12 @@ namespace Code
         public int Sort { get; set; }
  
         /// <summary>
-        /// SEO标题
+        /// 分类图标
+        /// </summary>	
+        public string ImageUrl { get; set; }
+ 
+        /// <summary>
+        /// 分类SEO标题
         /// </summary>	
         public string SeoTitle { get; set; }
  
@@ -67,41 +62,6 @@ namespace Code
         /// 分类SEO描述
         /// </summary>	
         public string SeoDescription { get; set; }
- 
-        /// <summary>
-        /// 添加人
-        /// </summary>	
-        public string AddUserId { get; set; }
- 
-        /// <summary>
-        /// 添加时间
-        /// </summary>	
-        public System.DateTime AddTime { get; set; }
- 
-        /// <summary>
-        /// 修改人
-        /// </summary>	
-        public string UpdateUserId { get; set; }
- 
-        /// <summary>
-        /// 修改时间
-        /// </summary>	
-        public System.DateTime UpdateTime { get; set; }
- 
-        /// <summary>
-        /// 是否置顶
-        /// </summary>	
-        public bool IsTop { get; set; }
- 
-        /// <summary>
-        /// 是否热门
-        /// </summary>	
-        public bool IsRed { get; set; }
- 
-        /// <summary>
-        /// 是否发布
-        /// </summary>	
-        public bool IsPublish { get; set; }
  
         /// <summary>
         /// 是否删除

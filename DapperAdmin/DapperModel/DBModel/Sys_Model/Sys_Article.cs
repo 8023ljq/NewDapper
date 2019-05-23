@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Code
+namespace DapperCommonMethod.DBModel.Sys_Model
 {
     /// <summary>
     /// 文章内容表
@@ -76,7 +76,7 @@ namespace Code
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public System.DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; }
  
         /// <summary>
         /// 修改人
@@ -86,7 +86,7 @@ namespace Code
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public System.DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
  
         /// <summary>
         /// 是否置顶

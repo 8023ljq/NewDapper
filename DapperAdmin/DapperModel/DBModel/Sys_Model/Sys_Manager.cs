@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Code
+namespace DapperCommonMethod.DBModel.Sys_Model
 {
     /// <summary>
-    /// 文章内容表
+    /// 后台管理员
     /// </summary>
-    public class Sys_Article
+    public class Sys_Manager
     {
 	     
         /// <summary>
@@ -19,54 +19,59 @@ namespace Code
         public string Id { get; set; }
  
         /// <summary>
-        /// 分类ID
+        /// 角色ID
         /// </summary>	
-        public string CategoryId { get; set; }
+        public string RoleId { get; set; }
  
         /// <summary>
-        /// 文章标题
+        /// 用户名
         /// </summary>	
-        public string Title { get; set; }
+        public string Name { get; set; }
  
         /// <summary>
-        /// 文章副标题
+        /// 登录密码
         /// </summary>	
-        public string SubTitle { get; set; }
+        public string Password { get; set; }
  
         /// <summary>
-        /// 文章内容
+        /// 加密随机码
+        /// </summary>
+        public string RandomCode { get; set; }
+
+        /// <summary>
+        /// 用户头像
         /// </summary>	
-        public string Content { get; set; }
+        public string Avatar { get; set; }
  
         /// <summary>
-        /// 浏览次数
+        /// 用户昵称
         /// </summary>	
-        public int ViewCount { get; set; }
+        public string Nickname { get; set; }
  
         /// <summary>
-        /// 图片地址
+        /// 手机号
         /// </summary>	
-        public string ImageUrl { get; set; }
+        public string Phone { get; set; }
  
         /// <summary>
-        /// 排序
+        /// 邮箱地址
         /// </summary>	
-        public int Sort { get; set; }
+        public string Email { get; set; }
  
         /// <summary>
-        /// SEO标题
+        /// 登录次数
         /// </summary>	
-        public string SeoTitle { get; set; }
+        public int LoginTimes { get; set; }
  
         /// <summary>
-        /// 分类SEO关键字
+        /// 最后一次登录IP
         /// </summary>	
-        public string SeoKeywords { get; set; }
+        public string LastLoginIP { get; set; }
  
         /// <summary>
-        /// 分类SEO描述
+        /// 最后一次登录时间
         /// </summary>	
-        public string SeoDescription { get; set; }
+        public DateTime LastLoginTime { get; set; }
  
         /// <summary>
         /// 添加人
@@ -76,7 +81,7 @@ namespace Code
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public System.DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; }
  
         /// <summary>
         /// 修改人
@@ -86,27 +91,22 @@ namespace Code
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public System.DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
  
         /// <summary>
-        /// 是否置顶
+        /// 是否锁定(0:否1:是)
         /// </summary>	
-        public bool IsTop { get; set; }
+        public bool IsLocking { get; set; }
  
         /// <summary>
-        /// 是否热门
+        /// 是否删除(0:否1:是)
         /// </summary>	
-        public bool IsRed { get; set; }
+        public bool IsDelete { get; set; }
  
         /// <summary>
-        /// 是否发布
+        /// 备注
         /// </summary>	
-        public bool IsPublish { get; set; }
- 
-        /// <summary>
-        /// 是否删除
-        /// </summary>	
-        public bool IsDeleted { get; set; }
+        public string Remarks { get; set; }
 
     }
 }

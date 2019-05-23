@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="BaseBLL\BaseBLLS.cs" />
     <Compile Include="C_BLL\FreighterBLL.cs" />
-    <Compile Include="DB_BLL\DBBLL.cs" />
+    <Compile Include="C_BLL\ManagerdBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -38,7 +38,7 @@ namespace DapperCommonMethod.CommonMethod
                     response.EnsureSuccessStatusCode();
                     var filenamestr = response.Content.ReadAsStringAsync();
                     ResultBankApi result = JsonConvert.DeserializeObject<ResultBankApi>(filenamestr.Result);
-                    msg.code = 1;
+                    msg.ResultCode = 1;
 
                     using (System.IO.StreamReader file = System.IO.File.OpenText(JsonUrl))
                     {
@@ -48,14 +48,14 @@ namespace DapperCommonMethod.CommonMethod
                             str = jObject["" + result.bank + ""].ToString();
                         }
                     }
-                    msg.msg = str;
+                    msg.ResultMsgs = str;
                 }
             }
             catch (Exception ex)
             {
                 WriteLogMethod.WriteLogs(ex);
-                msg.code = 0;
-                msg.msg = "银行卡格式错误";
+                msg.ResultCode = 0;
+                msg.ResultMsgs = "银行卡格式错误";
             }
             return msg;
         }

@@ -1,4 +1,6 @@
-﻿namespace DapperCommonMethod.CommonConfig
+﻿using System.Configuration;
+
+namespace DapperCommonMethod.CommonConfig
 {
     /// <summary>
     /// 公共静态配置文件

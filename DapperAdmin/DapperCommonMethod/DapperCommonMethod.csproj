@@ -36,6 +36,8 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -46,26 +48,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonConfig\AppSettingsConfig.cs" />
     <Compile Include="CommonConfig\CommonConfigs.cs" />
+    <Compile Include="CommonConfig\LanguageConfig.cs" />
+    <Compile Include="CommonEnum\HttpCodeEnum.cs" />
     <Compile Include="CommonEnum\SqlTypeEnum.cs" />
     <Compile Include="CommonEnum\RandNumEnum.cs" />
     <Compile Include="CommonEnum\ResultTypeEnum.cs" />
     <Compile Include="CommonJson\JosnHelp.cs" />
     <Compile Include="CommonMethod\CommonMethod.cs" />
+    <Compile Include="CommonMethod\DESEncryptMethod.cs" />
     <Compile Include="CommonMethod\EnumMethod.cs" />
     <Compile Include="CommonMethod\ExpandMethod.cs" />
     <Compile Include="CommonMethod\RegexUtilsMethod.cs" />
+    <Compile Include="CommonMethod\ValidatetionMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CommonJson\BankCode.json" />
+    <Content Include="CommonJson\JsonFile\BankCode.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperModel\DapperModel.csproj">
       <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
       <Name>DapperModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CommonJson\JsonFile\En.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonJson\JsonFile\zh-CN.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
