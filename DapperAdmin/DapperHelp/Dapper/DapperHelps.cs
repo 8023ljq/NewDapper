@@ -313,7 +313,6 @@ namespace DapperHelp.Dapper
             }
         }
 
-
         /// <summary>
         /// 批量插入实体
         /// </summary>
@@ -401,7 +400,6 @@ namespace DapperHelp.Dapper
             }
             return true;
         }
-
 
         /// <summary>
         /// 分页查询

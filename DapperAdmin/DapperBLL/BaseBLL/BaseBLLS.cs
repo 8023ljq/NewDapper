@@ -1,13 +1,17 @@
-﻿using DapperDAL.DB_DAL;
+﻿using DapperCommonMethod.CommonModel;
+using DapperDAL.BaseDAL;
 using System;
+using System.Collections.Generic;
 
 namespace DapperBLL.BaseBLL
 {
     /// <summary>
     /// 公共业务处理层
     /// </summary>
-    public  class BaseBLLS
+    public class BaseBLLS
     {
+        private BaseDALS baseDALS = new BaseDALS();
+
         /// <summary>
         /// 新增操作(主键为Int类型)
         /// </summary>
@@ -17,7 +21,7 @@ namespace DapperBLL.BaseBLL
         /// <returns></returns>
         public bool AddModelInt<T>(T Model, out long ID) where T : class
         {
-            ID = FreighterDAL.CreateInt(Model);
+            ID = baseDALS.CreateInt(Model);
             if (ID > 0)
             {
                 return true;
@@ -36,7 +40,7 @@ namespace DapperBLL.BaseBLL
         /// <returns></returns>
         public bool AddModelInt<T>(T Model) where T : class
         {
-            long ID = FreighterDAL.CreateInt(Model);
+            long ID = baseDALS.CreateInt(Model);
             if (ID > 0)
             {
                 return true;
@@ -56,7 +60,7 @@ namespace DapperBLL.BaseBLL
         /// <returns></returns>
         public bool AddModelGuid<T>(T Model, out string ID) where T : class
         {
-            ID = FreighterDAL.CreateGuid(Model);
+            ID = baseDALS.CreateGuid(Model);
             if (!String.IsNullOrEmpty(ID))
             {
                 return true;
@@ -75,7 +79,7 @@ namespace DapperBLL.BaseBLL
         /// <returns></returns>
         public bool AddModelGuid<T>(T Model) where T : class
         {
-            string ID = FreighterDAL.CreateGuid(Model);
+            string ID = baseDALS.CreateGuid(Model);
             if (!String.IsNullOrEmpty(ID))
             {
                 return true;
@@ -85,5 +89,59 @@ namespace DapperBLL.BaseBLL
                 return false;
             }
         }
+
+        /// <summary>
+        /// 添加集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Model"></param>
+        /// <returns></returns>
+        public bool InsertList<T>(List<T> modelList) where T : class
+        {
+            if (modelList.Count <= 0)
+            {
+                return false;
+            }
+            baseDALS.InsertList(modelList);
+            return true;
+        }
+
+        /// <summary>
+        /// 修改操作(单个实体)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Model"></param>
+        /// <returns></returns>
+        public bool UpdateModel<T>(T Model) where T : class
+        {
+            return baseDALS.UpdateModel(Model);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <typeparam name="T">泛型实体</typeparam>
+        /// <param name="tableName">表名</param>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="orderByStr">排序条件</param>
+        /// <returns></returns>
+        public T GetModel<T>(string tableName, Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        {
+            return baseDALS.GetModel<T>(tableName, whereStr, orderByStr);
+        }
+
+        /// <summary>
+        /// 获取集合对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tableName"></param>
+        /// <param name="whereStr"></param>
+        /// <param name="orderByStr"></param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string tableName, Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        {
+            return baseDALS.GetList<T>(tableName, whereStr, orderByStr);
+        }
+
     }
 }

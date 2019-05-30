@@ -19,7 +19,7 @@ namespace DapperCacheHelps.RedisHelper
         {
         }
 
-        public RedisHelper(int dbNum, string readWriteHosts)
+        public RedisHelper(int dbNum, string readWriteHosts = "")
         {
             DbNum = dbNum;
             _conn =

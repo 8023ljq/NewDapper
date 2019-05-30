@@ -145,6 +145,14 @@ namespace DapperCommonMethod.CommonMethod
             return builder.ToString();
         }
 
-
+        /// <summary>
+        /// 获取时间戳(string类型)  
+        /// </summary>
+        /// <returns></returns>
+        public static string GetTimeStamp()
+        {
+            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToInt64(ts.TotalSeconds).ToString();
+        }
     }
 }

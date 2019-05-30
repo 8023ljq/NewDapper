@@ -45,8 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAL\BaseDALS.cs" />
-    <Compile Include="C_DAL\FreighterDAL.cs" />
-    <Compile Include="C_DAL\ManagerdDAL.cs" />
+    <Compile Include="Sys_DAL\ManagerdDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
