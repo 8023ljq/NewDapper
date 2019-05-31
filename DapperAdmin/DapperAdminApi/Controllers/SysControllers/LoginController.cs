@@ -5,9 +5,8 @@ using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
-using DapperCommonMethod.DBModel.Sys_Model;
+using DapperModel;
 using System;
-using System.Collections.Generic;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.SysControllers

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace DapperCommonMethod.DBModel.Sys_Model
+namespace DapperModel
 {
     /// <summary>
     /// 后台管理员角色表

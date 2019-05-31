@@ -3,13 +3,9 @@ using DapperAdminApi.Common.Method;
 using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
-using DapperCommonMethod.CommonModel;
-using DapperCommonMethod.DBModel.Sys_Model;
+using DapperModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Common
@@ -36,9 +32,11 @@ namespace DapperAdminApi.Controllers.Common
                 whereStr.Clear();
                 orderByStr.Clear();
                 List<Sys_Menu> menuList = menuBLL.GetList<Sys_Menu>("Sys_Menu", whereStr, orderByStr);
-                menuList = ApiCommonMethod.GetMenuList(menuList);
+                //
+                List<Sys_Menu> orderlist = new List<Sys_Menu>();
+                orderlist = ApiCommonMethod.GetMenuListNew(menuList, orderlist,null);
 
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList }));
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = orderlist }));
             }
             catch (Exception ex)
             {

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,7 @@
     <Compile Include="CommonModel\DBTableModel.cs" />
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
+    <Compile Include="ExpandModel\Sys_Model\Sys_Menu.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Manager.cs" />
