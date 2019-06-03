@@ -32,7 +32,6 @@ namespace DapperAdminApi.Controllers.Common
                 whereStr.Clear();
                 orderByStr.Clear();
                 List<Sys_Menu> menuList = menuBLL.GetList<Sys_Menu>("Sys_Menu", whereStr, orderByStr);
-                //
                 List<Sys_Menu> orderlist = new List<Sys_Menu>();
                 orderlist = ApiCommonMethod.GetMenuListNew(menuList, orderlist,null);
 
