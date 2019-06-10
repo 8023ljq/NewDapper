@@ -26,7 +26,7 @@ namespace DapperAdminApi.Common.Method
                 foreach (var item in CounList)
                 {
                     menus.Add(item);
-                    parten.LowerMenuList = menus;
+                    parten.children = menus;
                     GetMenuListNew(menuList, sumlist, item.Id);
                 }
             }

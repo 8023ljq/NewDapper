@@ -157,9 +157,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\AppSettings.config" />
-    <Content Include="Configs\ConnectionStrings.config" />
+    <Content Include="Configs\ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
