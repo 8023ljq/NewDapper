@@ -60,5 +60,23 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("请输入密码")]
         Http_1004 = 1004,
+
+        /// <summary>
+        /// 请您先登录
+        /// </summary>
+        [Description("请您先登录")]
+        Http_1005 = 1005,
+
+        /// <summary>
+        /// 退出成功
+        /// </summary>
+        [Description("退出成功")]
+        Http_1006 = 1006,
+
+        /// <summary>
+        /// 退出失败
+        /// </summary>
+        [Description("退出失败")]
+        Http_1007 = 1007,
     }
 }

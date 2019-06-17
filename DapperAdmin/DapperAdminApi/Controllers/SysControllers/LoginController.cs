@@ -1,4 +1,5 @@
-﻿using DapperAdminApi.Common.Help;
+﻿using DapperAdminApi.App_Start;
+using DapperAdminApi.Common.Help;
 using DapperAdminApi.Models.RequestModel;
 using DapperAdminApi.Models.ReturnModel;
 using DapperBLL.Sys_BLL;
@@ -83,6 +84,38 @@ namespace DapperAdminApi.Controllers.SysControllers
                 return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
             }
 
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：用户退出 AddTime：2019-6-11 11:44:09  
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ApiAuthorize]
+        [Route("logout")]
+        public IHttpActionResult LogOut()
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(GetToken))
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1005));
+                }
+                if (!redis.KeyExists(GetToken))
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1005));
+                }
+                if (!redis.KeyDelete(GetToken))
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1007));
+                }
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_1006));
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
         }
     }
 }

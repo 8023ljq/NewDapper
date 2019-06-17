@@ -1,4 +1,11 @@
 {
-  "1001": "text",
-  "1002": "text1"
+  "200": "Request for success",
+  "300": "Request service failed",
+  "400": "Request data does not exist",
+  "500": "Service internal error",
+  "1001": "Login succeeded",
+  "1002": "The username or password is incorrect",
+  "1003": "Please enter a username",
+  "1004": "Please enter your password",
+  "1005": "Please log in first"
 }

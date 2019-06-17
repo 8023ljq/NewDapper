@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers
@@ -24,5 +25,15 @@ namespace DapperAdminApi.Controllers
         /// 缓存管理员信息
         /// </summary>
         public static RedisHelper redis = new RedisHelper();
+
+        /// <summary>
+        /// 获取token
+        /// </summary>
+        public string GetToken
+        {
+            get {
+                return HttpContext.Current.Session["token"].ToString();
+            }
+        }
     }
 }
