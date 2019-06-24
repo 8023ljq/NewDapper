@@ -125,9 +125,9 @@ namespace DapperBLL.BaseBLL
         /// <param name="whereStr">查询条件</param>
         /// <param name="orderByStr">排序条件</param>
         /// <returns></returns>
-        public T GetModel<T>(string tableName, Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public T GetModel<T>( Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
         {
-            return baseDALS.GetModel<T>(tableName, whereStr, orderByStr);
+            return baseDALS.GetModel<T>(typeof(T).Name.ToString(), whereStr, orderByStr);
         }
 
         /// <summary>
@@ -138,9 +138,9 @@ namespace DapperBLL.BaseBLL
         /// <param name="whereStr"></param>
         /// <param name="orderByStr"></param>
         /// <returns></returns>
-        public List<T> GetList<T>(string tableName, Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public List<T> GetList<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
         {
-            return baseDALS.GetList<T>(tableName, whereStr, orderByStr);
+            return baseDALS.GetList<T>(typeof(T).Name.ToString(), whereStr, orderByStr);
         }
 
     }

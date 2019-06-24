@@ -43,7 +43,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 whereStr.Clear();
                 orderByStr.Clear();
                 whereStr.Add("Name", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = Model.UserName });
-                Sys_Manager managerModel = managerdBLL.GetModel<Sys_Manager>("Sys_Manager", whereStr, orderByStr);
+                Sys_Manager managerModel = managerdBLL.GetModel<Sys_Manager>(whereStr, orderByStr);
 
                 //检查用户是否存在
                 if (managerModel == null)
@@ -62,7 +62,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 whereStr.Clear();
                 orderByStr.Clear();
                 whereStr.Add("id", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = managerModel.RoleId });
-                Sys_ManagerRole managerroleModel = managerRoledBLL.GetModel<Sys_ManagerRole>("Sys_ManagerRole", whereStr, orderByStr);
+                Sys_ManagerRole managerroleModel = managerRoledBLL.GetModel<Sys_ManagerRole>(whereStr, orderByStr);
 
                 //返回管理员信息
                 AdminModel adminModel = new AdminModel()
@@ -74,7 +74,16 @@ namespace DapperAdminApi.Controllers.SysControllers
 
                 //登录成功报存管理员信息
                 string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(), ExpandMethod.GetTimeStamp());
+
+                //处理单点登录问题
+                if (!String.IsNullOrEmpty(managerModel.TokenId))
+                {
+                    redis.KeyDelete(managerModel.TokenId);
+                }
+
+                managerModel.TokenId = Token;
                 redis.StringSet(Token, managerModel, TimeSpan.FromMinutes(30));
+                managerdBLL.UpdateModel<Sys_Manager>(managerModel);
 
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token }));
             }

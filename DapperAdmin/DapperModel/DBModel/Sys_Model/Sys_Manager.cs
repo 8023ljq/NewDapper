@@ -108,6 +108,10 @@ namespace DapperModel
         /// </summary>	
         public string Remarks { get; set; }
 
+        /// <summary>
+        /// 管理员登录票据ID
+        /// </summary>
+        public string TokenId { get; set; }
     }
 }
 

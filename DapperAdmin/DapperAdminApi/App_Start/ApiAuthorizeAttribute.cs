@@ -29,7 +29,7 @@ namespace DapperAdminApi.App_Start
         /// <param name="actionContext"></param>
         /// <returns></returns>
         protected override bool IsAuthorized(HttpActionContext actionContext)
-        {
+         {
             try
             {
                 // 验证token

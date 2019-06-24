@@ -13,6 +13,11 @@ namespace DapperAdminApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            json.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
+            json.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            json.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
+            //settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
         public override void Init()
