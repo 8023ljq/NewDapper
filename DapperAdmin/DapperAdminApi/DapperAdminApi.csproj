@@ -147,6 +147,7 @@
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\SysControllers\LoginController.cs" />
+    <Compile Include="Controllers\SysControllers\ManagerController.cs" />
     <Compile Include="Controllers\Text\TextController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -228,9 +228,7 @@
     <Content Include="Configs\ConnectionStrings.config" />
     <None Include="packages.config" />
     <Content Include="Views\Code\Index.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\List.cshtml" />
     <Content Include="Package\fonts\fonts\fontawesome-webfont.eot" />
     <Content Include="Package\fonts\fonts\fontawesome-webfont.ttf" />
     <Content Include="Package\fonts\fonts\fontawesome-webfont.woff" />
@@ -265,6 +263,7 @@
     <Content Include="Package\fonts\scss\_stacked.scss" />
     <Content Include="Package\fonts\scss\_variables.scss" />
     <Content Include="Views\Shared\_Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
