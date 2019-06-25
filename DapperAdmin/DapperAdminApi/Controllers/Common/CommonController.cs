@@ -19,8 +19,7 @@ namespace DapperAdminApi.Controllers.Common
     public class CommonController : BaseController
     {
         private MenuBLL menuBLL = new MenuBLL();
-
-
+        
         /// <summary>
         /// Author：Geek Dog  Content：获取菜单列表 AddTime：2019-5-29 9:21:15  
         /// </summary>
@@ -60,10 +59,11 @@ namespace DapperAdminApi.Controllers.Common
         {
             try
             {
-                whereStr.Clear();
-                orderByStr.Clear();
-                whereStr.Add("Id", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = Id });
-                Sys_Menu menuModel = menuBLL.GetModel<Sys_Menu>(whereStr, orderByStr);
+                //whereStr.Clear();
+                //orderByStr.Clear();
+                //whereStr.Add("Id", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = Id });
+                //Sys_Menu menuModel = menuBLL.GetModel<Sys_Menu>(whereStr, orderByStr);
+                Sys_Menu menuModel = menuBLL.GetModelById<Sys_Menu>(Id);
 
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuModel }));
             }
