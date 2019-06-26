@@ -12,16 +12,18 @@ namespace DapperBLL.BaseBLL
     {
         private BaseDALS baseDALS = new BaseDALS();
 
+        #region 增
+
         /// <summary>
-        /// 新增操作(主键为Int类型)
+        /// 新增操作并返回主键ID(主键为Int类型)
         /// </summary>
         /// <typeparam name="T">实体对象</typeparam>
         /// <param name="Model">赋值的实体对象</param>
         /// <param name="ID">主键ID</param>
         /// <returns></returns>
-        public bool AddModelInt<T>(T Model, out long ID) where T : class
+        public bool InsertModelInt<T>(T Model, out long ID) where T : class
         {
-            ID = baseDALS.CreateInt(Model);
+            ID = baseDALS.InsertModelInt(Model);
             if (ID > 0)
             {
                 return true;
@@ -38,9 +40,9 @@ namespace DapperBLL.BaseBLL
         /// <typeparam name="T">实体对象</typeparam>
         /// <param name="Model">赋值的实体对象</param>
         /// <returns></returns>
-        public bool AddModelInt<T>(T Model) where T : class
+        public bool InsertModelInt<T>(T Model) where T : class
         {
-            long ID = baseDALS.CreateInt(Model);
+            long ID = baseDALS.InsertModelInt(Model);
             if (ID > 0)
             {
                 return true;
@@ -52,15 +54,15 @@ namespace DapperBLL.BaseBLL
         }
 
         /// <summary>
-        /// 新增操作(主键为Guid类型)
+        /// 新增操作并返回主键ID(主键为Guid类型)
         /// </summary>
         /// <typeparam name="T">实体对象</typeparam>
         /// <param name="Model">赋值的实体对象</param>
         /// <param name="ID">主键ID</param>
         /// <returns></returns>
-        public bool AddModelGuid<T>(T Model, out string ID) where T : class
+        public bool InsertModelGuid<T>(T Model, out string ID) where T : class
         {
-            ID = baseDALS.CreateGuid(Model);
+            ID = baseDALS.InsertModelGuid(Model);
             if (!String.IsNullOrEmpty(ID))
             {
                 return true;
@@ -77,9 +79,9 @@ namespace DapperBLL.BaseBLL
         /// <typeparam name="T">实体对象</typeparam>
         /// <param name="Model">赋值的实体对象</param>
         /// <returns></returns>
-        public bool AddModelGuid<T>(T Model) where T : class
+        public bool InsertModelGuid<T>(T Model) where T : class
         {
-            string ID = baseDALS.CreateGuid(Model);
+            string ID = baseDALS.InsertModelGuid(Model);
             if (!String.IsNullOrEmpty(ID))
             {
                 return true;
@@ -106,6 +108,42 @@ namespace DapperBLL.BaseBLL
             return true;
         }
 
+        #endregion
+
+        #region 删
+
+        /// <summary>
+        /// 根据主键删除(主键为int类型)
+        /// </summary>
+        /// <param name="array">删除主键数组集合</param>
+        /// <returns></returns>
+        public bool DeleteIntId<T>(int[] array)
+        {
+            if (array.Length <= 0)
+            {
+                return false;
+            }
+            return baseDALS.DeleteIntId<T>(array);
+        }
+
+        /// <summary>
+        /// 根据主键删除(主键为string类型)
+        /// </summary>
+        /// <param name="array">删除主键数组集合</param>
+        /// <returns></returns>
+        public bool DeleteStringId<T>(string[] array)
+        {
+            if (array.Length <= 0)
+            {
+                return false;
+            }
+            return baseDALS.DeleteStringId<T>(array);
+        }
+
+        #endregion
+
+        #region 改
+
         /// <summary>
         /// 修改操作(单个实体)
         /// </summary>
@@ -117,31 +155,56 @@ namespace DapperBLL.BaseBLL
             return baseDALS.UpdateModel(Model);
         }
 
+        #endregion
+
+        #region 查
+
         /// <summary>
-        /// 获取单个实体
+        /// 通过主键查询实体(int类型主键)
+        /// </summary>
+        /// <typeparam name="T">泛型实体类</typeparam>
+        /// <param name="Id">主键id</param>
+        /// <returns></returns>
+        public T GetModelById<T>(int Id) where T : class
+        {
+            return baseDALS.GetModelById<T>(Id);
+        }
+
+        /// <summary>
+        /// 通过主键查询实体(string类型主键)
+        /// </summary>
+        /// <typeparam name="T">泛型实体类</typeparam>
+        /// <param name="Id">主键id</param>
+        /// <returns></returns>
+        public T GetModelById<T>(string Id) where T : class
+        {
+            return baseDALS.GetModelById<T>(Id);
+        }
+
+        /// <summary>
+        /// 获取单个实体(条件查询)
         /// </summary>
         /// <typeparam name="T">泛型实体</typeparam>
-        /// <param name="tableName">表名</param>
         /// <param name="whereStr">查询条件</param>
         /// <param name="orderByStr">排序条件</param>
         /// <returns></returns>
-        public T GetModel<T>( Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public T GetModel<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
         {
-            return baseDALS.GetModel<T>(typeof(T).Name.ToString(), whereStr, orderByStr);
+            return baseDALS.GetModel<T>(whereStr, orderByStr);
         }
 
         /// <summary>
-        /// 获取集合对象
+        /// 获取集合对象(条件查询)
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="tableName"></param>
-        /// <param name="whereStr"></param>
-        /// <param name="orderByStr"></param>
+        /// <typeparam name="T">泛型实体</typeparam>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="orderByStr">排序条件</param>
         /// <returns></returns>
         public List<T> GetList<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
         {
-            return baseDALS.GetList<T>(typeof(T).Name.ToString(), whereStr, orderByStr);
+            return baseDALS.GetList<T>(whereStr, orderByStr);
         }
 
+        #endregion
     }
 }

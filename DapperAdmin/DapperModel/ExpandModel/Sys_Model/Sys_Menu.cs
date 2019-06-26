@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace DapperModel
 {
+    [NotMapped]
     public partial class Sys_Menu
     {
         /// <summary>
         /// 下级菜单
         /// </summary>
         [NotMapped]
-        public List<Sys_Menu> children { get; set; }
+        public  List<Sys_Menu> children { get; set; }
     }
 }

@@ -59,10 +59,6 @@ namespace DapperAdminApi.Controllers.Common
         {
             try
             {
-                //whereStr.Clear();
-                //orderByStr.Clear();
-                //whereStr.Add("Id", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = Id });
-                //Sys_Menu menuModel = menuBLL.GetModel<Sys_Menu>(whereStr, orderByStr);
                 Sys_Menu menuModel = menuBLL.GetModelById<Sys_Menu>(Id);
 
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuModel }));

@@ -38,6 +38,13 @@ namespace DapperCommonMethod.CommonEnum
         //*******************************************************************************
 
         /// <summary>
+        /// 服务内部错误
+        /// </summary>
+        [Description("服务内部错误")]
+        Http_600 = 600,
+
+
+        /// <summary>
         /// 登录成功
         /// </summary>
         [Description("登录成功")]
