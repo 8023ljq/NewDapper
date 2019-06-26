@@ -12,13 +12,16 @@ namespace DapperAdminApi.Controllers.SysControllers
     /// Author：Geek Dog  Content：管理员数据接口 AddTime：2019-6-24 17:54:55  
     /// </summary>
     [ApiAuthorize]
-    [RoutePrefix("v1/api/login")]
+    [RoutePrefix("api/login")]
     public class ManagerController : BaseController
     {
         /// <summary>
         /// 获取管理员列表信息
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList()
         {
             return Ok();

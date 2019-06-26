@@ -15,7 +15,7 @@ namespace DapperAdminApi.Controllers.SysControllers
     /// <summary>
     /// Author：Geek Dog  Content：登录接口 AddTime：2019-5-22 15:33:13  
     /// </summary>
-    [RoutePrefix("v1/api/login")]
+    [RoutePrefix("api/login")]
     public class LoginController : BaseController
     {
         private ManagerdBLL managerdBLL = new ManagerdBLL();

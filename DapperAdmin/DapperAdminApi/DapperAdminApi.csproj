@@ -146,6 +146,7 @@
     <Compile Include="Common\Method\ApiCommonMethod.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
+    <Compile Include="Controllers\Common\UploadFileController.cs" />
     <Compile Include="Controllers\SysControllers\LoginController.cs" />
     <Compile Include="Controllers\SysControllers\ManagerController.cs" />
     <Compile Include="Controllers\Text\TextController.cs" />
