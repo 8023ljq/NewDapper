@@ -2,6 +2,7 @@
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperHelp.Dapper;
+using DapperModel.CommonModel;
 using System;
 using System.Collections.Generic;
 
@@ -12,9 +13,7 @@ namespace DapperDAL.BaseDAL
     /// </summary>
     public class BaseDALS
     {
-
         DapperHelps dapperHelps = new DapperHelps();
-
 
         #region 增
 
@@ -219,15 +218,18 @@ namespace DapperDAL.BaseDAL
         /// <param name="curPage">第几页</param>
         /// <param name="count">总行数</param>
         /// <returns></returns>
-        public List<T> PageListAdmin<T>(string wherestr, DynamicParameters parametersp, int pageSize, int curPage, out int count)
+        public List<T> GetPageList<T>(string wherestr,  PageModel pageModel)
         {
-            string orderby = " ORDER BY CreateTime DESC ";
+            DynamicParameters parametersp = new DynamicParameters();
+            string orderby = " ORDER BY AddTime DESC ";
             string sqlpage = "SELECT * FROM (SELECT a.*, ROW_NUMBER() OVER ({0}) rownum FROM {2} as a  where {1} ) b WHERE b.rownum > @start AND b.rownum<= @end ORDER BY b.rownum";
-            string countSql = "select count(1) from {0} where ";
-            count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString()) + wherestr, parametersp);
+            string countSql = "select count(1) from {0} where {1}";
 
-            parametersp.Add("@start", (curPage - 1) * pageSize);
-            parametersp.Add("@end", curPage * pageSize);
+            parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
+            parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+
+            pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString(), wherestr) , parametersp);
+          
             string sql = string.Format(sqlpage, orderby, wherestr, typeof(T).Name.ToString());
             var list = dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
             return list;

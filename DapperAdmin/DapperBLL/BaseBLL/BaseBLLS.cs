@@ -1,5 +1,7 @@
-﻿using DapperCommonMethod.CommonModel;
+﻿using Dapper;
+using DapperCommonMethod.CommonModel;
 using DapperDAL.BaseDAL;
+using DapperModel.CommonModel;
 using System;
 using System.Collections.Generic;
 
@@ -203,6 +205,18 @@ namespace DapperBLL.BaseBLL
         public List<T> GetList<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
         {
             return baseDALS.GetList<T>(whereStr, orderByStr);
+        }
+
+        /// <summary>
+        /// 分页获取列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="wherestr"></param>
+        /// <param name="pageModel"></param>
+        /// <returns></returns>
+        public List<T> GetPageList<T>(string wherestr, PageModel pageModel)
+        {
+            return baseDALS.GetPageList<T>(wherestr, pageModel);
         }
 
         #endregion
