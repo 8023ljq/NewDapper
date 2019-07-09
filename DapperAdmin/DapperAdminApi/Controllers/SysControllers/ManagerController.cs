@@ -26,18 +26,18 @@ namespace DapperAdminApi.Controllers.SysControllers
         /// 获取管理员列表信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         [Route("getmanagerlist")]
-        public IHttpActionResult GetManagerList()
+        public IHttpActionResult GetManagerList(PageModel pageModel)
         {
             try
             {
-                PageModel pageModel = new PageModel
-                {
-                    pageSize = 5,
-                    curPage = 1,
-                };
+                //PageModel pageModel = new PageModel
+                //{
+                //    pageSize = 5,
+                //    curPage = 1,
+                //};
                 List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList , pageModel = pageModel }));
             }
