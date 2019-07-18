@@ -126,5 +126,49 @@ namespace DapperAdminApi.Controllers.SysControllers
                 return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
             }
         }
+
+
+        [HttpPost]
+        [ApiAuthorize]
+        [Route("test")]
+        public IHttpActionResult test(string id, string orderid)
+        {
+            try
+            {
+
+
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("test0")]
+        public IHttpActionResult test0([FromBody]string id, string orderid)
+        {
+            try
+            {
+
+
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+        }
+
+        public class ads
+        {
+            public string id { get; set; }
+
+            public string orderid { get; set; }
+        }
     }
 }

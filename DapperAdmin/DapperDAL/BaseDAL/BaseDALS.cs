@@ -150,6 +150,55 @@ namespace DapperDAL.BaseDAL
             }
         }
 
+        /// <summary>
+        /// 批量更新实体,返回更新状态
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="List"></param>
+        /// <returns></returns>
+        public bool UpdateList<T>(List<T> List) where T : class
+        {
+            try
+            {
+                if (List.Count <= 0)
+                {
+                    return false;
+                }
+                return dapperHelps.ExecuteUpdateList<T>(List);
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 批量修改返回成功和失败的条数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="List"></param>
+        /// <param name="ErrorCount"></param>
+        /// <returns></returns>
+        public int UpdateList<T>(List<T> List,out int ErrorCount) where T : class
+        {
+            try
+            {
+                if (List.Count <= 0)
+                {
+                    ErrorCount = 0;
+                    return 0;
+                }
+                return dapperHelps.ExecuteUpdateList<T>(List,out ErrorCount);
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                ErrorCount = 0;
+                return 0;
+            }
+        }
+
         #endregion
 
         #region 查
@@ -218,7 +267,7 @@ namespace DapperDAL.BaseDAL
         /// <param name="curPage">第几页</param>
         /// <param name="count">总行数</param>
         /// <returns></returns>
-        public List<T> GetPageList<T>(string wherestr,  PageModel pageModel)
+        public List<T> GetPageList<T>(string wherestr, PageModel pageModel)
         {
             DynamicParameters parametersp = new DynamicParameters();
             string orderby = " ORDER BY AddTime DESC ";
@@ -228,8 +277,8 @@ namespace DapperDAL.BaseDAL
             parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
             parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
 
-            pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString(), wherestr) , parametersp);
-          
+            pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString(), wherestr), parametersp);
+
             string sql = string.Format(sqlpage, orderby, wherestr, typeof(T).Name.ToString());
             var list = dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
             return list;

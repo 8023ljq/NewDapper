@@ -68,7 +68,7 @@ namespace DapperHelp.Dapper
         /// </summary>
         /// <param name="useWriteConn"></param>
         /// <returns></returns>
-         IDbConnection GetConnection(bool useWriteConn)
+        IDbConnection GetConnection(bool useWriteConn)
         {
             if (useWriteConn)
             {
@@ -85,7 +85,7 @@ namespace DapperHelp.Dapper
         /// <param name="param"></param>
         /// <param name="useWriteConn">true=写，默认false=读</param>
         /// <returns></returns>
-        public  List<T> ExecuteReaderReturnList<T>(string sql, object param = null, bool useWriteConn = false, IDbTransaction transaction = null)
+        public List<T> ExecuteReaderReturnList<T>(string sql, object param = null, bool useWriteConn = false, IDbTransaction transaction = null)
         {
             if (transaction == null)
             {
@@ -93,7 +93,7 @@ namespace DapperHelp.Dapper
                 using (IDbConnection conn = GetConnection(useWriteConn))
                 {
                     OpenConnect(conn);
-                    var a= conn.Query<T>(sql, param, commandTimeout: commandTimeout, transaction: transaction).AsList<T>();
+                    var a = conn.Query<T>(sql, param, commandTimeout: commandTimeout, transaction: transaction).AsList<T>();
                     return a;
                 }
             }
@@ -114,7 +114,7 @@ namespace DapperHelp.Dapper
         /// <param name="useWriteConn">读或写数据库</param>
         /// <param name="transaction">是否执行事务</param>
         /// <returns></returns>
-        public  T ExecuteReaderReturnT<T>(string sql, object parameter = null, bool useWriteConn = false, IDbTransaction transaction = null)
+        public T ExecuteReaderReturnT<T>(string sql, object parameter = null, bool useWriteConn = false, IDbTransaction transaction = null)
         {
             if (transaction == null)
             {
@@ -139,7 +139,7 @@ namespace DapperHelp.Dapper
         /// <param name="param"></param>
         /// <param name="useWriteConn"></param>
         /// <returns></returns>
-        public  async Task<T> ExecuteReaderRetTAsync<T>(string sql, object param = null, bool useWriteConn = false)
+        public async Task<T> ExecuteReaderRetTAsync<T>(string sql, object param = null, bool useWriteConn = false)
         {
             using (IDbConnection conn = GetConnection(useWriteConn))
             {
@@ -156,7 +156,7 @@ namespace DapperHelp.Dapper
         /// <param name="param"></param>
         /// <param name="useWriteConn"></param>
         /// <returns></returns>
-        public  async Task<List<T>> ExecuteReaderRetListAsync<T>(string sql, object param = null, bool useWriteConn = false)
+        public async Task<List<T>> ExecuteReaderRetListAsync<T>(string sql, object param = null, bool useWriteConn = false)
         {
             using (IDbConnection conn = GetConnection(useWriteConn))
             {
@@ -174,7 +174,7 @@ namespace DapperHelp.Dapper
         /// <param name="param"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  int ExecuteSqlInt(string sql, object param = null, IDbTransaction transaction = null)
+        public int ExecuteSqlInt(string sql, object param = null, IDbTransaction transaction = null)
         {
             if (transaction == null)
             {
@@ -198,7 +198,7 @@ namespace DapperHelp.Dapper
         /// <param name="param"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  async Task<int> ExecuteSqlIntAsync(string sql, object param = null, IDbTransaction transaction = null)
+        public async Task<int> ExecuteSqlIntAsync(string sql, object param = null, IDbTransaction transaction = null)
         {
             if (transaction == null)
             {
@@ -223,7 +223,7 @@ namespace DapperHelp.Dapper
         /// <param name="transaction"></param>
         /// <param name="useWriteConn"></param>
         /// <returns></returns>
-        public  T GetById<T>(int id, IDbTransaction transaction = null, bool useWriteConn = false) where T : class
+        public T GetById<T>(int id, IDbTransaction transaction = null, bool useWriteConn = false) where T : class
         {
             if (transaction == null)
             {
@@ -273,7 +273,7 @@ namespace DapperHelp.Dapper
         /// <param name="transaction"></param>
         /// <param name="useWriteConn"></param>
         /// <returns></returns>
-        public  async Task<T> GetByIdAsync<T>(int id, IDbTransaction transaction = null, bool useWriteConn = false) where T : class
+        public async Task<T> GetByIdAsync<T>(int id, IDbTransaction transaction = null, bool useWriteConn = false) where T : class
         {
             if (transaction == null)
             {
@@ -297,7 +297,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  long ExecuteInsert<T>(T item, IDbTransaction transaction = null) where T : class
+        public long ExecuteInsert<T>(T item, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -322,7 +322,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  string ExecuteInsertGuid<T>(T item, IDbTransaction transaction = null) where T : class
+        public string ExecuteInsertGuid<T>(T item, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -346,7 +346,7 @@ namespace DapperHelp.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <param name="transaction"></param>
-        public  void ExecuteInsertList<T>(IEnumerable<T> list, IDbTransaction transaction = null) where T : class
+        public void ExecuteInsertList<T>(IEnumerable<T> list, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -370,7 +370,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  bool ExecuteUpdate<T>(T item, IDbTransaction transaction = null) where T : class
+        public bool ExecuteUpdate<T>(T item, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -394,7 +394,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public  bool ExecuteUpdateList<T>(List<T> item, IDbTransaction transaction = null) where T : class
+        public bool ExecuteUpdateList<T>(List<T> item, IDbTransaction transaction = null) where T : class
         {
             bool isOk = true;
 
@@ -429,6 +429,58 @@ namespace DapperHelp.Dapper
         }
 
         /// <summary>
+        /// 批量修改返回成功和失败的条数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="ErrorCount"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public int ExecuteUpdateList<T>(List<T> item, out int ErrorCount, IDbTransaction transaction = null) where T : class
+        {
+            bool isOk = false;
+            int SuccessCount = 0;
+            ErrorCount = 0;
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+                    foreach (var obj in item)
+                    {
+                        isOk = conn.Update(obj, commandTimeout: commandTimeout);
+                        if (!isOk)
+                        {
+                            ErrorCount++;
+                        }
+                        else
+                        {
+                            SuccessCount++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                foreach (var obj in item)
+                {
+                    isOk = conn.Update(obj, transaction: transaction, commandTimeout: commandTimeout);
+                    if (!isOk)
+                    {
+                        ErrorCount++;
+                    }
+                    else
+                    {
+                        SuccessCount++;
+                    }
+                }
+            }
+            return SuccessCount;
+        }
+
+
+        /// <summary>
         /// 分页查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -438,7 +490,7 @@ namespace DapperHelp.Dapper
         /// <param name="pageSize">每页多少条</param>
         /// <param name="useWriteConn">是否主库</param>
         /// <returns></returns>
-        public  List<T> ExecutePageList<T>(string sql, string sort, int pageIndex, int pageSize, bool useWriteConn = false, object param = null)
+        public List<T> ExecutePageList<T>(string sql, string sort, int pageIndex, int pageSize, bool useWriteConn = false, object param = null)
         {
             string pageSql = @"SELECT TOP {0} * FROM (SELECT ROW_NUMBER() OVER (ORDER BY {1}) _row_number_,* FROM ({2})temp )temp1 WHERE temp1._row_number_>{3} ORDER BY _row_number_";
             string execSql = string.Format(pageSql, pageSize, sort, sql, pageSize * (pageIndex - 1));
