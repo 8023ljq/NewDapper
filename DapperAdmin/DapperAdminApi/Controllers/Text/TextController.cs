@@ -24,61 +24,11 @@ namespace DapperAdminApi.Controllers.Text
             MenuBLL menuBLL = new MenuBLL();
             List<Sys_Menu> menusList = new List<Sys_Menu>();
 
-            menusList.Add(new Sys_Menu()
-            {
-                Id = Guid.NewGuid().ToString(),
-                ParentId = "08ab32f7-c734-4d2f-be2e-ac37db9e2a42",
-                FullName = "角色管理",
-                Layers = 2,
-                IconUrl = String.Empty,
-                AddressUrl = "",
-                Sort = 1,
-                IsShow = true,
-                IsDefault = true,
-                IsDelete = false,
-                AddUserId = Guid.NewGuid().ToString(),
-                AddTime = DateTime.Now,
-                UpdateTime=DateTime.Now,
-                Remarks = ""
-            });
+            string Id = "08ab32f7-c734-4d2f-be2e-ac37db9e2a42";
+            Sys_Menu menuModel = menuBLL.GetModelById<Sys_Menu>(Id);
+            menuModel.Remarks = "测试修改";
 
-            menusList.Add(new Sys_Menu()
-            {
-                Id = Guid.NewGuid().ToString(),
-                ParentId = "08ab32f7-c734-4d2f-be2e-ac37db9e2a42",
-                FullName = "用户管理",
-                Layers = 2,
-                IconUrl = String.Empty,
-                AddressUrl = "",
-                Sort = 1,
-                IsShow = true,
-                IsDefault = true,
-                IsDelete = false,
-                AddUserId = Guid.NewGuid().ToString(),
-                AddTime = DateTime.Now,
-                UpdateTime = DateTime.Now,
-                Remarks = ""
-            });
-
-            menusList.Add(new Sys_Menu()
-            {
-                Id = Guid.NewGuid().ToString(),
-                ParentId = "08ab32f7-c734-4d2f-be2e-ac37db9e2a42",
-                FullName = "权限管理",
-                Layers = 2,
-                IconUrl = String.Empty,
-                AddressUrl = "",
-                Sort = 1,
-                IsShow = true,
-                IsDefault = true,
-                IsDelete = false,
-                AddUserId = Guid.NewGuid().ToString(),
-                AddTime = DateTime.Now,
-                UpdateTime = DateTime.Now,
-                Remarks = ""
-            });
-
-            menuBLL.InsertList(menusList);
+           bool bo= menuBLL.UpdateModel(menuModel);
 
             return Ok();
         }

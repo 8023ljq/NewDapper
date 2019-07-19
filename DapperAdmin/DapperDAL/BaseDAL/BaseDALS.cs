@@ -221,6 +221,7 @@ namespace DapperDAL.BaseDAL
         /// <typeparam name="T">泛型实体类</typeparam>
         /// <param name="Id">主键id</param>
         /// <returns></returns>
+        /// 
         public T GetModelById<T>(string Id) where T : class
         {
             string sqlstr = string.Format("select * from {0} where Id=@ID", typeof(T).Name.ToString());

@@ -104,8 +104,6 @@ namespace DapperHelp.Dapper
             }
         }
 
-
-
         /// 执行sql返回一个对象
         /// </summary>
         /// <typeparam name="T">对象名</typeparam>
@@ -165,7 +163,6 @@ namespace DapperHelp.Dapper
                 return list.ToList();
             }
         }
-
 
         /// <summary>
         /// 执行sql，返回影响行数 
@@ -478,7 +475,6 @@ namespace DapperHelp.Dapper
             }
             return SuccessCount;
         }
-
 
         /// <summary>
         /// 分页查询
