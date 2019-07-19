@@ -28,6 +28,7 @@ namespace DapperAdminApi.Controllers.Text
             Sys_Menu menuModel = menuBLL.GetModelById<Sys_Menu>(Id);
             menuModel.Remarks = "测试修改";
 
+
            bool bo= menuBLL.UpdateModel(menuModel);
 
             return Ok();
