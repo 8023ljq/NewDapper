@@ -50,11 +50,6 @@ namespace DapperModel
         public int Sort { get; set; }
 
         /// <summary>
-        /// 自增主键ID(用作唯一标识)
-        /// </summary>
-        public int OnlOne { get; set; }
-
-        /// <summary>
         /// 操作权限
         /// </summary>	
         public string Purview { get; set; }

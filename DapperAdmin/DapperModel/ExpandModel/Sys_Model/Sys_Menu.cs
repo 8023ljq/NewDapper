@@ -13,7 +13,7 @@ namespace DapperModel
         /// <summary>
         /// 下级菜单
         /// </summary>
-       //[NotMapped]
-        //public  List<Sys_Menu> children { get; set; }
+       [NotMapped]
+        public  List<Sys_Menu> children { get; set; }
     }
 }
