@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DapperModel
 {
-    public partial class Sys_Menu
+    public partial class Sys_MenuS
     {
         /// <summary>
         /// 下级菜单
         /// </summary>
-       [NotMapped]
-        public  List<Sys_Menu> children { get; set; }
+        [NotMapped]
+        public List<Sys_Menu> children { get; set; }
     }
 }

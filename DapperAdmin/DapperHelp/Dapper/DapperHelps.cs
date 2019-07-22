@@ -3,10 +3,12 @@ using DapperCommonMethod.CommonMethod;
 using DapperExtensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -426,6 +428,29 @@ namespace DapperHelp.Dapper
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool UpdateModel<T>(T item, IDbTransaction transaction = null, params string[] fields) where T : class
+        {
+            if (fields.Length == 0)
+            {
+                fields = GetReflectionProperties(item);
+            }
+            var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
+
+            var entityType = typeof(T);
+            var ADSA= entityType.GetProperty("Id").GetValue(item);
+
+            var sql = String.Format("update {0} set {1} where Id = @ID", typeof(T).Name.ToString(), fieldsSql);
+
+            return ExecuteSqlInt(sql) > 0 ? true : false;
+        }
+
+        /// <summary>
         /// 批量修改返回成功和失败的条数
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -496,5 +521,26 @@ namespace DapperHelp.Dapper
                 return conn.Query<T>(execSql, param, commandTimeout: commandTimeout).ToList();
             }
         }
+
+        #region 扩展
+
+        private string[] GetReflectionProperties(object instance)
+        {
+            var result = new List<string>();
+            foreach (PropertyInfo property in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                var propertyName = property.Name;
+                // NotMapped特性
+                var notMappedAttr = property.GetCustomAttribute<NotMappedAttribute>(false);
+                if (notMappedAttr == null)
+                {
+                    result.Add(propertyName);
+                }
+            }
+            return result.ToArray();
+        }
+
+        #endregion
+
     }
 }

@@ -141,7 +141,7 @@ namespace DapperDAL.BaseDAL
                 {
                     return false;
                 }
-                return dapperHelps.ExecuteUpdate<T>(model);
+                return dapperHelps.UpdateModel<T>(model);
             }
             catch (Exception ex)
             {

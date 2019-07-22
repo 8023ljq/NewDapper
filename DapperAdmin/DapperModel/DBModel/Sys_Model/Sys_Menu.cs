@@ -93,6 +93,8 @@ namespace DapperModel
         /// 备注
         /// </summary>	
         public string Remarks { get; set; }
+
+     
     }
 }
 
