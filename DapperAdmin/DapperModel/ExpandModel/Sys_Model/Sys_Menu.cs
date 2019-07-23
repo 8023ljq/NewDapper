@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DapperModel
 {
-    public partial class Sys_MenuS
+    public partial class Sys_Menu
     {
         /// <summary>
         /// 下级菜单

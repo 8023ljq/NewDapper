@@ -263,7 +263,6 @@ namespace DapperHelp.Dapper
             }
         }
 
-
         /// <summary>
         /// 根据id获取实体--异步
         /// </summary>
@@ -428,7 +427,7 @@ namespace DapperHelp.Dapper
         }
 
         /// <summary>
-        /// 
+        /// 修改单个实体
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
@@ -524,6 +523,11 @@ namespace DapperHelp.Dapper
 
         #region 扩展
 
+        /// <summary>
+        /// 修改单个实体
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         private string[] GetReflectionProperties(object instance)
         {
             var result = new List<string>();
