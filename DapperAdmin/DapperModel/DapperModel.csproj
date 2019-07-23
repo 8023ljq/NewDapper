@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonModel\DBModel.cs" />
-    <Compile Include="CommonModel\DBTableModel.cs" />
     <Compile Include="CommonModel\PageModel.cs" />
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />

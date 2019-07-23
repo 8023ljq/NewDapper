@@ -435,18 +435,17 @@ namespace DapperHelp.Dapper
         /// <returns></returns>
         public bool UpdateModel<T>(T item, IDbTransaction transaction = null, params string[] fields) where T : class
         {
+            DynamicParameters parameters = new DynamicParameters();
+
             if (fields.Length == 0)
             {
-                fields = GetReflectionProperties(item);
+                fields = GetReflectionProperties(item, out parameters);
             }
             var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
 
-            var entityType = typeof(T);
-            var ADSA= entityType.GetProperty("Id").GetValue(item);
+            var sql = String.Format("update {0} set {1} where Id = '{2}'", typeof(T).Name.ToString(), fieldsSql, typeof(T).GetProperty("Id").GetValue(item));
 
-            var sql = String.Format("update {0} set {1} where Id = @ID", typeof(T).Name.ToString(), fieldsSql);
-
-            return ExecuteSqlInt(sql) > 0 ? true : false;
+            return ExecuteSqlInt(sql, parameters) > 0 ? true : false;
         }
 
         /// <summary>
@@ -524,21 +523,25 @@ namespace DapperHelp.Dapper
         #region 扩展
 
         /// <summary>
-        /// 修改单个实体
+        /// 拼接修改语句
         /// </summary>
-        /// <param name="instance"></param>
+        /// <param name="instance">实体类属性</param>
+        /// <param name="parameters">参数化</param>
         /// <returns></returns>
-        private string[] GetReflectionProperties(object instance)
+        private string[] GetReflectionProperties(object instance, out DynamicParameters parameters)
         {
             var result = new List<string>();
+            parameters = new DynamicParameters();
             foreach (PropertyInfo property in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
-                var propertyName = property.Name;
+                //var propertyName = property.Name;
+                //var propertyValue = property.GetValue(instance, null);
                 // NotMapped特性
                 var notMappedAttr = property.GetCustomAttribute<NotMappedAttribute>(false);
-                if (notMappedAttr == null)
+                if (notMappedAttr == null && property.Name != "Id")
                 {
-                    result.Add(propertyName);
+                    parameters.Add("@" + property.Name + "", property.GetValue(instance, null));
+                    result.Add(property.Name);
                 }
             }
             return result.ToArray();

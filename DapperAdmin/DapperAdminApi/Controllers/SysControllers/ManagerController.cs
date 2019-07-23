@@ -33,11 +33,6 @@ namespace DapperAdminApi.Controllers.SysControllers
         {
             try
             {
-                //PageModel pageModel = new PageModel
-                //{
-                //    pageSize = 5,
-                //    curPage = 1,
-                //};
                 List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList , pageModel = pageModel }));
             }

@@ -59,10 +59,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 }
 
                 //查询用户角色
-                whereStr.Clear();
-                orderByStr.Clear();
-                whereStr.Add("id", new WhereModel { InquireManner = (int)SqlTypeEnum.Equal, Content = managerModel.RoleId });
-                Sys_ManagerRole managerroleModel = managerRoledBLL.GetModel<Sys_ManagerRole>(whereStr, orderByStr);
+                Sys_ManagerRole managerroleModel = managerRoledBLL.GetModelById<Sys_ManagerRole>(managerModel.RoleId);
 
                 //返回管理员信息
                 AdminModel adminModel = new AdminModel()

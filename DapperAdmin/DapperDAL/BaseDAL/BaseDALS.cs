@@ -272,7 +272,7 @@ namespace DapperDAL.BaseDAL
         {
             DynamicParameters parametersp = new DynamicParameters();
             string orderby = " ORDER BY AddTime DESC ";
-            string sqlpage = "SELECT * FROM (SELECT a.*, ROW_NUMBER() OVER ({0}) rownum FROM {2} as a  where {1} ) b WHERE b.rownum > @start AND b.rownum<= @end ORDER BY b.rownum";
+            string sqlpage = "SELECT * FROM (SELECT A.*, ROW_NUMBER() OVER ({0}) rownum FROM {2} as A  where {1} ) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum";
             string countSql = "select count(1) from {0} where {1}";
 
             parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
@@ -284,6 +284,8 @@ namespace DapperDAL.BaseDAL
             var list = dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
             return list;
         }
+
+
 
         #endregion
 
