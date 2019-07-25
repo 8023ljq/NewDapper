@@ -10,7 +10,7 @@ namespace DapperModel
     /// <summary>
     /// 后台管理员
     /// </summary>
-    public class Sys_Manager
+    public partial class Sys_Manager
     {
 	     
         /// <summary>

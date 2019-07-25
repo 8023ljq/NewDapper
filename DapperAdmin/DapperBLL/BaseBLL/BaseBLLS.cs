@@ -214,9 +214,22 @@ namespace DapperBLL.BaseBLL
         /// <param name="wherestr"></param>
         /// <param name="pageModel"></param>
         /// <returns></returns>
-        public List<T> GetPageList<T>(string wherestr, PageModel pageModel)
+        public List<T> GetPageList<T>(string wherestr, PageModel pageModel, string orderbystr = null)
         {
-            return baseDALS.GetPageList<T>(wherestr, pageModel);
+            return baseDALS.GetPageList<T>(wherestr, pageModel, orderbystr);
+        }
+
+        /// <summary>
+        /// 连接查询分页方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlstr">查询语句(正常连接查询语句)</param>
+        /// <param name="pageModel">查询条件</param>
+        /// <param name="orderbystr">排序条件</param>
+        /// <returns></returns>
+        public List<T> GetPageJoinList<T>(string sqlstr, PageModel pageModel, string orderbystr = null)
+        {
+            return baseDALS.GetPageJoinList<T>(sqlstr, pageModel, orderbystr);
         }
 
         #endregion

@@ -46,6 +46,7 @@
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
+    <Compile Include="ExpandModel\Sys_Model\Sys_Manager.cs" />
     <Compile Include="ExpandModel\Sys_Model\Sys_Menu.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />

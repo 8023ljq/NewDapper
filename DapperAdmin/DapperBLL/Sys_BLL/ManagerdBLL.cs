@@ -7,6 +7,6 @@ namespace DapperBLL.Sys_BLL
     /// </summary>
     public class ManagerdBLL : BaseBLLS
     {
-
+       
     }
 }

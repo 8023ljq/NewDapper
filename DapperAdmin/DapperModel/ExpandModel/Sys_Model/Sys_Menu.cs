@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DapperModel
 {
+    /// <summary>
+    /// 菜单扩展字段实体
+    /// </summary>
     public partial class Sys_Menu
     {
         /// <summary>

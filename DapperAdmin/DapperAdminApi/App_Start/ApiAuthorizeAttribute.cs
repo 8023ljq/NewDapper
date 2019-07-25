@@ -58,7 +58,7 @@ namespace DapperAdminApi.App_Start
                 //{
                 //    return false;
                 //}
-                //redis.StringSet<FreighterEntity>(token, freighterEntity, TimeSpan.FromMinutes(30));
+                redis.KeyExpire(token,TimeSpan.FromMinutes(30));
             }
             catch (Exception ex)
             {

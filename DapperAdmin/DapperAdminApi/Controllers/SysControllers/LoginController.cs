@@ -79,6 +79,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 }
 
                 managerModel.TokenId = Token;
+                managerModel.LastLoginTime = DateTime.Now;
                 redis.StringSet(Token, managerModel, TimeSpan.FromMinutes(30));
                 managerdBLL.UpdateModel<Sys_Manager>(managerModel);
 

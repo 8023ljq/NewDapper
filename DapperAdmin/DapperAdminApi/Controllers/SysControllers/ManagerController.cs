@@ -33,7 +33,10 @@ namespace DapperAdminApi.Controllers.SysControllers
         {
             try
             {
-                List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
+                string selectStr = $@"select B.RoleName,A.* from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
+                List<Sys_Manager> managersList = managerdBLL.GetPageJoinList<Sys_Manager>(selectStr, pageModel);
+
+                //List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList , pageModel = pageModel }));
             }
             catch (Exception ex)
