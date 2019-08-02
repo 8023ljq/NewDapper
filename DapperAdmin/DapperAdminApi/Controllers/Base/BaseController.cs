@@ -1,5 +1,6 @@
 ﻿using DapperCacheHelps.RedisHelper;
 using DapperCommonMethod.CommonModel;
+using DapperModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,26 @@ namespace DapperAdminApi.Controllers
         {
             get {
                 return HttpContext.Current.Session["token"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 获取登录人信息
+        /// </summary>
+        /// <returns></returns>
+        public Sys_Manager GetUserInfo()
+        {
+            return redis.StringGet<Sys_Manager>(GetToken);
+        }
+
+        /// <summary>
+        /// 获取登录人主键ID
+        /// </summary>
+        public string GetUserId
+        {
+            get
+            {
+                return redis.StringGet<Sys_Manager>(GetToken).Id;
             }
         }
     }

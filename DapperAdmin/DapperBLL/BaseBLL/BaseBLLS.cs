@@ -208,6 +208,18 @@ namespace DapperBLL.BaseBLL
         }
 
         /// <summary>
+        /// 获取集合对象(条件查询)
+        /// </summary>
+        /// <typeparam name="T">泛型实体</typeparam>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="orderByStr">排序条件</param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string whereStr, object parameter = null)
+        {
+            return baseDALS.GetList<T>(whereStr, parameter);
+        }
+
+        /// <summary>
         /// 分页获取列表
         /// </summary>
         /// <typeparam name="T"></typeparam>

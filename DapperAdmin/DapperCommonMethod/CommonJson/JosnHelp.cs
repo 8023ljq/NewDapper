@@ -78,7 +78,10 @@ namespace DapperCommonMethod.CommonJson
             {
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject jObject = (JObject)JToken.ReadFrom(reader);
+                    //JObject jObject = (JObject)JToken.ReadFrom(reader);
+                    //var value = jObject[Key].ToString();
+
+                    var jObject = JToken.ReadFrom(reader);
                     var value = jObject[Key].ToString();
                     return value;
                 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,25 +13,31 @@ namespace DapperModel
     /// </summary>
     public partial class Sys_Manager
     {
-	     
+
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [RegularExpression(@"^[A-F0-9]{8}(-[A-F0-9]{4}){3}-[A-F0-9]{12}$", ErrorMessage = "5001")]
         public string Id { get; set; }
- 
+
         /// <summary>
         /// 角色ID
         /// </summary>	
+        [Required(ErrorMessage = "3000")]
         public string RoleId { get; set; }
- 
+
         /// <summary>
         /// 用户名
         /// </summary>	
+        [Required(ErrorMessage = "3001")]
+        [RegularExpression(@"^[A-Za-z0-9]{4,16}$", ErrorMessage = "5001")]
         public string Name { get; set; }
- 
+
         /// <summary>
         /// 登录密码
         /// </summary>	
+        [Required(ErrorMessage = "3002")]
+        [RegularExpression(@"^[A-Za-z0-9]{6,16}$", ErrorMessage = "5002")]
         public string Password { get; set; }
  
         /// <summary>
@@ -47,10 +54,12 @@ namespace DapperModel
         /// 用户昵称
         /// </summary>	
         public string Nickname { get; set; }
- 
+
         /// <summary>
         /// 手机号
         /// </summary>	
+        [Required(ErrorMessage = "3003")]
+        [RegularExpression(@"^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$", ErrorMessage = "5003")]
         public string Phone { get; set; }
  
         /// <summary>

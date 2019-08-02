@@ -22,12 +22,12 @@ namespace DapperAdminApi.Controllers.SysControllers
     public class ManagerController : BaseController
     {
         private ManagerdBLL managerdBLL = new ManagerdBLL();
+
         /// <summary>
         /// 获取管理员列表信息
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [AllowAnonymous]
         [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList(PageModel pageModel)
         {
@@ -35,9 +35,83 @@ namespace DapperAdminApi.Controllers.SysControllers
             {
                 string selectStr = $@"select B.RoleName,A.* from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
                 List<Sys_Manager> managersList = managerdBLL.GetPageJoinList<Sys_Manager>(selectStr, pageModel);
-
                 //List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList , pageModel = pageModel }));
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = pageModel }));
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+        }
+
+        /// <summary>
+        /// 获取单个管理员信息
+        /// </summary>
+        /// <param name="MangaerId">管理员主键</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getmanagermodel")]
+        public IHttpActionResult GetManagerModel(string mangaerId)
+        {
+            try
+            {
+                Sys_Manager managerModel = managerdBLL.GetModelById<Sys_Manager>(mangaerId);
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managerModel }));
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+        }
+
+        /// <summary>
+        /// 修改管理员信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updatemanagerinfo")]
+        public IHttpActionResult UpdateManagerInfo(Sys_Manager managerModel)
+        {
+            try
+            {
+                //数据格式验证
+                var IsValidStr = ValidatetionMethod.IsValid(managerModel);
+                if (!IsValidStr.IsVaild)
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_200));
+                }
+                //检查主键
+                if (String.IsNullOrEmpty(managerModel.Id))
+                {
+                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
+                }
+
+                Sys_Manager manager= managerdBLL.GetModelById<Sys_Manager>(managerModel.Id);
+                if (manager==null)
+                {
+                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
+                }
+                manager.RoleId = managerModel.RoleId;
+                manager.Name = managerModel.Name;
+                manager.Avatar = managerModel.Avatar;
+                manager.Nickname = managerModel.Nickname;
+                manager.Phone = managerModel.Phone;
+                manager.Email = managerModel.Email;
+                manager.UpdateUserId = GetUserId;
+                manager.UpdateTime = DateTime.Now;
+
+                bool bo = managerdBLL.UpdateModel<Sys_Manager>(manager);
+                if (bo)
+                {
+                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+                }
+                else
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
+                }
+               
             }
             catch (Exception ex)
             {

@@ -37,7 +37,7 @@ namespace DapperAdminApi.Common.Help
         {
             ResultMsg msg = new ResultMsg();
             msg.ResultCode = ResultCode;
-            msg.ResultMsgs = JosnHelp.Readjson(ResultCode.ToString(), LanguageConfig.CN);
+            msg.ResultMsgs =  JosnHelp.Readjson(ResultCode.ToString(), LanguageConfig.CN) ;
             msg.ResultData = Model;
             return msg;
         }

@@ -55,6 +55,7 @@
     <Compile Include="DBModel\Sys_Model\Sys_Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextModel\Text.cs" />
+    <Compile Include="ViewModel\RoleSelectViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -33,7 +33,7 @@ namespace DapperCommonMethod.CommonEnum
 
         // ******************************************************************************
         // Author：Geek Dog  
-        // Content：1000之后写项目中报错提示  
+        // Content：1000--2999匹配json文件中的key值(一一对应)  
         // AddTime：2019-1-8 16:32:05  
         //*******************************************************************************
 
@@ -85,5 +85,11 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("退出失败")]
         Http_1007 = 1007,
+
+        /// <summary>
+        /// 未找到当前管理员信息
+        /// </summary>
+        [Description("未找到当前管理员信息")]
+        Http_1008 = 1008,
     }
 }

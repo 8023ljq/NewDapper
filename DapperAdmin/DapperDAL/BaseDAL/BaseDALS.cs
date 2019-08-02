@@ -259,6 +259,20 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
+        /// 获取集合对象
+        /// </summary>
+        /// <typeparam name="T">泛型实体</typeparam>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="orderByStr">排序条件</param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string whereStr,object parameter)
+        {
+            string sqlstr = string.Format("select * from {0} where {1}", typeof(T).Name.ToString(), whereStr);
+          
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parameter);
+        }
+
+        /// <summary>
         /// 分页查询
         /// </summary>
         /// <typeparam name="T">泛型实体</typeparam>
