@@ -158,7 +158,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configs\AppSettings.config" />
+    <Content Include="Configs\AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configs\ConnectionStrings.config">
       <SubType>Designer</SubType>
     </Content>

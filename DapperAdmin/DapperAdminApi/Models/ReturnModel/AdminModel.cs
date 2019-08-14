@@ -24,5 +24,10 @@ namespace DapperAdminApi.Models.ReturnModel
         /// 角色名
         /// </summary>
         public string RoleName { get; set; }
+
+        /// <summary>
+        ///注册时间
+        /// </summary>
+        public DateTime RegisteTime { get; set; }
     }
 }

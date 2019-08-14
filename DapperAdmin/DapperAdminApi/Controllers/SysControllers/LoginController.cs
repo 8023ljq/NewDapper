@@ -66,7 +66,8 @@ namespace DapperAdminApi.Controllers.SysControllers
                 {
                     AdminName = String.IsNullOrEmpty(managerModel.Nickname) ? managerModel.Name : managerModel.Nickname,
                     Avatar = managerModel.Avatar,
-                    RoleName = managerroleModel.RoleName
+                    RoleName = managerroleModel.RoleName,
+                    RegisteTime= managerroleModel.AddTime
                 };
 
                 //登录成功报存管理员信息

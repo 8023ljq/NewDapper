@@ -17,7 +17,7 @@ namespace DapperModel
         /// <summary>
         /// 主键Id
         /// </summary>	
-        [RegularExpression(@"^[A-F0-9]{8}(-[A-F0-9]{4}){3}-[A-F0-9]{12}$", ErrorMessage = "5001")]
+        [RegularExpression(@"^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$", ErrorMessage = "5000")]
         public string Id { get; set; }
 
         /// <summary>
@@ -30,14 +30,12 @@ namespace DapperModel
         /// 用户名
         /// </summary>	
         [Required(ErrorMessage = "3001")]
-        [RegularExpression(@"^[A-Za-z0-9]{4,16}$", ErrorMessage = "5001")]
+        [RegularExpression(@"^[A-Za-z]{4,16}$", ErrorMessage = "5001")]
         public string Name { get; set; }
 
         /// <summary>
-        /// 登录密码
+        /// 登录密码(添加时单独验证)
         /// </summary>	
-        [Required(ErrorMessage = "3002")]
-        [RegularExpression(@"^[A-Za-z0-9]{6,16}$", ErrorMessage = "5002")]
         public string Password { get; set; }
  
         /// <summary>

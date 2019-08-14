@@ -73,3 +73,4 @@ namespace DapperAdminApi.Controllers.Common
         }
     }
 }
+

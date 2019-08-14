@@ -80,7 +80,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 var IsValidStr = ValidatetionMethod.IsValid(managerModel);
                 if (!IsValidStr.IsVaild)
                 {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_200));
+                    return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
                 }
                 //检查主键
                 if (String.IsNullOrEmpty(managerModel.Id))
