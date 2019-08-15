@@ -20,5 +20,7 @@ namespace DapperCommonMethod.CommonConfig
         public static string BankNameApi = "https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&amp;cardNo=##&amp;cardBinCheck=true";
 
         #endregion
+
+        public static string PublicPwd = "a123456";
     }
 }

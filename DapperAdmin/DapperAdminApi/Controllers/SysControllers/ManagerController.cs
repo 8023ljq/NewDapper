@@ -1,6 +1,7 @@
 ﻿using DapperAdminApi.App_Start;
 using DapperAdminApi.Common.Help;
 using DapperBLL.Sys_BLL;
+using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperModel;
@@ -83,13 +84,13 @@ namespace DapperAdminApi.Controllers.SysControllers
                     return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
                 }
                 //检查主键
-                if (String.IsNullOrEmpty(managerModel.Id))
-                {
-                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
-                }
+                //if (String.IsNullOrEmpty(managerModel.Id))
+                //{
+                //    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
+                //}
 
-                Sys_Manager manager= managerdBLL.GetModelById<Sys_Manager>(managerModel.Id);
-                if (manager==null)
+                Sys_Manager manager = managerdBLL.GetModelById<Sys_Manager>(managerModel.Id);
+                if (manager == null)
                 {
                     return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
                 }
@@ -99,6 +100,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 manager.Nickname = managerModel.Nickname;
                 manager.Phone = managerModel.Phone;
                 manager.Email = managerModel.Email;
+                manager.Remarks = managerModel.Remarks;
                 manager.UpdateUserId = GetUserId;
                 manager.UpdateTime = DateTime.Now;
 
@@ -111,12 +113,78 @@ namespace DapperAdminApi.Controllers.SysControllers
                 {
                     return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
                 }
-               
             }
             catch (Exception ex)
             {
                 WriteLogMethod.WriteLogs(ex);
                 return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+            }
+        }
+
+        /// <summary>
+        /// 添加管理员
+        /// </summary>
+        /// <param name="managerModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("addmanagerinfo")]
+        public IHttpActionResult AddManagerInfo(Sys_Manager managerModel)
+        {
+            //数据格式验证
+            managerModel.Id = Guid.NewGuid().ToString();
+            var IsValidStr = ValidatetionMethod.IsValid(managerModel);
+            if (!IsValidStr.IsVaild)
+            {
+                return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
+            }
+
+            managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
+            managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
+            managerModel.AddUserId = GetUserId;
+            managerModel.AddTime = DateTime.Now;
+            managerModel.IsLocking = false;
+            managerModel.IsDelete = false;
+
+            bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
+            if (bo)
+            {
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+            }
+            else
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
+            }
+        }
+
+        /// <summary>
+        /// 启用或停用管理员
+        /// </summary>
+        /// <param name="ManagerId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("disorenamanager")]
+        public IHttpActionResult DisOrEnaManager(string mangaerId)
+        {
+            if (!RegexUtilsMethod.CheckGuID(mangaerId))
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_400));
+            }
+
+            Sys_Manager manager = managerdBLL.GetModelById<Sys_Manager>(mangaerId);
+            if (manager == null)
+            {
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
+            }
+            manager.IsLocking = !manager.IsLocking;
+
+            bool bo = managerdBLL.UpdateModel<Sys_Manager>(manager);
+            if (bo)
+            {
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+            }
+            else
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
             }
         }
     }

@@ -78,7 +78,7 @@ namespace DapperModel
         /// <summary>
         /// 最后一次登录时间
         /// </summary>	
-        public DateTime LastLoginTime { get; set; }
+        public DateTime? LastLoginTime { get; set; }
  
         /// <summary>
         /// 添加人
@@ -98,7 +98,7 @@ namespace DapperModel
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
  
         /// <summary>
         /// 是否锁定(0:否1:是)

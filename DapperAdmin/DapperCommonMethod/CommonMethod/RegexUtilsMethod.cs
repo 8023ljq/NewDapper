@@ -93,6 +93,17 @@ namespace DapperCommonMethod.CommonMethod
         }
 
         /// <summary>
+        /// 验证GuId
+        /// </summary>
+        /// <param name="GuID"></param>
+        /// <returns></returns>
+        public static bool CheckGuID(string GuID)
+        {
+            Regex reg = new Regex(@"^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$");
+            return reg.IsMatch(GuID);
+        }
+
+        /// <summary>
         /// Author：Geek Dog  Content：sql注入验证 AddTime：2019-2-13 18:06:29 
         /// </summary>
         /// <param name="SqlStr"></param>
