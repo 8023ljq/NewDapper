@@ -176,7 +176,7 @@ namespace DapperAdminApi.Controllers.SysControllers
                 using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
                 {
                     //后台用户申请(续费)记录
-                    dapperHelps.ExecuteInsert(new Sys_Manager()
+                    dapperHelps.ExecuteInsertGuid(new Sys_Manager()
                     {
                         RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter),
                         Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode),
@@ -187,17 +187,19 @@ namespace DapperAdminApi.Controllers.SysControllers
                     }, tran);
 
                     tran.Commit();
-                }
 
-                bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
-                if (bo)
-                {
                     return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
                 }
-                else
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
-                }
+
+                //bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
+                //if (bo)
+                //{
+                //    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+                //}
+                //else
+                //{
+                //    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
+                //}
             }
             catch (Exception ex)
             {
