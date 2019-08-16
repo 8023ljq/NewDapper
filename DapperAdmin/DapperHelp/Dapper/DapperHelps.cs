@@ -30,10 +30,17 @@ namespace DapperHelp.Dapper
 
         SqlConnection sqlconn = new SqlConnection(writesqlconnection);
 
+        public  IDbConnection GetOpenConnection()
+        {
+            var conn = new SqlConnection(readsqlconnection);
+            conn.Open();
+            return conn;
+        }
+
         /// <summary>
         /// 打开数据库连接
         /// </summary>
-        private void OpenConnect(IDbConnection conn)
+        private  void OpenConnect(IDbConnection conn)
         {
             if (conn.State == ConnectionState.Closed)
             {
@@ -47,6 +54,7 @@ namespace DapperHelp.Dapper
                 }
             }
         }
+
         /// <summary>
         /// 关闭数据库连接 SqlConnection
         /// </summary>
@@ -519,6 +527,8 @@ namespace DapperHelp.Dapper
                 return conn.Query<T>(execSql, param, commandTimeout: commandTimeout).ToList();
             }
         }
+
+
 
         #region 扩展
 

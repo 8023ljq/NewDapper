@@ -4,8 +4,10 @@ using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
+using DapperHelp.Dapper;
 using DapperModel;
 using DapperModel.CommonModel;
+using DapperModel.ViewModel.DBViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace DapperAdminApi.Controllers.SysControllers
             try
             {
                 string selectStr = $@"select B.RoleName,A.* from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
-                List<Sys_Manager> managersList = managerdBLL.GetPageJoinList<Sys_Manager>(selectStr, pageModel);
+                List<Sys_ManagerViewModel> managersList = managerdBLL.GetPageJoinList<Sys_ManagerViewModel>(selectStr, pageModel);
                 //List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
                 return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = pageModel }));
             }
@@ -130,29 +132,77 @@ namespace DapperAdminApi.Controllers.SysControllers
         [Route("addmanagerinfo")]
         public IHttpActionResult AddManagerInfo(Sys_Manager managerModel)
         {
-            //数据格式验证
-            managerModel.Id = Guid.NewGuid().ToString();
-            var IsValidStr = ValidatetionMethod.IsValid(managerModel);
-            if (!IsValidStr.IsVaild)
+            try
             {
-                return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
-            }
+                //数据格式验证
+                managerModel.Id = Guid.NewGuid().ToString();
+                var IsValidStr = ValidatetionMethod.IsValid(managerModel);
+                if (!IsValidStr.IsVaild)
+                {
+                    return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
+                }
 
-            managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
-            managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
-            managerModel.AddUserId = GetUserId;
-            managerModel.AddTime = DateTime.Now;
-            managerModel.IsLocking = false;
-            managerModel.IsDelete = false;
+                List<Sys_Manager> ManagerList = managerdBLL.GetList<Sys_Manager>("(Name=@Name or Nickname=@Nickname or Phone=@Phone or Email=@Email)", managerModel);
 
-            bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
-            if (bo)
-            {
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+                if (ManagerList.Find(p => p.Name == managerModel.Name) != null)
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1009));
+                }
+
+                if (ManagerList.Find(p => p.Nickname == managerModel.Nickname) != null)
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1010));
+                }
+
+                if (ManagerList.Find(p => p.Phone == managerModel.Phone) != null)
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1011));
+                }
+
+                if (ManagerList.Find(p => p.Email == managerModel.Email) != null)
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1012));
+                }
+
+                managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
+                managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
+                managerModel.AddUserId = GetUserId;
+                managerModel.AddTime = DateTime.Now;
+                managerModel.IsLocking = false;
+                managerModel.IsDelete = false;
+
+                DapperHelps dapperHelps = new DapperHelps();
+
+                using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
+                {
+                    //后台用户申请(续费)记录
+                    dapperHelps.ExecuteInsert(new Sys_Manager()
+                    {
+                        RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter),
+                        Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode),
+                        AddUserId = GetUserId,
+                        AddTime = DateTime.Now,
+                        IsLocking = false,
+                        IsDelete = false
+                    }, tran);
+
+                    tran.Commit();
+                }
+
+                bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
+                if (bo)
+                {
+                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
+                }
+                else
+                {
+                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
+                WriteLogMethod.WriteLogs(ex);
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
             }
         }
 

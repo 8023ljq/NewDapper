@@ -80,13 +80,13 @@ namespace DapperAdminApi.App_Start
 
             if (string.IsNullOrEmpty(token))
             {
-                resultMsg.ResultCode = (int)HttpCodeEnum.Http_1001;
+                resultMsg.ResultCode = (int)HttpCodeEnum.Http_700;
                 resultMsg.ResultMsgs = "您尚未登录,请先登录！";
                 response.Content = new StringContent(JosnHelp.ToJson(resultMsg), Encoding.UTF8, "application/json");
             }
             else if (!redis.KeyExists(token))
             {
-                resultMsg.ResultCode = (int)HttpCodeEnum.Http_500;
+                resultMsg.ResultCode = (int)HttpCodeEnum.Http_700;
                 resultMsg.ResultMsgs = "当前账号已掉线或在另一端登录！";
                 response.Content = new StringContent(JosnHelp.ToJson(resultMsg), Encoding.UTF8, "application/json");
             }

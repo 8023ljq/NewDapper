@@ -218,7 +218,7 @@ namespace DapperBLL.BaseBLL
         {
             return baseDALS.GetList<T>(whereStr, parameter);
         }
-
+        
         /// <summary>
         /// 分页获取列表
         /// </summary>

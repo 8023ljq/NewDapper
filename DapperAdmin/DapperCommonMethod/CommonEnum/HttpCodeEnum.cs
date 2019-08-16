@@ -31,18 +31,18 @@ namespace DapperCommonMethod.CommonEnum
         [Description("服务内部错误")]
         Http_500 = 500,
 
+        /// <summary>
+        /// 登录掉线
+        /// </summary>
+        [Description("登录掉线")]
+        Http_700 = 700,
+
+
         // ******************************************************************************
         // Author：Geek Dog  
         // Content：1000--2999匹配json文件中的key值(一一对应)  
         // AddTime：2019-1-8 16:32:05  
         //*******************************************************************************
-
-        /// <summary>
-        /// 服务内部错误
-        /// </summary>
-        [Description("服务内部错误")]
-        Http_600 = 600,
-
 
         /// <summary>
         /// 登录成功
@@ -91,5 +91,29 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("未找到当前管理员信息")]
         Http_1008 = 1008,
+
+        /// <summary>
+        /// 当前账号已存在
+        /// </summary>
+        [Description("当前账号已存在")]
+        Http_1009 = 1009,
+
+        /// <summary>
+        /// 当前昵称已存在
+        /// </summary>
+        [Description("当前昵称已存在")]
+        Http_1010 = 1010,
+
+        /// <summary>
+        /// 当前联系电话已存在
+        /// </summary>
+        [Description("当前联系电话已存在")]
+        Http_1011 = 1011,
+
+        /// <summary>
+        /// 当前邮箱地址已存在
+        /// </summary>
+        [Description("当邮箱地址已存在")]
+        Http_1012 = 1012,
     }
 }

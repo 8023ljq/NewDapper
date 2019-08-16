@@ -271,7 +271,7 @@ namespace DapperDAL.BaseDAL
           
             return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parameter);
         }
-
+        
         /// <summary>
         /// 分页查询
         /// </summary>
