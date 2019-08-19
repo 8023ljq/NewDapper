@@ -38,6 +38,9 @@ namespace DapperAdminApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             ).RouteHandler = new SessionControllerRouteHandler();
+
+            //添加过滤器
+            config.Filters.Add(new WebApiExceptionFilterAttribute()); 
         }
 
         public class SessionRouteHandler : HttpControllerHandler, IRequiresSessionState

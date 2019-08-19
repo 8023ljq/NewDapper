@@ -22,6 +22,7 @@ namespace DapperAdminApi.Controllers.SysControllers
     /// </summary>
     [ApiAuthorize]
     [RoutePrefix("api/manager")]
+
     public class ManagerController : BaseController
     {
         private ManagerdBLL managerdBLL = new ManagerdBLL();
@@ -34,18 +35,10 @@ namespace DapperAdminApi.Controllers.SysControllers
         [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList(PageModel pageModel)
         {
-            try
-            {
-                string selectStr = $@"select B.RoleName,A.* from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
-                List<Sys_ManagerViewModel> managersList = managerdBLL.GetPageJoinList<Sys_ManagerViewModel>(selectStr, pageModel);
-                //List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = pageModel }));
-            }
-            catch (Exception ex)
-            {
-                WriteLogMethod.WriteLogs(ex);
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
-            }
+            string selectStr = $@"select B.RoleName,A.* from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
+            List<Sys_ManagerViewModel> managersList = managerdBLL.GetPageJoinList<Sys_ManagerViewModel>(selectStr, pageModel);
+            //List<Sys_Manager> managersList = managerdBLL.GetPageList<Sys_Manager>("IsDelete=0", pageModel);
+            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = pageModel }));
         }
 
         /// <summary>
@@ -57,16 +50,8 @@ namespace DapperAdminApi.Controllers.SysControllers
         [Route("getmanagermodel")]
         public IHttpActionResult GetManagerModel(string mangaerId)
         {
-            try
-            {
-                Sys_Manager managerModel = managerdBLL.GetModelById<Sys_Manager>(mangaerId);
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managerModel }));
-            }
-            catch (Exception ex)
-            {
-                WriteLogMethod.WriteLogs(ex);
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
-            }
+            Sys_Manager managerModel = managerdBLL.GetModelById<Sys_Manager>(mangaerId);
+            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managerModel }));
         }
 
         /// <summary>
@@ -77,50 +62,37 @@ namespace DapperAdminApi.Controllers.SysControllers
         [Route("updatemanagerinfo")]
         public IHttpActionResult UpdateManagerInfo(Sys_Manager managerModel)
         {
-            try
+            //检查主键
+            if (String.IsNullOrEmpty(managerModel.Id))
             {
-                //数据格式验证
-                var IsValidStr = ValidatetionMethod.IsValid(managerModel);
-                if (!IsValidStr.IsVaild)
-                {
-                    return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
-                }
-                //检查主键
-                //if (String.IsNullOrEmpty(managerModel.Id))
-                //{
-                //    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
-                //}
-
-                Sys_Manager manager = managerdBLL.GetModelById<Sys_Manager>(managerModel.Id);
-                if (manager == null)
-                {
-                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
-                }
-                manager.RoleId = managerModel.RoleId;
-                manager.Name = managerModel.Name;
-                manager.Avatar = managerModel.Avatar;
-                manager.Nickname = managerModel.Nickname;
-                manager.Phone = managerModel.Phone;
-                manager.Email = managerModel.Email;
-                manager.Remarks = managerModel.Remarks;
-                manager.UpdateUserId = GetUserId;
-                manager.UpdateTime = DateTime.Now;
-
-                bool bo = managerdBLL.UpdateModel<Sys_Manager>(manager);
-                if (bo)
-                {
-                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
-                }
-                else
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
-                }
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
             }
-            catch (Exception ex)
+
+            //数据格式验证
+            var IsValidStr = ValidatetionMethod.IsValid(managerModel);
+            if (!IsValidStr.IsVaild)
             {
-                WriteLogMethod.WriteLogs(ex);
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+                return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
             }
+
+            Sys_Manager manager = managerdBLL.GetModelById<Sys_Manager>(managerModel.Id);
+            if (manager == null)
+            {
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_400));
+            }
+            manager.RoleId = managerModel.RoleId;
+            manager.Name = managerModel.Name;
+            manager.Avatar = managerModel.Avatar;
+            manager.Nickname = managerModel.Nickname;
+            manager.Phone = managerModel.Phone;
+            manager.Email = managerModel.Email;
+            manager.Remarks = managerModel.Remarks;
+            manager.UpdateUserId = GetUserId;
+            manager.UpdateTime = DateTime.Now;
+
+            bool bo = managerdBLL.UpdateModel<Sys_Manager>(manager);
+
+            return bo ? Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200)) : Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
         }
 
         /// <summary>
@@ -132,79 +104,68 @@ namespace DapperAdminApi.Controllers.SysControllers
         [Route("addmanagerinfo")]
         public IHttpActionResult AddManagerInfo(Sys_Manager managerModel)
         {
-            try
+            //数据格式验证
+            managerModel.Id = Guid.NewGuid().ToString();
+            var IsValidStr = ValidatetionMethod.IsValid(managerModel);
+            if (!IsValidStr.IsVaild)
             {
-                //数据格式验证
-                managerModel.Id = Guid.NewGuid().ToString();
-                var IsValidStr = ValidatetionMethod.IsValid(managerModel);
-                if (!IsValidStr.IsVaild)
-                {
-                    return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
-                }
-
-                List<Sys_Manager> ManagerList = managerdBLL.GetList<Sys_Manager>("(Name=@Name or Nickname=@Nickname or Phone=@Phone or Email=@Email)", managerModel);
-
-                if (ManagerList.Find(p => p.Name == managerModel.Name) != null)
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1009));
-                }
-
-                if (ManagerList.Find(p => p.Nickname == managerModel.Nickname) != null)
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1010));
-                }
-
-                if (ManagerList.Find(p => p.Phone == managerModel.Phone) != null)
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1011));
-                }
-
-                if (ManagerList.Find(p => p.Email == managerModel.Email) != null)
-                {
-                    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1012));
-                }
-
-                managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
-                managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
-                managerModel.AddUserId = GetUserId;
-                managerModel.AddTime = DateTime.Now;
-                managerModel.IsLocking = false;
-                managerModel.IsDelete = false;
-
-                DapperHelps dapperHelps = new DapperHelps();
-
-                using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-                {
-                    //后台用户申请(续费)记录
-                    dapperHelps.ExecuteInsertGuid(new Sys_Manager()
-                    {
-                        RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter),
-                        Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode),
-                        AddUserId = GetUserId,
-                        AddTime = DateTime.Now,
-                        IsLocking = false,
-                        IsDelete = false
-                    }, tran);
-
-                    tran.Commit();
-
-                    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
-                }
-
-                //bool bo = managerdBLL.InsertModelGuid<Sys_Manager>(managerModel);
-                //if (bo)
-                //{
-                //    return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
-                //}
-                //else
-                //{
-                //    return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
-                //}
+                return Ok(ReturnHelp.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
             }
-            catch (Exception ex)
+
+            List<Sys_Manager> ManagerList = managerdBLL.GetList<Sys_Manager>("(Name=@Name or Nickname=@Nickname or Phone=@Phone or Email=@Email)", managerModel);
+
+            if (ManagerList.Find(p => p.Name == managerModel.Name) != null)
             {
-                WriteLogMethod.WriteLogs(ex);
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_500));
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1009));
+            }
+
+            if (ManagerList.Find(p => p.Nickname == managerModel.Nickname) != null)
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1010));
+            }
+
+            if (ManagerList.Find(p => p.Phone == managerModel.Phone) != null)
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1011));
+            }
+
+            if (ManagerList.Find(p => p.Email == managerModel.Email) != null)
+            {
+                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1012));
+            }
+
+            managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
+            managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
+            managerModel.AddUserId = GetUserId;
+            managerModel.AddTime = DateTime.Now;
+            managerModel.IsLocking = false;
+            managerModel.IsDelete = false;
+
+            DapperHelps dapperHelps = new DapperHelps();
+
+            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
+            {
+                //添加管理员信息
+                dapperHelps.ExecuteInsertGuid(managerModel, tran);
+
+                dapperHelps.ExecuteInsertGuid(new Sys_Article()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CategoryId = Guid.NewGuid().ToString(),
+                    Title = "测试数据",
+                    ViewCount = 10,
+                    Sort = 1,
+                    AddUserId = GetUserId,
+                    AddTime = DateTime.Now,
+                    IsTop = false,
+                    IsRed = false,
+                    IsPublish = false,
+                    IsDeleted = false
+                }, tran);
+
+                tran.Commit();
+
+                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
             }
         }
 
@@ -230,14 +191,8 @@ namespace DapperAdminApi.Controllers.SysControllers
             manager.IsLocking = !manager.IsLocking;
 
             bool bo = managerdBLL.UpdateModel<Sys_Manager>(manager);
-            if (bo)
-            {
-                return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200));
-            }
-            else
-            {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
-            }
+
+            return bo ? Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200)) : Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_300));
         }
     }
 }
