@@ -32,7 +32,8 @@ namespace DapperAdminApi.Controllers
         /// </summary>
         public string GetToken
         {
-            get {
+            get
+            {
                 return HttpContext.Current.Session["token"].ToString();
             }
         }
@@ -54,6 +55,19 @@ namespace DapperAdminApi.Controllers
             get
             {
                 return redis.StringGet<Sys_Manager>(GetToken).Id;
+            }
+        }
+
+        /// <summary>
+        /// 获取登录IP
+        /// </summary>
+        public string GetLoginIp
+        {
+            get
+            {
+                string strHostName = Dns.GetHostName(); //得到本机的主机名
+                IPHostEntry ipEntry = Dns.GetHostByName(strHostName); //取得本机IP
+                return ipEntry.AddressList[0].ToString();
             }
         }
     }

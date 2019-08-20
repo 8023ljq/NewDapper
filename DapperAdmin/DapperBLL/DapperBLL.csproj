@@ -52,6 +52,10 @@
     <Compile Include="Sys_BLL\MenuBLL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DapperCommonMethod\DapperCommonMethod.csproj">
+      <Project>{E8359DB9-E0C6-4CEC-9247-364F2278A219}</Project>
+      <Name>DapperCommonMethod</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DapperDAL\DapperDAL.csproj">
       <Project>{fa114d67-030c-4c08-b39d-92695148c0ac}</Project>
       <Name>DapperDAL</Name>

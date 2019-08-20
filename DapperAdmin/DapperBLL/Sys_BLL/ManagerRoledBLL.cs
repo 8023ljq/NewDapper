@@ -1,4 +1,10 @@
 ﻿using DapperBLL.BaseBLL;
+using DapperCommonMethod.CommonEnum;
+using DapperCommonMethod.CommonModel;
+using DapperDAL.BaseDAL;
+using DapperModel;
+using DapperModel.CommonModel;
+using DapperModel.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +18,51 @@ namespace DapperBLL.Sys_BLL
     /// </summary>
     public class ManagerRoledBLL : BaseBLLS
     {
+        /// <summary>
+        /// 获取管理员角色下拉框列表
+        /// </summary>
+        /// <returns></returns>
+        public ResultMsg GetRoleSelectList()
+        {
+            ResultMsg resultMsg = new ResultMsg();
 
+            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
+
+            List<RoleSelectViewModel> RoleSelectViewList = new List<RoleSelectViewModel>();
+            if (ManagerRoleList.Count > 0)
+            {
+                foreach (var item in ManagerRoleList)
+                {
+                    RoleSelectViewList.Add(new RoleSelectViewModel
+                    {
+                        value = item.Id,
+                        label = item.RoleName,
+                        disabled = item.IsDelete,
+                    });
+                }
+            }
+
+            resultMsg.ResultCode = (int)HttpCodeEnum.Http_200;
+            resultMsg.ResultData = new { data = RoleSelectViewList };
+
+            return resultMsg;
+        }
+
+        /// <summary>
+        /// 获取所有管理员角色列表
+        /// </summary>
+        /// <param name="pageModel"></param>
+        /// <returns></returns>
+        public ResultMsg GetManagerRoleList(PageModel pageModel)
+        {
+            ResultMsg resultMsg = new ResultMsg();
+
+            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
+
+            resultMsg.ResultCode = (int)HttpCodeEnum.Http_200;
+            resultMsg.ResultData = new { data = ManagerRoleList };
+
+            return resultMsg;
+        }
     }
 }

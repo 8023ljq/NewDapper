@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGeneration", "CodeGener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperAdminApi", "DapperAdminApi\DapperAdminApi.csproj", "{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperSql", "DapperSql\DapperSql.csproj", "{FA72447A-912F-4EAC-98C3-A57ADBEEF972}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BC45A91-E2CD-4A2B-B02C-3E3035CEC816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA72447A-912F-4EAC-98C3-A57ADBEEF972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA72447A-912F-4EAC-98C3-A57ADBEEF972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA72447A-912F-4EAC-98C3-A57ADBEEF972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA72447A-912F-4EAC-98C3-A57ADBEEF972}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

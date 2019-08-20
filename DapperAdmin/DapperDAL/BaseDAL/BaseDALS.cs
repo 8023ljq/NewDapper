@@ -3,6 +3,7 @@ using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperHelp.Dapper;
 using DapperModel.CommonModel;
+using DapperSql.Sys_Sql;
 using System;
 using System.Collections.Generic;
 
@@ -109,7 +110,7 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
-        /// 根据主键删除(主键为string类型)
+        /// 根据主键删除(主键为GUID类型)
         /// </summary>
         /// <param name="array">删除主键数组集合</param>
         /// <returns></returns>
@@ -199,6 +200,24 @@ namespace DapperDAL.BaseDAL
             }
         }
 
+        /// <summary>
+        /// 修改功能(sql语句修改)
+        /// </summary>
+        /// <param name="sqlStr"></param>
+        /// <returns></returns>
+        public int Update(string sqlStr)
+        {
+            try
+            {
+                return dapperHelps.ExecuteSqlInt(sqlStr);
+            }
+            catch (Exception ex)
+            {
+                WriteLogMethod.WriteLogs(ex);
+                return 0;
+            }
+        }
+
         #endregion
 
         #region 查
@@ -216,7 +235,7 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
-        /// 通过主键查询实体(string类型主键)
+        /// 通过主键查询实体(GUID类型主键)
         /// </summary>
         /// <typeparam name="T">泛型实体类</typeparam>
         /// <param name="Id">主键id</param>
@@ -229,49 +248,55 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
-        /// 获取单个实体(条件查询)
+        /// 获取单个实体(sql语句查)
         /// </summary>
-        /// <typeparam name="T">泛型实体类</typeparam>
-        /// <param name="whereStr">查询条件</param>
-        /// <param name="orderByStr">排序条件</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public T GetModel<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public T GetModel<T>(string sqlStr)
         {
-            string sqlstr = string.Format("select * from {0}", typeof(T).Name.ToString());
-            DynamicParameters parameters = new DynamicParameters();
-            sqlstr = DapperSpliceCondition.GetWhereStr(sqlstr, whereStr, orderByStr, out parameters);
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parameters);
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlStr);
         }
 
         /// <summary>
-        /// 获取集合对象
+        /// 获取单个实体(所有字段)
         /// </summary>
-        /// <typeparam name="T">泛型实体</typeparam>
-        /// <param name="whereStr">查询条件</param>
-        /// <param name="orderByStr">排序条件</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereStr"></param>
+        /// <param name="parameter"></param>
         /// <returns></returns>
-        public List<T> GetList<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
-        {
-            string sqlstr = string.Format("select * from {0}", typeof(T).Name.ToString());
-            DynamicParameters parameters = new DynamicParameters();
-            sqlstr = DapperSpliceCondition.GetWhereStr(sqlstr, whereStr, orderByStr, out parameters);
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parameters);
-        }
-
-        /// <summary>
-        /// 获取集合对象
-        /// </summary>
-        /// <typeparam name="T">泛型实体</typeparam>
-        /// <param name="whereStr">查询条件</param>
-        /// <param name="orderByStr">排序条件</param>
-        /// <returns></returns>
-        public List<T> GetList<T>(string whereStr,object parameter)
+        public T GetModelAll<T>(string whereStr, object parameter)
         {
             string sqlstr = string.Format("select * from {0} where {1}", typeof(T).Name.ToString(), whereStr);
-          
+
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parameter);
+        }
+
+        /// <summary>
+        /// 获取集合对象(sql语句查询)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlStr"></param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string sqlStr)
+        {
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlStr);
+        }
+
+        /// <summary>
+        /// 获取集合对象(所有字段)
+        /// </summary>
+        /// <typeparam name="T">泛型实体</typeparam>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="orderByStr">排序条件</param>
+        /// <returns></returns>
+        public List<T> GetListAll<T>(string whereStr, string orderbystr = null, object parameter= null)
+        {
+            string sqlstr = string.Format("select * from {0} where {1} order by {2}", typeof(T).Name.ToString(), whereStr, orderbystr == null ? "Id" : orderbystr);
+
             return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parameter);
         }
-        
+
         /// <summary>
         /// 分页查询
         /// </summary>

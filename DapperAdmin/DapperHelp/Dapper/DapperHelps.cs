@@ -528,8 +528,6 @@ namespace DapperHelp.Dapper
             }
         }
 
-
-
         #region 扩展
 
         /// <summary>

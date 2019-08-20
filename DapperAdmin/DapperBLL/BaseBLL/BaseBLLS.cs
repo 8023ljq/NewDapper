@@ -12,7 +12,7 @@ namespace DapperBLL.BaseBLL
     /// </summary>
     public class BaseBLLS
     {
-        private BaseDALS baseDALS = new BaseDALS();
+        public BaseDALS baseDALS = new BaseDALS();
 
         #region 增
 
@@ -129,7 +129,7 @@ namespace DapperBLL.BaseBLL
         }
 
         /// <summary>
-        /// 根据主键删除(主键为string类型)
+        /// 根据主键删除(主键为GUID类型)
         /// </summary>
         /// <param name="array">删除主键数组集合</param>
         /// <returns></returns>
@@ -157,6 +157,39 @@ namespace DapperBLL.BaseBLL
             return baseDALS.UpdateModel(Model);
         }
 
+        /// <summary>
+        /// 批量更新实体,返回更新状态
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="List"></param>
+        /// <returns></returns>
+        public bool UpdateList<T>(List<T> List) where T : class
+        {
+            return baseDALS.UpdateList(List);
+        }
+
+        /// <summary>
+        /// 批量修改返回成功和失败的条数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="List"></param>
+        /// <param name="ErrorCount"></param>
+        /// <returns></returns>
+        public int UpdateList<T>(List<T> List, out int ErrorCount) where T : class
+        {
+            return baseDALS.UpdateList(List, out ErrorCount);
+        }
+
+        /// <summary>
+        /// 修改功能(sql语句修改)
+        /// </summary>
+        /// <param name="sqlStr"></param>
+        /// <returns></returns>
+        public int Update(string sqlStr)
+        {
+            return baseDALS.Update(sqlStr);
+        }
+
         #endregion
 
         #region 查
@@ -173,7 +206,7 @@ namespace DapperBLL.BaseBLL
         }
 
         /// <summary>
-        /// 通过主键查询实体(string类型主键)
+        /// 通过主键查询实体(GUID类型主键)
         /// </summary>
         /// <typeparam name="T">泛型实体类</typeparam>
         /// <param name="Id">主键id</param>
@@ -184,41 +217,51 @@ namespace DapperBLL.BaseBLL
         }
 
         /// <summary>
-        /// 获取单个实体(条件查询)
+        /// 获取单个实体(sql语句查)
         /// </summary>
-        /// <typeparam name="T">泛型实体</typeparam>
-        /// <param name="whereStr">查询条件</param>
-        /// <param name="orderByStr">排序条件</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public T GetModel<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public T GetModel<T>(string sqlStr)
         {
-            return baseDALS.GetModel<T>(whereStr, orderByStr);
+            return baseDALS.GetModel<T>(sqlStr);
         }
 
         /// <summary>
-        /// 获取集合对象(条件查询)
+        /// 获取单个实体(所有字段)
         /// </summary>
-        /// <typeparam name="T">泛型实体</typeparam>
-        /// <param name="whereStr">查询条件</param>
-        /// <param name="orderByStr">排序条件</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereStr"></param>
+        /// <param name="parameter"></param>
         /// <returns></returns>
-        public List<T> GetList<T>(Dictionary<string, WhereModel> whereStr, Dictionary<string, OrderByModel> orderByStr)
+        public T GetModelAll<T>(string whereStr, object parameter = null)
         {
-            return baseDALS.GetList<T>(whereStr, orderByStr);
+            return baseDALS.GetModelAll<T>(whereStr, parameter);
         }
 
         /// <summary>
-        /// 获取集合对象(条件查询)
+        /// 获取集合对象(sql语句查询)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlStr"></param>
+        /// <returns></returns>
+        public List<T> GetList<T>(string sqlStr)
+        {
+            return baseDALS.GetList<T>(sqlStr);
+        }
+
+        /// <summary>
+        /// 获取集合对象(所有字段)
         /// </summary>
         /// <typeparam name="T">泛型实体</typeparam>
         /// <param name="whereStr">查询条件</param>
         /// <param name="orderByStr">排序条件</param>
         /// <returns></returns>
-        public List<T> GetList<T>(string whereStr, object parameter = null)
+        public List<T> GetListAll<T>(string whereStr, string orderbystr = null, object parameter = null)
         {
-            return baseDALS.GetList<T>(whereStr, parameter);
+            return baseDALS.GetListAll<T>(whereStr, orderbystr, parameter);
         }
-        
+
         /// <summary>
         /// 分页获取列表
         /// </summary>
