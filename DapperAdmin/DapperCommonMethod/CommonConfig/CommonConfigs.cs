@@ -21,6 +21,9 @@ namespace DapperCommonMethod.CommonConfig
 
         #endregion
 
+        /// <summary>
+        /// 系统默认密码
+        /// </summary>
         public static string PublicPwd = "a123456";
     }
 }

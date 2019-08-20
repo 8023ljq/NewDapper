@@ -65,6 +65,7 @@
     <Compile Include="CommonMethod\EnumMethod.cs" />
     <Compile Include="CommonMethod\ExpandMethod.cs" />
     <Compile Include="CommonMethod\RegexUtilsMethod.cs" />
+    <Compile Include="CommonMethod\ReturnHelpMethod.cs" />
     <Compile Include="CommonMethod\ValidatetionMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

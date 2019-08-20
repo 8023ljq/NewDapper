@@ -68,6 +68,10 @@
       <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
       <Name>DapperModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DapperSql\DapperSql.csproj">
+      <Project>{FA72447A-912F-4EAC-98C3-A57ADBEEF972}</Project>
+      <Name>DapperSql</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
