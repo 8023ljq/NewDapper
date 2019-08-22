@@ -31,16 +31,29 @@ namespace DapperAdminApi.Controllers.Text
         [Route("addmenu")]
         public IHttpActionResult AddMenu()
         {
-            ManagerdBLL managerdBLL = new ManagerdBLL();
+            MenuBLL menuBLL = new MenuBLL();
 
-            string Key = "5D929524E066B8EEBAB756364775AACC4F0F16B5A5E5FD8DE970A0F0F2AE4E42A5274795E5C2684D";
+            Sys_Menu menu = new Sys_Menu()
+            {
+                Id = Guid.NewGuid().ToString(),
+                ParentId = "0",
+                FullName = "测试菜单",
+                Layers = 1,
+                IconUrl = "",
+                AddressUrl = "",
+                Sort = 12,
+                Purview = "",
+                IsShow = true,
+                IsDefault = true,
+                AddUserId = "",
+                AddTime = DateTime.Now,
+                UpdateUserId = "",
+                UpdateTime = DateTime.Now,
+                IsDelete = false,
+                Remarks = "",
+            };
 
-            Sys_Manager managerModel = managerdBLL.GetModelAll<Sys_Manager>("Id=@Id", new { Id = "524eed52-1a33-40ca-9a70-1c621c8d2640" });
-
-            managerModel.IsLocking = false;
-
-            redis.StringSet(Key, managerModel, TimeSpan.FromMinutes(30));
-
+            menuBLL.InsertModelGuid(menu);
 
             return Ok();
         }

@@ -46,7 +46,6 @@
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
-    <Compile Include="ExpandModel\Sys_Model\Sys_Menu.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Manager.cs" />
@@ -54,7 +53,9 @@
     <Compile Include="DBModel\Sys_Model\Sys_Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextModel\Text.cs" />
+    <Compile Include="ViewModel\DBViewModel\Sys_ManagerRoleViewModel.cs" />
     <Compile Include="ViewModel\DBViewModel\Sys_ManagerViewModel.cs" />
+    <Compile Include="ViewModel\DBViewModel\Sys_MenuViewModel.cs" />
     <Compile Include="ViewModel\RoleSelectViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

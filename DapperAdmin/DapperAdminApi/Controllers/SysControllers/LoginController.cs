@@ -1,5 +1,4 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperAdminApi.Common.Help;
 using DapperAdminApi.Models.RequestModel;
 using DapperAdminApi.Models.ReturnModel;
 using DapperBLL.Sys_BLL;
@@ -34,7 +33,7 @@ namespace DapperAdminApi.Controllers.SysControllers
             var IsValidStr = ValidatetionMethod.IsValid(Model);
             if (!IsValidStr.IsVaild)
             {
-                return Ok(ReturnHelp.ReturnError(IsValidStr.ErrorMembers));
+                return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
             }
 
             Sys_Manager managerModel = managerdBLL.GetModelAll<Sys_Manager>("Name=@Name", new { Name = Model.UserName });
@@ -42,14 +41,14 @@ namespace DapperAdminApi.Controllers.SysControllers
             //检查用户是否存在
             if (managerModel == null)
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1002));
+                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1002));
             }
 
             //检查密码
             string PassWord = DESEncryptMethod.Encrypt(Model.PassWord, managerModel.RandomCode);
             if (PassWord != managerModel.Password)
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1002));
+                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1002));
             }
 
             //查询用户角色
@@ -80,7 +79,7 @@ namespace DapperAdminApi.Controllers.SysControllers
             redis.StringSet(Token, managerModel, TimeSpan.FromMinutes(30));
             managerdBLL.UpdateModel<Sys_Manager>(managerModel);
 
-            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token }));
+            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token }));
         }
 
         /// <summary>
@@ -94,17 +93,17 @@ namespace DapperAdminApi.Controllers.SysControllers
         {
             if (String.IsNullOrEmpty(GetToken))
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1005));
+                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005));
             }
             if (!redis.KeyExists(GetToken))
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1005));
+                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005));
             }
             if (!redis.KeyDelete(GetToken))
             {
-                return Ok(ReturnHelp.ReturnError((int)HttpCodeEnum.Http_1007));
+                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1007));
             }
-            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_1006));
+            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1006));
         }
     }
 }

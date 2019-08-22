@@ -1,7 +1,6 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperAdminApi.Common.Help;
 using DapperBLL.Sys_BLL;
-using DapperCommonMethod.CommonEnum;
+using DapperCommonMethod.CommonMethod;
 using DapperModel.CommonModel;
 using System.Web.Http;
 
@@ -11,7 +10,7 @@ namespace DapperAdminApi.Controllers.Competence
     /// Author：Geek Dog  Content：管理员角色接口 AddTime：2019-8-20 16:23:31  
     /// </summary>
     [ApiAuthorize]
-    [RoutePrefix("api/manager")]
+    [RoutePrefix("api/managerrole")]
     public class ManagerRoleController : BaseController
     {
         private ManagerRoledBLL managerRoledBLL = new ManagerRoledBLL();
@@ -24,7 +23,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getroleselectlist")]
         public IHttpActionResult GetRoleSelectList()
         {
-            return Ok(ReturnHelp.ReturnSuccess(managerRoledBLL.GetRoleSelectList()));
+            return Ok(managerRoledBLL.GetRoleSelectList());
         }
 
         /// <summary>
@@ -33,10 +32,10 @@ namespace DapperAdminApi.Controllers.Competence
         /// <param name="pageModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("getroleselectlist")]
+        [Route("getmanagerrolelist")]
         public IHttpActionResult GetManagerRoleList(PageModel pageModel)
         {
-            return Ok(ReturnHelp.ReturnSuccess(managerRoledBLL.GetManagerRoleList(pageModel)));
+            return Ok(managerRoledBLL.GetManagerRoleList(pageModel));
         }
     }
 }

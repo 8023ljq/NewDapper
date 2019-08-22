@@ -1,16 +1,10 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperAdminApi.Common.Help;
 using DapperBLL.Sys_BLL;
-using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
-using DapperHelp.Dapper;
 using DapperModel;
 using DapperModel.CommonModel;
-using DapperModel.ViewModel.DBViewModel;
-using DapperSql.Sys_Sql;
 using System;
-using System.Collections.Generic;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Competence

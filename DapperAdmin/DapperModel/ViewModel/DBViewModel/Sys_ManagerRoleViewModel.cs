@@ -1,66 +1,33 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace DapperModel
+namespace DapperModel.ViewModel.DBViewModel
 {
     /// <summary>
-    /// 系统菜单
+    /// 管理角色视图实体
     /// </summary>
-    public partial class Sys_Menu
+    public class Sys_ManagerRoleViewModel
     {
-
         /// <summary>
         /// 主键Id
         /// </summary>	
         public string Id { get; set; }
 
         /// <summary>
-        /// 父级Id
+        /// 角色名称
         /// </summary>	
-        public string ParentId { get; set; }
+        public string RoleName { get; set; }
 
         /// <summary>
-        /// 菜单名称
+        /// 角色类型(1:超管2:系管[具体查看项目枚举])
         /// </summary>	
-        public string FullName { get; set; }
+        public int RoleType { get; set; }
 
         /// <summary>
-        /// 菜单层级
-        /// </summary>	
-        public int Layers { get; set; }
-
-        /// <summary>
-        /// 图标地址
-        /// </summary>	
-        public string IconUrl { get; set; }
-
-        /// <summary>
-        /// 连接地址
-        /// </summary>	
-        public string AddressUrl { get; set; }
-
-        /// <summary>
-        /// 排序字段
-        /// </summary>	
-        public int Sort { get; set; }
-
-        /// <summary>
-        /// 操作权限
-        /// </summary>	
-        public string Purview { get; set; }
-
-        /// <summary>
-        /// 是否显示
-        /// </summary>	
-        public bool IsShow { get; set; }
-
-        /// <summary>
-        /// 是否默认
+        /// 是否默认(只可在数据进行修改)
         /// </summary>	
         public bool IsDefault { get; set; }
 
@@ -95,10 +62,18 @@ namespace DapperModel
         public string Remarks { get; set; }
 
         /// <summary>
-        /// 自增标识
+        /// 角色类型Str
         /// </summary>
-        public int NumCode { get; set; }
+        public string RoleTypeStr { get; set; }
+
+        /// <summary>
+        /// 添加人姓名
+        /// </summary>
+        public string AddUserName { get; set; }
+
+        /// <summary>
+        /// 修改人姓名
+        /// </summary>
+        public string UpdateUserName { get; set; }
     }
 }
-
-

@@ -1,10 +1,5 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperAdminApi.Common.Help;
-using DapperAdminApi.Common.Method;
 using DapperBLL.Sys_BLL;
-using DapperCommonMethod.CommonEnum;
-using DapperModel;
-using System.Collections.Generic;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Competence
@@ -19,18 +14,14 @@ namespace DapperAdminApi.Controllers.Competence
         private MenuBLL menuBLL = new MenuBLL();
 
         /// <summary>
-        /// Author：Geek Dog
-        /// Content：获取单个菜单信息
-        /// AddTime：2019-6-20 13:51:55
+        /// Author：Geek Dog  Content：获取单个菜单信息 AddTime：2019-8-21 9:23:54  
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("getmenumodel")]
         public IHttpActionResult GetMenuModel(string menuId)
         {
-            Sys_Menu menuModel = menuBLL.GetModelById<Sys_Menu>(menuId);
-
-            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuModel }));
+            return Ok(menuBLL.GetMenuModel(menuId));
         }
 
         /// <summary>
@@ -41,15 +32,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenulist")]
         public IHttpActionResult GetMenuList()
         {
-            List<Sys_Menu> menuList = menuBLL.GetListAll<Sys_Menu>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
-            List<Sys_Menu> orderlist = new List<Sys_Menu>();
-            orderlist = ApiCommonMethod.GetMenuListNew(menuList, orderlist, null);
-
-            return Ok(ReturnHelp.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = orderlist }));
+            return Ok(menuBLL.GetMenuList());
         }
-
-      
-
-      
     }
 }

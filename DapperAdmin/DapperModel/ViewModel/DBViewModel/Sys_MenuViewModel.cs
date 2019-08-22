@@ -1,19 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace DapperModel
+namespace DapperModel.ViewModel.DBViewModel
 {
-    /// <summary>
-    /// 系统菜单
-    /// </summary>
-    public partial class Sys_Menu
+    public class Sys_MenuViewModel
     {
-
         /// <summary>
         /// 主键Id
         /// </summary>	
@@ -98,7 +92,10 @@ namespace DapperModel
         /// 自增标识
         /// </summary>
         public int NumCode { get; set; }
+
+        /// <summary>
+        /// 下级菜单
+        /// </summary>
+        public List<Sys_MenuViewModel> children { get; set; }
     }
 }
-
-

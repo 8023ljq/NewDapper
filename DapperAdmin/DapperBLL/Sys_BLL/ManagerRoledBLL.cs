@@ -1,10 +1,13 @@
 ﻿using DapperBLL.BaseBLL;
 using DapperCommonMethod.CommonEnum;
+using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperDAL.BaseDAL;
 using DapperModel;
 using DapperModel.CommonModel;
 using DapperModel.ViewModel;
+using DapperModel.ViewModel.DBViewModel;
+using DapperSql.Sys_Sql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,10 +45,7 @@ namespace DapperBLL.Sys_BLL
                 }
             }
 
-            resultMsg.ResultCode = (int)HttpCodeEnum.Http_200;
-            resultMsg.ResultData = new { data = RoleSelectViewList };
-
-            return resultMsg;
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = RoleSelectViewList });
         }
 
         /// <summary>
@@ -57,12 +57,9 @@ namespace DapperBLL.Sys_BLL
         {
             ResultMsg resultMsg = new ResultMsg();
 
-            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
+            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(Sys_ManagerRoleSql.getPageList, pageModel);
 
-            resultMsg.ResultCode = (int)HttpCodeEnum.Http_200;
-            resultMsg.ResultData = new { data = ManagerRoleList };
-
-            return resultMsg;
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = pageModel }); ;
         }
     }
 }

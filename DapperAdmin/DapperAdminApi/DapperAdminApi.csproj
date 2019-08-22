@@ -143,8 +143,6 @@
     <Compile Include="App_Start\ApiAuthorizeAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
-    <Compile Include="Common\Help\ReturnHelp.cs" />
-    <Compile Include="Common\Method\ApiCommonMethod.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\Common\UploadFileController.cs" />
@@ -182,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Common\Help\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperBLL\DapperBLL.csproj">

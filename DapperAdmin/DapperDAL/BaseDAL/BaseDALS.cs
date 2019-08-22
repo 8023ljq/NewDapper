@@ -350,24 +350,24 @@ namespace DapperDAL.BaseDAL
 
             pageModel.count = dapperHelps.ExecuteReaderReturnList<T>(sqlstr).Count;
 
-            if (String.IsNullOrEmpty(orderbystr))
-            {
-                numberStr = $@" , ROW_NUMBER() OVER (ORDER BY A.AddTime DESC) rownum from ";
-            }
-            else
-            {
-                numberStr = $@", ROW_NUMBER() OVER (ORDER BY {orderbystr} DESC) rownum from ";
-            }
+            //if (String.IsNullOrEmpty(orderbystr))
+            //{
+            //    numberStr = $@" , ROW_NUMBER() OVER (ORDER BY A.AddTime DESC) rownum from ";
+            //}
+            //else
+            //{
+            //    numberStr = $@", ROW_NUMBER() OVER (ORDER BY {orderbystr} DESC) rownum from ";
+            //}
 
-            sqlstr = sqlstr.ToUpper();
+            //sqlstr = sqlstr.ToUpper();
 
-            if (!sqlstr.Contains("FROM"))
-            {
-                return List;
-            }
-            string[] sqlArry = sqlstr.Split(new string[] { "FROM" }, StringSplitOptions.RemoveEmptyEntries);
+            //if (!sqlstr.Contains("FROM"))
+            //{
+            //    return List;
+            //}
+            //string[] sqlArry = sqlstr.Split(new string[] { "FROM" }, StringSplitOptions.RemoveEmptyEntries);
 
-            sqlstr = sqlArry[0] + numberStr + sqlArry[1];
+            //sqlstr = sqlArry[0] + numberStr + sqlArry[1];
             string sqlpage = string.Format("SELECT * FROM ( {0}) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum", sqlstr);
 
             parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
