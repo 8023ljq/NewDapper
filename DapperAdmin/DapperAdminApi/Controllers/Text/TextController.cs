@@ -36,7 +36,7 @@ namespace DapperAdminApi.Controllers.Text
                 Layers = 1,
                 IconUrl = "",
                 AddressUrl = "",
-                Sort = 12,
+                Sort = 13,
                 Purview = "",
                 IsShow = true,
                 IsDefault = true,

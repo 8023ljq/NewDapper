@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DapperModel
 {
@@ -91,6 +92,7 @@ namespace DapperModel
         /// <summary>
         /// 自增标识
         /// </summary>
+        [Key]
         public int NumCode { get; set; }
     }
 }
