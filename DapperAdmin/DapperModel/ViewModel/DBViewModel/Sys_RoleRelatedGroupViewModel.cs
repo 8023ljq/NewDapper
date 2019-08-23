@@ -1,11 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DapperModel
+
+namespace DapperModel.ViewModel.DBViewModel
 {
     /// <summary>
-    /// 后台管理员角色表
+    /// 角色与管理员组关联表
     /// </summary>
-    public class Sys_ManagerRole
+    public class Sys_RoleRelatedGroupViewModel
     {
 	     
         /// <summary>
@@ -14,19 +19,14 @@ namespace DapperModel
         public string Id { get; set; }
  
         /// <summary>
-        /// 角色名称
+        /// 组ID
         /// </summary>	
-        public string RoleName { get; set; }
+        public string GroupId { get; set; }
  
         /// <summary>
-        /// 角色类型(1:超管2:系管[具体查看项目枚举])
+        /// 角色ID
         /// </summary>	
-        public int RoleType { get; set; }
- 
-        /// <summary>
-        /// 是否默认(只可在数据进行修改)
-        /// </summary>	
-        public bool IsDefault { get; set; }
+        public string RoleId { get; set; }
  
         /// <summary>
         /// 添加人
@@ -47,16 +47,6 @@ namespace DapperModel
         /// 修改时间
         /// </summary>	
         public DateTime UpdateTime { get; set; }
- 
-        /// <summary>
-        /// 是否删除(0:否1:是)
-        /// </summary>	
-        public bool IsDelete { get; set; }
- 
-        /// <summary>
-        /// 备注
-        /// </summary>	
-        public string Remarks { get; set; }
 
     }
 }

@@ -1,10 +1,18 @@
-namespace DapperModel
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace DapperModel.ViewModel.DBViewModel
 {
     /// <summary>
     /// 文章类别
     /// </summary>
-    public class Sys_ArticleCategory
+    public class Sys_ArticleCategoryViewModel
     {
+	     
         /// <summary>
         /// 主键
         /// </summary>	
@@ -28,12 +36,12 @@ namespace DapperModel
         /// <summary>
         /// 类别深度
         /// </summary>	
-        public int ClassLayer { get; set; }
+        public int? ClassLayer { get; set; }
  
         /// <summary>
         /// 排序
         /// </summary>	
-        public int Sort { get; set; }
+        public int? Sort { get; set; }
  
         /// <summary>
         /// 分类图标
@@ -58,7 +66,7 @@ namespace DapperModel
         /// <summary>
         /// 是否删除
         /// </summary>	
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
 
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sys_Sql\Sys_ManagerRoleSql.cs" />
     <Compile Include="Sys_Sql\Sys_ManagerSql.cs" />
+    <Compile Include="Sys_Sql\Sys_MenuSql.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

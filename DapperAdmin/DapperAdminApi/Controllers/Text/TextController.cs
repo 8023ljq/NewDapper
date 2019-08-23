@@ -1,12 +1,7 @@
-﻿using DapperAdminApi.Models.RequestModel;
-using DapperBLL.Sys_BLL;
+﻿using DapperBLL.Sys_BLL;
 using DapperCacheHelps.RedisHelper;
-using DapperHelp.Dapper;
 using DapperModel;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Web;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Text

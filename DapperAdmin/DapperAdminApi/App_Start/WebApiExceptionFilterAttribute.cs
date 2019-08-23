@@ -32,9 +32,10 @@ namespace DapperAdminApi.App_Start
             resultMsg.ResultCode= HttpStatusCode.InternalServerError;
             resultMsg.ResultMsgs = "服务器配外星人绑架了,开发人员正在解救中！";
 
-            var resp = new HttpResponseMessage()
+            var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
-                Content = new StringContent(JosnHelp.ToJson(resultMsg), Encoding.UTF8, "application/json"),
+                //Content = new StringContent(JosnHelp.ToJson(resultMsg), Encoding.UTF8, "application/json"),
+                Content = new StringContent("服务器配外星人绑架了,开发人员正在解救中！"),
             };
             throw new HttpResponseException(resp);
         }

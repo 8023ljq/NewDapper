@@ -1,6 +1,4 @@
-﻿using Dapper;
-using DapperCommonMethod.CommonModel;
-using DapperDAL.BaseDAL;
+﻿using DapperDAL.BaseDAL;
 using DapperModel.CommonModel;
 using System;
 using System.Collections.Generic;

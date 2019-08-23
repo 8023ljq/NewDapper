@@ -30,6 +30,10 @@ namespace DapperHelp.Dapper
 
         SqlConnection sqlconn = new SqlConnection(writesqlconnection);
 
+        /// <summary>
+        /// 事物操作打开数据库
+        /// </summary>
+        /// <returns></returns>
         public  IDbConnection GetOpenConnection()
         {
             var conn = new SqlConnection(readsqlconnection);

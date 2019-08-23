@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DapperSql.Sys_Sql
+﻿namespace DapperSql.Sys_Sql
 {
     /// <summary>
     /// 管理员查询时调用的sql语句统一存放位置

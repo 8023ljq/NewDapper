@@ -3,13 +3,10 @@ using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperModel;
-using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;
-using System;
+using DapperSql.Sys_Sql;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DapperBLL.Sys_BLL
 {
@@ -24,7 +21,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuList()
         {
-            List<Sys_MenuViewModel> menuList = baseDALS.GetListAll<Sys_MenuViewModel>("IsDelete=@IsDelete", "Layers,Sort", new { IsDelete = 0 });
+            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, new { IsDelete = 0 });
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
             orderlist = GetMenuListNew(menuList, orderlist, null);
 

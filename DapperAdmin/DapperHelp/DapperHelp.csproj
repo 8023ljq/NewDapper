@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dapper\DapperHelps.cs" />
-    <Compile Include="Dapper\DapperSpliceCondition.cs" />
+    <Compile Include="Dapper\DenerateDapperHelps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

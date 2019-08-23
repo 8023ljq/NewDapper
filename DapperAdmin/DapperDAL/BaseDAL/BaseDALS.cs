@@ -1,9 +1,7 @@
 ﻿using Dapper;
 using DapperCommonMethod.CommonMethod;
-using DapperCommonMethod.CommonModel;
 using DapperHelp.Dapper;
 using DapperModel.CommonModel;
-using DapperSql.Sys_Sql;
 using System;
 using System.Collections.Generic;
 
@@ -278,9 +276,9 @@ namespace DapperDAL.BaseDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public List<T> GetList<T>(string sqlStr)
+        public List<T> GetList<T>(string sqlStr, object parameter = null)
         {
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlStr);
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlStr, parameter);
         }
 
         /// <summary>

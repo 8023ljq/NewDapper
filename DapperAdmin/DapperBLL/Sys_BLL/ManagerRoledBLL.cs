@@ -2,17 +2,12 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
-using DapperDAL.BaseDAL;
 using DapperModel;
 using DapperModel.CommonModel;
 using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;
 using DapperSql.Sys_Sql;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DapperBLL.Sys_BLL
 {
