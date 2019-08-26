@@ -1,5 +1,6 @@
+
+using Dapper.Contrib.Extensions;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DapperModel
 {
@@ -8,11 +9,15 @@ namespace DapperModel
     /// </summary>
     public partial class Sys_Menu
     {
-
         /// <summary>
         /// 主键Id
         /// </summary>	
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 自增标识
+        /// </summary>
+        public string GuId { get; set; }
 
         /// <summary>
         /// 父级Id
@@ -88,12 +93,6 @@ namespace DapperModel
         /// 备注
         /// </summary>	
         public string Remarks { get; set; }
-
-        /// <summary>
-        /// 自增标识
-        /// </summary>
-        [Key]
-        public int NumCode { get; set; }
     }
 }
 

@@ -30,13 +30,13 @@ namespace DapperAdminApi.Controllers.Text
 
             Sys_Menu menu = new Sys_Menu()
             {
-                Id = Guid.NewGuid().ToString(),
+                GuId = Guid.NewGuid().ToString(),
                 ParentId = "0",
                 FullName = "测试菜单",
                 Layers = 1,
                 IconUrl = "",
                 AddressUrl = "",
-                Sort = 13,
+                Sort =1,
                 Purview = "",
                 IsShow = true,
                 IsDefault = true,
@@ -48,7 +48,7 @@ namespace DapperAdminApi.Controllers.Text
                 Remarks = "",
             };
 
-            menuBLL.InsertModelGuid(menu);
+            menuBLL.InsertModelInt(menu);
 
             return Ok();
         }
