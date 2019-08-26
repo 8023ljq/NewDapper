@@ -8,7 +8,12 @@ namespace DapperModel.ViewModel.DBViewModel
         /// <summary>
         /// 主键Id
         /// </summary>	
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 自增标识
+        /// </summary>
+        public string GuId { get; set; }
 
         /// <summary>
         /// 父级Id

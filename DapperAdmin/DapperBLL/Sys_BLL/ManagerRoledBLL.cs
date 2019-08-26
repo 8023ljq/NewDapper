@@ -48,13 +48,13 @@ namespace DapperBLL.Sys_BLL
         /// </summary>
         /// <param name="pageModel"></param>
         /// <returns></returns>
-        public ResultMsg GetManagerRoleList(PageModel pageModel)
+        public ResultMsg GetManagerRoleList(SelectModel selectModel)
         {
             ResultMsg resultMsg = new ResultMsg();
 
-            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(Sys_ManagerRoleSql.getPageList, pageModel);
+            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(Sys_ManagerRoleSql.getPageList, selectModel);
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = pageModel }); ;
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = selectModel }); ;
         }
     }
 }

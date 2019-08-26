@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DapperModel.ViewModel
+﻿namespace DapperModel.ViewModel
 {
     /// <summary>
     /// 角色列表下拉框展示数据类

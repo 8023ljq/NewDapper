@@ -26,29 +26,46 @@ namespace DapperAdminApi.Controllers.Text
         [Route("addmenu")]
         public IHttpActionResult AddMenu()
         {
-            MenuBLL menuBLL = new MenuBLL();
+            //MenuBLL menuBLL = new MenuBLL();
 
-            Sys_Menu menu = new Sys_Menu()
+            //Sys_Menu menu = new Sys_Menu()
+            //{
+            //    GuId = Guid.NewGuid().ToString(),
+            //    ParentId = "0",
+            //    FullName = "测试菜单",
+            //    Layers = 1,
+            //    IconUrl = "",
+            //    AddressUrl = "",
+            //    Sort =1,
+            //    Purview = "",
+            //    IsShow = true,
+            //    IsDefault = true,
+            //    AddUserId = "",
+            //    AddTime = DateTime.Now,
+            //    UpdateUserId = "",
+            //    UpdateTime = DateTime.Now,
+            //    IsDelete = false,
+            //    Remarks = "",
+            //};
+
+            //menuBLL.InsertModelInt(menu);
+
+            ManagerGroupBLL managerGroupBLL = new ManagerGroupBLL();
+
+            Sys_ManagerGroup managerGroup = new Sys_ManagerGroup()
             {
-                GuId = Guid.NewGuid().ToString(),
-                ParentId = "0",
-                FullName = "测试菜单",
-                Layers = 1,
-                IconUrl = "",
-                AddressUrl = "",
-                Sort =1,
-                Purview = "",
-                IsShow = true,
-                IsDefault = true,
-                AddUserId = "",
+                Id = Guid.NewGuid().ToString(),
+                GroupName = "administrator",
+                AddUserId = "524eed52-1a33-40ca-9a70-1c621c8d2640",
                 AddTime = DateTime.Now,
-                UpdateUserId = "",
+                UpdateUserId = "524eed52-1a33-40ca-9a70-1c621c8d2640",
                 UpdateTime = DateTime.Now,
+                IsLocking = false,
                 IsDelete = false,
-                Remarks = "",
+                Remarks = "备注信息"
             };
 
-            menuBLL.InsertModelInt(menu);
+            managerGroupBLL.InsertModelGuid<Sys_ManagerGroup>(managerGroup);
 
             return Ok();
         }

@@ -25,9 +25,9 @@ namespace DapperAdminApi.Controllers.Competence
         /// <returns></returns>
         [HttpPost]
         [Route("getmanagerlist")]
-        public IHttpActionResult GetManagerList(PageModel pageModel)
+        public IHttpActionResult GetManagerList(SelectModel selectModel)
         {
-            return Ok(managerdBLL.GetManagerList(pageModel));
+            return Ok(managerdBLL.GetManagerList(selectModel));
         }
 
         /// <summary>

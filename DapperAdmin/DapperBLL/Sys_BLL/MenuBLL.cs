@@ -21,7 +21,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuList()
         {
-            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, new { IsDelete = 0 });
+            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
             orderlist = GetMenuListNew(menuList, orderlist, null);
 
@@ -58,14 +58,14 @@ namespace DapperBLL.Sys_BLL
             {
                 var CounList = menuList.Where(p => p.ParentId == parentid).ToList();
 
-                Sys_MenuViewModel parten = menuList.Find(p => p.Id == parentid);
+                Sys_MenuViewModel parten = menuList.Find(p => p.GuId == parentid);
 
                 List<Sys_MenuViewModel> menus = new List<Sys_MenuViewModel>();
                 foreach (var item in CounList)
                 {
                     menus.Add(item);
                     parten.children = menus;
-                    GetMenuListNew(menuList, sumlist, item.Id);
+                    GetMenuListNew(menuList, sumlist, item.GuId);
                 }
             }
             else
@@ -74,7 +74,7 @@ namespace DapperBLL.Sys_BLL
                 foreach (var item in CounList)
                 {
                     sumlist.Add(item);
-                    GetMenuListNew(menuList, sumlist, item.Id);
+                    GetMenuListNew(menuList, sumlist, item.GuId);
                 }
             }
             return sumlist;

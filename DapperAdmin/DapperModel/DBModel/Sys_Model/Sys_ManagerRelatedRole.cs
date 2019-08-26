@@ -5,7 +5,7 @@ namespace DapperModel
     /// <summary>
     /// 管理员与角色关联表
     /// </summary>
-    public class Sys_ManagerRelatedRoleViewModel
+    public class Sys_ManagerRelatedRole
     {
 	     
         /// <summary>

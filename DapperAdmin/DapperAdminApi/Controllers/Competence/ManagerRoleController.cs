@@ -33,9 +33,9 @@ namespace DapperAdminApi.Controllers.Competence
         /// <returns></returns>
         [HttpPost]
         [Route("getmanagerrolelist")]
-        public IHttpActionResult GetManagerRoleList(PageModel pageModel)
+        public IHttpActionResult GetManagerRoleList(SelectModel selectModel)
         {
-            return Ok(managerRoledBLL.GetManagerRoleList(pageModel));
+            return Ok(managerRoledBLL.GetManagerRoleList(selectModel));
         }
     }
 }

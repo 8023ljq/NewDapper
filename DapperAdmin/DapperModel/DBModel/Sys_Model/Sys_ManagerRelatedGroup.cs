@@ -5,7 +5,7 @@ namespace DapperModel
     /// <summary>
     /// 管理员与管理员组关联表
     /// </summary>
-    public class Sys_ManagerRelatedGroupViewModel
+    public class Sys_ManagerRelatedGroup
     {
 	     
         /// <summary>

@@ -276,8 +276,12 @@ namespace DapperDAL.BaseDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public List<T> GetList<T>(string sqlStr, object parameter = null)
+        public List<T> GetList<T>(string sqlStr, string orderbystr = null, object parameter = null)
         {
+            if (!String.IsNullOrEmpty(orderbystr))
+            {
+                sqlStr += orderbystr;
+            }
             return dapperHelps.ExecuteReaderReturnList<T>(sqlStr, parameter);
         }
 

@@ -25,11 +25,11 @@ namespace DapperBLL.Sys_BLL
         /// </summary>
         /// <param name="pageModel"></param>
         /// <returns></returns>
-        public ResultMsg GetManagerList(PageModel pageModel)
+        public ResultMsg GetManagerList(SelectModel selectModel)
         {
-            List<Sys_ManagerViewModel> managersList = baseDALS.GetPageJoinList<Sys_ManagerViewModel>(Sys_ManagerSql.getPageList, pageModel);
+            List<Sys_ManagerViewModel> managersList = baseDALS.GetPageJoinList<Sys_ManagerViewModel>(Sys_ManagerSql.getPageList, selectModel);
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = pageModel }); ;
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = selectModel }); ;
         }
 
         /// <summary>
