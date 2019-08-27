@@ -26,12 +26,12 @@ namespace DapperBLL.Sys_BLL
 
             List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
 
-            List<RoleSelectViewModel> RoleSelectViewList = new List<RoleSelectViewModel>();
+            List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
             if (ManagerRoleList.Count > 0)
             {
                 foreach (var item in ManagerRoleList)
                 {
-                    RoleSelectViewList.Add(new RoleSelectViewModel
+                    RoleSelectViewList.Add(new SelectViewModel
                     {
                         value = item.Id,
                         label = item.RoleName,

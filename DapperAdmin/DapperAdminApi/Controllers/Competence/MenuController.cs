@@ -19,9 +19,9 @@ namespace DapperAdminApi.Controllers.Competence
         /// <returns></returns>
         [HttpGet]
         [Route("getmenumodel")]
-        public IHttpActionResult GetMenuModel(string menuId)
+        public IHttpActionResult GetMenuModel(string guid)
         {
-            return Ok(menuBLL.GetMenuModel(menuId));
+            return Ok(menuBLL.GetMenuModel(guid));
         }
 
         /// <summary>

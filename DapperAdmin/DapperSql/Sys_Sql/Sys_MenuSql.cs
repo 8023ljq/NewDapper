@@ -15,5 +15,10 @@ namespace DapperSql.Sys_Sql
         /// 查询所有菜单sql
         /// </summary>
         public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete order by Layers,Sort";
+
+        /// <summary>
+        /// 查询单个实体
+        /// </summary>
+        public static string getmodel = "select * from Sys_Menu where GuId=@Guid";
     }
 }

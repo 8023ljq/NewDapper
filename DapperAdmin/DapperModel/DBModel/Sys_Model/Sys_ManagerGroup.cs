@@ -46,12 +46,12 @@ namespace DapperModel
         /// <summary>
         /// 是否锁定(0:否1:是)
         /// </summary>	
-        public bool? IsLocking { get; set; }
+        public bool IsLocking { get; set; }
 
         /// <summary>
         /// 是否删除(0:否1:是)
         /// </summary>	
-        public bool? IsDelete { get; set; }
+        public bool IsDelete { get; set; }
 
         /// <summary>
         /// 备注

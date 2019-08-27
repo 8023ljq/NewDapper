@@ -2,10 +2,12 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
+using DapperModel;
 using DapperModel.CommonModel;
+using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;
+using DapperModel.ViewModel.RequestModel;
 using DapperSql.Sys_Sql;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,7 +30,51 @@ namespace DapperBLL.Sys_BLL
             List<Sys_ManagerGroupViewModel> ManagerGroupList = new List<Sys_ManagerGroupViewModel>();
             ManagerGroupList = GetManagerGroupListNew(managersList, ManagerGroupList, null);
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerGroupList, pageModel= selectModel });
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerGroupList, pageModel = selectModel });
+        }
+
+        /// <summary>
+        /// 获取用户组下拉框列表
+        /// </summary>
+        /// <returns></returns>
+        public ResultMsg GetGroupSelectList()
+        {
+            ResultMsg resultMsg = new ResultMsg();
+
+            List<Sys_ManagerGroup> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerGroup>("IsDelete=@IsDelete and ParentId=@ParentId", null, new { IsDelete = 0, ParentId = "0" });
+
+            List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
+            if (ManagerRoleList.Count > 0)
+            {
+                foreach (var item in ManagerRoleList)
+                {
+                    RoleSelectViewList.Add(new SelectViewModel
+                    {
+                        value = item.Id,
+                        label = item.GroupName,
+                        disabled = item.IsDelete,
+                    });
+                }
+            }
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = RoleSelectViewList });
+        }
+
+        /// <summary>
+        /// 添加用户组操作
+        /// </summary>
+        /// <param name="managerGroup"></param>
+        /// <returns></returns>
+        public ResultMsg AddManagerGroup(AddManagerGroupRequest managerGroup)
+        {
+            Sys_ManagerGroup managerGroupModel = baseDALS.GetModel<Sys_ManagerGroup>("GroupName=@GroupName", null, new { GroupName = managerGroup.GroupName });
+
+            if (managerGroupModel != null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1013);
+            }
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
         }
 
         /// <summary>

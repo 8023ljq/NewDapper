@@ -115,5 +115,11 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("当邮箱地址已存在")]
         Http_1012 = 1012,
+
+        /// <summary>
+        /// 当前管理组已存在
+        /// </summary>
+        [Description("当前管理组已存在")]
+        Http_1013 = 1013,
     }
 }

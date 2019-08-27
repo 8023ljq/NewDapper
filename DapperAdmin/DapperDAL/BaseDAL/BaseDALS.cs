@@ -251,9 +251,13 @@ namespace DapperDAL.BaseDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public T GetModel<T>(string sqlStr)
+        public T GetModel<T>(string sqlStr, string orderbystr = null, object parameter = null)
         {
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlStr);
+            if (!String.IsNullOrEmpty(orderbystr))
+            {
+                sqlStr += orderbystr;
+            }
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlStr, parameter);
         }
 
         /// <summary>

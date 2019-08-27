@@ -33,9 +33,9 @@ namespace DapperBLL.Sys_BLL
         /// </summary>
         /// <param name="menuId"></param>
         /// <returns></returns>
-        public ResultMsg GetMenuModel(string menuId)
+        public ResultMsg GetMenuModel(string guid)
         {
-            Sys_Menu menuModel = baseDALS.GetModelById<Sys_Menu>(menuId);
+            Sys_Menu menuModel = baseDALS.GetModel<Sys_Menu>(Sys_MenuSql.getmodel,null,new { Guid = guid });
 
             if (menuModel == null)
             {

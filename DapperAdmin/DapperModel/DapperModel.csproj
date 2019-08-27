@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextModel\Text.cs" />
     <Compile Include="ViewModel\DBViewModel\View_RoleRelatedGroupList.cs" />
+    <Compile Include="ViewModel\RequestModel\AddManagerGroupRequest.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleCategoryViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ManagerGroupViewModel.cs" />
@@ -75,10 +76,11 @@
     <Compile Include="ViewModel\SysViewModel\Sys_ManagerViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_MenuViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_RoleRelatedGroupViewModel.cs" />
-    <Compile Include="ViewModel\ShowViewModel\RoleSelectViewModel.cs" />
+    <Compile Include="ViewModel\ReturnViewModel\RoleSelectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
