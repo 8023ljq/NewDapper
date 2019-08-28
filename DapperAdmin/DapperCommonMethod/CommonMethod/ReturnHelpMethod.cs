@@ -24,6 +24,7 @@ namespace DapperCommonMethod.CommonMethod
         {
             ResultMsg msg = new ResultMsg();
             msg.ResultCode = 200;
+            msg.ResultType = "success";
             msg.ResultMsgs = JosnHelp.Readjson(ResultCode.ToString(), LanguageConfig.CN);
             msg.ResultData = Model;
             return msg;
@@ -40,6 +41,7 @@ namespace DapperCommonMethod.CommonMethod
         {
             ResultMsg msg = new ResultMsg();
             msg.ResultCode = ResultCode;
+            msg.ResultType = "error";
             msg.ResultMsgs = JosnHelp.Readjson(ResultCode.ToString(), LanguageConfig.CN);
             msg.ResultData = Model;
             return msg;

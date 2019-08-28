@@ -8,6 +8,7 @@ using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;
 using DapperModel.ViewModel.RequestModel;
 using DapperSql.Sys_Sql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,6 +32,108 @@ namespace DapperBLL.Sys_BLL
             ManagerGroupList = GetManagerGroupListNew(managersList, ManagerGroupList, null);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerGroupList, pageModel = selectModel });
+        }
+
+        /// <summary>
+        /// 添加用户组操作
+        /// </summary>
+        /// <param name="managerGroup"></param>
+        /// <returns></returns>
+        public ResultMsg AddManagerGroup(AddManagerGroupRequest managerGroup)
+        {
+            string ParentId = String.Empty;
+
+            switch (managerGroup.AddType)
+            {
+                case 1://添加组
+                    if (String.IsNullOrEmpty(managerGroup.GroupName))
+                    {
+                        return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
+                    }
+                    ParentId = "0";
+                    break;
+                case 2://添加子级
+                    if (String.IsNullOrEmpty(managerGroup.ParentId))
+                    {
+                        return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
+                    }
+                    var GroupModel = baseDALS.GetModelAll<Sys_ManagerGroup>("Id=@Id", new { Id = managerGroup.ParentId });
+                    if (GroupModel == null)
+                    {
+                        return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1014);
+                    }
+                    ParentId = managerGroup.ParentId;
+                    break;
+                default:
+                    break;
+            }
+
+            var managerGroupModel = baseDALS.GetModelAll<Sys_ManagerGroup>("GroupName=@GroupName", new { GroupName = managerGroup.GroupName });
+
+            if (managerGroupModel != null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1013);
+            }
+
+            Sys_ManagerGroup AddmanagerGroup = new Sys_ManagerGroup();
+            AddmanagerGroup.Id = Guid.NewGuid().ToString();
+            AddmanagerGroup.ParentId = ParentId;
+            AddmanagerGroup.GroupName = managerGroup.GroupName;
+            AddmanagerGroup.AddUserId = managerGroup.AddUserId;
+            AddmanagerGroup.AddTime = DateTime.Now;
+            AddmanagerGroup.IsLocking = false;
+            AddmanagerGroup.IsDelete = false;
+            AddmanagerGroup.Remarks = managerGroup.Remarks;
+
+            string Id = baseDALS.InsertModelGuid<Sys_ManagerGroup>(AddmanagerGroup);
+
+            return !String.IsNullOrEmpty(Id) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Add_600) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Add_601);
+        }
+
+        /// <summary>
+        /// 获取用户组详细信息
+        /// </summary>
+        /// <returns></returns>
+        public ResultMsg GetManagerGroup(string groupid)
+        {
+            if (String.IsNullOrEmpty(groupid))
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
+            }
+
+            var managerGroup = baseDALS.GetModelById<Sys_ManagerGroup>(groupid);
+
+            if (managerGroup == null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
+            }
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managerGroup });
+        }
+
+        /// <summary>
+        /// 修改用户组信息
+        /// </summary>
+        /// <returns></returns>
+        public ResultMsg UpdateManagerGroup(Sys_ManagerGroup managerGroup)
+        {
+            if (!String.IsNullOrEmpty(managerGroup.Id))
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
+            }
+
+            var GroupList = baseDALS.GetListAll<Sys_ManagerGroup>("(Id=@Id or GroupName=@GroupName)", null, new { Id = managerGroup.ParentId, GroupName = managerGroup.GroupName });
+            if (GroupList.Find(p => p.Id == managerGroup.Id) == null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1014);
+            }
+            if (GroupList.Find(p => p.GroupName == managerGroup.GroupName) != null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1013);
+            }
+            bool bo = baseDALS.UpdateModel<Sys_ManagerGroup>(managerGroup);
+
+            return bo? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602): ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
 
         /// <summary>
@@ -58,23 +161,6 @@ namespace DapperBLL.Sys_BLL
             }
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = RoleSelectViewList });
-        }
-
-        /// <summary>
-        /// 添加用户组操作
-        /// </summary>
-        /// <param name="managerGroup"></param>
-        /// <returns></returns>
-        public ResultMsg AddManagerGroup(AddManagerGroupRequest managerGroup)
-        {
-            Sys_ManagerGroup managerGroupModel = baseDALS.GetModel<Sys_ManagerGroup>("GroupName=@GroupName", null, new { GroupName = managerGroup.GroupName });
-
-            if (managerGroupModel != null)
-            {
-                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1013);
-            }
-
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
         }
 
         /// <summary>

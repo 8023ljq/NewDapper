@@ -31,7 +31,7 @@ namespace DapperModel
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
 
         /// <summary>
         /// 修改人
@@ -41,7 +41,7 @@ namespace DapperModel
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
 
         /// <summary>
         /// 是否锁定(0:否1:是)

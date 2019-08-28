@@ -33,17 +33,6 @@ namespace DapperAdminApi.Controllers.Competence
         }
 
         /// <summary>
-        /// 获取用户组下拉框列表
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("getgroupselectlist")]
-        public IHttpActionResult GetGroupSelectList()
-        {
-            return Ok(managerGroupBLL.GetGroupSelectList());
-        }
-
-        /// <summary>
         /// 添加用户组
         /// </summary>
         /// <param name="ManagerGroup">添加组实体类</param>
@@ -52,7 +41,31 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("addmanagergroup")]
         public IHttpActionResult AddManagerGroup(AddManagerGroupRequest ManagerGroup)
         {
+            ManagerGroup.AddUserId = GetUserId;
             return Ok(managerGroupBLL.AddManagerGroup(ManagerGroup));
+        }
+
+        /// <summary>
+        /// 获取用户组
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getmanagergroup")]
+        public IHttpActionResult GetManagerGroup(string groupid)
+        {
+            return Ok(managerGroupBLL.GetManagerGroup(groupid));
+        }
+
+        /// <summary>
+        /// 获取用户组下拉框列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getgroupselectlist")]
+        public IHttpActionResult GetGroupSelectList()
+        {
+            return Ok(managerGroupBLL.GetGroupSelectList());
         }
     }
 }

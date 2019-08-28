@@ -37,12 +37,42 @@ namespace DapperCommonMethod.CommonEnum
         [Description("登录掉线")]
         Http_700 = 700,
 
+        /// <summary>
+        /// 添加成功
+        /// </summary>
+        [Description("添加成功")]
+        Http_Add_600 = 600,
+
+        /// <summary>
+        /// 添加失败
+        /// </summary>
+        [Description("添加失败")]
+        Http_Add_601 = 601,
+
+
+        /// <summary>
+        /// 修改成功
+        /// </summary>
+        [Description("修改成功")]
+        Http_Update_602 = 602,
+
+        /// <summary>
+        /// 修改失败
+        /// </summary>
+        [Description("修改失败")]
+        Http_Update_603 = 603,
 
         // ******************************************************************************
         // Author：Geek Dog  
         // Content：1000--2999匹配json文件中的key值(一一对应)  
         // AddTime：2019-1-8 16:32:05  
         //*******************************************************************************
+
+        /// <summary>
+        /// 请将必填数据填写完整
+        /// </summary>
+        [Description("请将必填数据填写完整")]
+        Http_1000 = 1000,
 
         /// <summary>
         /// 登录成功
@@ -117,9 +147,17 @@ namespace DapperCommonMethod.CommonEnum
         Http_1012 = 1012,
 
         /// <summary>
-        /// 当前管理组已存在
+        /// 当前管理组名已存在
         /// </summary>
-        [Description("当前管理组已存在")]
+        [Description("当前管理组名已存在")]
         Http_1013 = 1013,
+
+        /// <summary>
+        /// 未找到当前用户组
+        /// </summary>
+        [Description("未找到当前用户组")]
+        Http_1014 = 1014,
+
+
     }
 }
