@@ -58,6 +58,19 @@ namespace DapperAdminApi.Controllers.Competence
         }
 
         /// <summary>
+        /// 修改用户组信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updatemanagergroup")]
+        public IHttpActionResult UpdateManagerGroup(AddManagerGroupRequest managerGroup)
+        {
+            managerGroup.AddUserId = GetUserId;
+            return Ok(managerGroupBLL.UpdateManagerGroup(managerGroup));
+        }
+
+        /// <summary>
         /// 获取用户组下拉框列表
         /// </summary>
         /// <returns></returns>

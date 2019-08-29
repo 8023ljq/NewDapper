@@ -115,25 +115,34 @@ namespace DapperBLL.Sys_BLL
         /// 修改用户组信息
         /// </summary>
         /// <returns></returns>
-        public ResultMsg UpdateManagerGroup(Sys_ManagerGroup managerGroup)
+        public ResultMsg UpdateManagerGroup(AddManagerGroupRequest managerGroup)
         {
-            if (!String.IsNullOrEmpty(managerGroup.Id))
+            if (String.IsNullOrEmpty(managerGroup.Id))
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
             }
 
-            var GroupList = baseDALS.GetListAll<Sys_ManagerGroup>("(Id=@Id or GroupName=@GroupName)", null, new { Id = managerGroup.ParentId, GroupName = managerGroup.GroupName });
-            if (GroupList.Find(p => p.Id == managerGroup.Id) == null)
+            Sys_ManagerGroup ManagerGroupModel = baseDALS.GetModelById<Sys_ManagerGroup>(managerGroup.Id);
+            if (ManagerGroupModel == null)
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1014);
             }
-            if (GroupList.Find(p => p.GroupName == managerGroup.GroupName) != null)
+
+            var GroupList = baseDALS.GetListAll<Sys_ManagerGroup>("Id!=@Id and GroupName=@GroupName", null, new { Id = managerGroup.Id, GroupName = managerGroup.GroupName });
+            if (GroupList.Count() > 0)
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1013);
             }
-            bool bo = baseDALS.UpdateModel<Sys_ManagerGroup>(managerGroup);
 
-            return bo? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602): ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
+            ManagerGroupModel.ParentId = managerGroup.ParentId;
+            ManagerGroupModel.GroupName = managerGroup.GroupName;
+            ManagerGroupModel.Remarks = managerGroup.Remarks;
+            ManagerGroupModel.UpdateTime = DateTime.Now;
+            ManagerGroupModel.UpdateUserId = managerGroup.AddUserId;
+
+            bool bo = baseDALS.UpdateModel<Sys_ManagerGroup>(ManagerGroupModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
 
         /// <summary>
