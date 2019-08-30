@@ -146,6 +146,38 @@ namespace DapperBLL.Sys_BLL
         }
 
         /// <summary>
+        /// 删除用户组信息
+        /// </summary>
+        /// <returns></returns>
+        public ResultMsg DeleteManagerGroup(string groupid)
+        {
+            if (String.IsNullOrEmpty(groupid))
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1000);
+            }
+
+            var managerGroup = baseDALS.GetModelById<Sys_ManagerGroup>(groupid);
+
+            if (managerGroup == null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
+            }
+
+            var managerGroupList = baseDALS.GetListAll<Sys_ManagerGroup>("ParentId=@ParentId and IsLocking=0 and IsLocking=0", null, new { ParentId = managerGroup.Id });
+
+            if (managerGroupList.Count() > 0)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1015);
+            }
+
+            managerGroup.IsLocking = true;
+
+            bool bo = baseDALS.UpdateModel<Sys_ManagerGroup>(managerGroup);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Delete_605);
+        }
+
+        /// <summary>
         /// 获取用户组下拉框列表
         /// </summary>
         /// <returns></returns>

@@ -71,6 +71,17 @@ namespace DapperAdminApi.Controllers.Competence
         }
 
         /// <summary>
+        /// 删除用户组信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("deletemanagergroup")]
+        public IHttpActionResult DeleteManagerGroup(string groupid)
+        {
+            return Ok(managerGroupBLL.DeleteManagerGroup(groupid));
+        }
+
+        /// <summary>
         /// 获取用户组下拉框列表
         /// </summary>
         /// <returns></returns>

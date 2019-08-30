@@ -49,7 +49,6 @@ namespace DapperCommonMethod.CommonEnum
         [Description("添加失败")]
         Http_Add_601 = 601,
 
-
         /// <summary>
         /// 修改成功
         /// </summary>
@@ -61,6 +60,18 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("修改失败")]
         Http_Update_603 = 603,
+
+        /// <summary>
+        /// 删除成功
+        /// </summary>
+        [Description("删除成功")]
+        Http_Delete_604 = 604,
+
+        /// <summary>
+        /// 删除失败
+        /// </summary>
+        [Description("删除失败")]
+        Http_Delete_605 = 605,
 
         // ******************************************************************************
         // Author：Geek Dog  
@@ -158,6 +169,10 @@ namespace DapperCommonMethod.CommonEnum
         [Description("未找到当前用户组")]
         Http_1014 = 1014,
 
-
+        /// <summary>
+        /// 当前用户组尚有下级,请先删除下级用户组
+        /// </summary>
+        [Description("当前用户组尚有下级,请先删除下级用户组")]
+        Http_1015 = 1015,
     }
 }
