@@ -31,7 +31,7 @@ namespace DapperCommonMethod.CommonMethod
         }
 
         /// <summary>
-        /// Author：Geek Dog  Content：普通请求失败 AddTime：2019-1-8 14:29:48  
+        /// Author：Geek Dog  Content：普通请求失败(错误提示) AddTime：2019-1-8 14:29:48  
         /// </summary>
         /// <param name="enumType"></param>
         /// <param name="Model"></param>
@@ -47,6 +47,21 @@ namespace DapperCommonMethod.CommonMethod
             return msg;
         }
 
+        /// <summary>
+        /// Author：Geek Dog  Content：普通请求失败(警告提示) AddTime：2019-9-19 16:52:39  
+        /// </summary>
+        /// <param name="ResultCode"></param>
+        /// <param name="Model"></param>
+        /// <returns></returns>
+        public static ResultMsg ReturnWarning(object ResultCode, dynamic Model = null)
+        {
+            ResultMsg msg = new ResultMsg();
+            msg.ResultCode = ResultCode;
+            msg.ResultType = "warning";
+            msg.ResultMsgs = JosnHelp.Readjson(ResultCode.ToString(), LanguageConfig.CN);
+            msg.ResultData = Model;
+            return msg;
+        }
     }
 }
 

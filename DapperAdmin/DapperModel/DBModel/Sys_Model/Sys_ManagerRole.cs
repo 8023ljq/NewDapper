@@ -17,9 +17,9 @@ namespace DapperModel
         /// 角色名称
         /// </summary>	
         public string RoleName { get; set; }
- 
+
         /// <summary>
-        /// 角色类型(1:超管2:系管[具体查看项目枚举])
+        /// 角色类型(1:超管2:系管[具体查看项目枚举RoleTypeEnum])
         /// </summary>	
         public int RoleType { get; set; }
  
@@ -36,7 +36,7 @@ namespace DapperModel
         /// <summary>
         /// 添加时间
         /// </summary>	
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
  
         /// <summary>
         /// 修改人
@@ -46,7 +46,7 @@ namespace DapperModel
         /// <summary>
         /// 修改时间
         /// </summary>	
-        public DateTime UpdateTime { get; set; }
+        public DateTime? UpdateTime { get; set; }
  
         /// <summary>
         /// 是否删除(0:否1:是)

@@ -3,9 +3,40 @@
   "300": "Request service failed",
   "400": "Request data does not exist",
   "500": "Service internal error",
+  "700": "Login dropped",
+
+  "600": "Add success",
+  "601": "Add failed",
+  "602": "Modified successfully",
+  "603": "Modification failed",
+  "604": "Modified successfully",
+  "605": "Modification failed",
+
+  "1000": "Please fill in the required data",
   "1001": "Login succeeded",
   "1002": "The username or password is incorrect",
   "1003": "Please enter a username",
   "1004": "Please enter your password",
-  "1005": "Please log in first"
+  "1005": "Please log in first",
+  "1006": "Exit success",
+  "1007": "Exit failed",
+  "1008": "The current administrator information was not found",
+  "1009": "The current account already exists",
+  "1010": "The current nickname already exists",
+  "1011": "The current contact number already exists",
+  "1012": "When the email address already exists",
+  "1013": "The current management group name already exists",
+  "1014": "The current user group was not found",
+  "1015": "The current user group still has a subordinate, please delete the subordinate user group first",
+
+  "3000": "Please select an admin role",
+  "3001": "Please fill in the account name",
+  "3002": "Please fill in the login password",
+  "3003": "Please fill in the contact phone",
+  "3004": "Please fill in the role name",
+
+  "5000": "There is a problem with the data format",
+  "5001": "There is a problem with the account name format",
+  "5002": "The login password is in the wrong format",
+  "5003": "Phone format error"
 }
