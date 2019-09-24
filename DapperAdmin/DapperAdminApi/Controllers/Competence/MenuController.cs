@@ -32,6 +32,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenulist")]
         public IHttpActionResult GetMenuList()
         {
+            string NowUserRoleId = GetUserInfo().Id;
             return Ok(menuBLL.GetMenuList());
         }
     }

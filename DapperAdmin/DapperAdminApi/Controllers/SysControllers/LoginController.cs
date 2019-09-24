@@ -52,11 +52,12 @@ namespace DapperAdminApi.Controllers.SysControllers
             }
 
             //查询用户角色
-            Sys_ManagerRole managerroleModel = managerRoledBLL.GetModelById<Sys_ManagerRole>(managerModel.RoleId);
+            Sys_ManagerRole managerroleModel = managerRoledBLL.GetModelById<Sys_ManagerRole>(managerModel.RelationId);
 
             //返回管理员信息
             AdminModel adminModel = new AdminModel()
             {
+                UserId = managerModel.Id,
                 AdminName = String.IsNullOrEmpty(managerModel.Nickname) ? managerModel.Name : managerModel.Nickname,
                 Avatar = managerModel.Avatar,
                 RoleName = managerroleModel.RoleName,

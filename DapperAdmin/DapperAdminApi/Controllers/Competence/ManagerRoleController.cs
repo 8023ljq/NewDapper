@@ -68,9 +68,25 @@ namespace DapperAdminApi.Controllers.Competence
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
-        public IHttpActionResult UpdateNowRole(string roleId)
+        [HttpPost]
+        [Route("updatenowrole")]
+        public IHttpActionResult UpdateNowRole(AddRoleRequest UpdateRoleRequestModel)
         {
-            return Ok(managerRoledBLL.UpdateNowRole(roleId));
+            var UserModel = GetUserInfo();
+            return Ok(managerRoledBLL.UpdateNowRole(UpdateRoleRequestModel, UserModel));
+        }
+
+        /// <summary>
+        /// 修改当前角色权限信息
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updatenowpurview")]
+        public IHttpActionResult UpdateNowPurview(AddRoleRequest UpdateRoleRequestModel)
+        {
+            var UserModel = GetUserInfo();
+            return Ok(managerRoledBLL.UpdateNowPurview(UpdateRoleRequestModel, UserModel));
         }
 
         /// <summary>
@@ -78,9 +94,11 @@ namespace DapperAdminApi.Controllers.Competence
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
+        [HttpGet]
+        [Route("enableordisablerole")]
         public IHttpActionResult EnableOrDisableRole(string roleId)
         {
-            return Ok(managerRoledBLL.EnableOrDisableRole(roleId));
+            return Ok(managerRoledBLL.EnableOrDisableRole(roleId, GetUserInfo()));
         }
 
         /// <summary>
@@ -88,9 +106,11 @@ namespace DapperAdminApi.Controllers.Competence
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
+        [HttpGet]
+        [Route("deletenowrole")]
         public IHttpActionResult DeleteNowRole(string roleId)
         {
-            return Ok(managerRoledBLL.SelectRoleModel(roleId));
+            return Ok(managerRoledBLL.DeleteNowRole(roleId, GetUserInfo()));
         }
     }
 }

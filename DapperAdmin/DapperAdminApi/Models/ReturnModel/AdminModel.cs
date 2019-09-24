@@ -11,6 +11,11 @@ namespace DapperAdminApi.Models.ReturnModel
     public class AdminModel
     {
         /// <summary>
+        /// 管理员主键
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// 管理员账号(Nickname)
         /// </summary>
         public string AdminName { get; set; }

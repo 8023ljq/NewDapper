@@ -57,6 +57,11 @@ namespace DapperModel.ViewModel.DBViewModel
         public bool IsDelete { get; set; }
 
         /// <summary>
+        /// 是否锁定(0:否1:是)
+        /// </summary>	
+        public bool IsLocking { get; set; }
+        
+        /// <summary>
         /// 备注
         /// </summary>	
         public string Remarks { get; set; }

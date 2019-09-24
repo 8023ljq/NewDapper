@@ -21,6 +21,11 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuList()
         {
+            //查询当前用户的菜单权限
+           
+
+
+
             List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
             orderlist = GetMenuListNew(menuList, orderlist, null);

@@ -25,5 +25,15 @@ namespace DapperModel.CommonModel
         /// 总行数
         /// </summary>
         public int count { get; set; }
+
+        /// <summary>
+        /// 从多少行开始
+        /// </summary>
+        public int start { get; set; }
+
+        /// <summary>
+        /// 到多少行结束
+        /// </summary>
+        public int end { get; set; }
     }
 }

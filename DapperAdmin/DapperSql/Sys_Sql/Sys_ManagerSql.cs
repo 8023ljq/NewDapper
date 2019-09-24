@@ -13,6 +13,6 @@
         /// <summary>
         /// 获取管理员分页列表
         /// </summary>
-        public static string getPageList = $@"select B.RoleName,A.* {GetRowNum("A.AddTime", "desc")} from Sys_Manager A left join Sys_ManagerRole B on A.RoleId=B.Id where A.IsDelete=0";
+        public static string getPageList = $@"select B.RoleName,A.* {GetRowNum("A.AddTime", "desc")} from Sys_Manager A left join Sys_ManagerRole B on A.RelationId=B.Id where A.IsDelete=0";
      }
 }

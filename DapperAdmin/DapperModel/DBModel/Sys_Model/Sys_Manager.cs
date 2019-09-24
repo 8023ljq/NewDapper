@@ -19,7 +19,7 @@ namespace DapperModel
         /// 角色ID
         /// </summary>	
         [Required(ErrorMessage = "3000")]
-        public string RoleId { get; set; }
+        public string RelationId { get; set; }
 
         /// <summary>
         /// 用户名

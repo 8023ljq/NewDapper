@@ -75,7 +75,7 @@ namespace DapperCommonMethod.CommonEnum
 
         // ******************************************************************************
         // Author：Geek Dog  
-        // Content：程序错误提示标识(1000--2999匹配json文件中的key值一一对应)  
+        // Content：程序错误提示标识(1000--1999匹配json文件中的key值一一对应)  
         // AddTime：2019-1-8 16:32:05  
         //*******************************************************************************
 
@@ -183,11 +183,35 @@ namespace DapperCommonMethod.CommonEnum
         [Description("当前角色名已存在")]
         Http_1016 = 1016,
 
+        /// <summary>
+        /// 您不是超级管理员,无权修改角色信息
+        /// </summary>
+        [Description("您不是超级管理员,无权修改角色信息")]
+        Http_1017 = 1017,
+
+        /// <summary>
+        /// 当前角色下绑定有管理员,无法删除
+        /// </summary>
+        [Description("当前角色下绑定有管理员,无法删除")]
+        Http_1018 = 1018,
+
+        /// <summary>
+        /// 当期角色属于超级管理员,不允许操作
+        /// </summary>
+        [Description("当期角色属于超级管理员,不允许操作")]
+        Http_1019 = 1019,
+
+        /// <summary>
+        /// 当期角色属于超级管理员,不允许删除
+        /// </summary>
+        [Description("当期角色属于超级管理员,不允许删除")]
+        Http_1020 = 1020,
+
         #endregion
 
         // ******************************************************************************
         // Author：Geek Dog  
-        // Content：实体数据验证错误码(3000-4999匹配json文件中的key值一一对应)  
+        // Content：实体数据验证错误码(2000-2999匹配json文件中的key值一一对应)  
         // AddTime：2019-1-8 16:32:05  
         //*******************************************************************************
 
@@ -197,13 +221,13 @@ namespace DapperCommonMethod.CommonEnum
         /// 请将必填数据填写完整
         /// </summary>
         [Description("请将必填数据填写完整")]
-        Http_Erify_3000 = 3000,
+        Http_Erify_2000 = 2000,
 
         /// <summary>
         /// 长度最大80个字符
         /// </summary>
         [Description("长度最大80个字符")]
-        Http_Erify_3001 = 3001,
+        Http_Erify_2001 = 2001,
 
         #endregion
     }

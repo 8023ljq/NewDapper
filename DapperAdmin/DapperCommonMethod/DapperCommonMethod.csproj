@@ -69,6 +69,7 @@
     <Compile Include="CommonMethod\ReturnHelpMethod.cs" />
     <Compile Include="CommonMethod\ValidatetionMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
+    <Compile Include="CommonSqlMethod\SqlMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

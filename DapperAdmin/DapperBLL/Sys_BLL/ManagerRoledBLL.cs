@@ -2,6 +2,7 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
+using DapperCommonMethod.CommonSqlMethod;
 using DapperHelp.Dapper;
 using DapperModel;
 using DapperModel.CommonModel;
@@ -56,15 +57,25 @@ namespace DapperBLL.Sys_BLL
         {
             ResultMsg resultMsg = new ResultMsg();
 
-            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(Sys_ManagerRoleSql.getPageList, selectModel);
+            string sql = $@"select (select Name from Sys_Manager B where A.AddUserId=b.Id) as AddUserName,
+                                              (select Name from Sys_Manager B where A.UpdateUserId = b.Id) as UpdateUserName,
+                                              A.* {SqlMethod.GetRowNum("A.AddTime", "desc")} from Sys_ManagerRole A where A.IsDelete=0";
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = selectModel }); ;
+            if (!String.IsNullOrEmpty(selectModel.Keyword))
+            {
+                sql += $@" and A.RoleName=@Keyword";
+            }
+
+            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(sql, selectModel);
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = selectModel });
         }
 
         /// <summary>
         /// 添加角色信息
         /// </summary>
         /// <param name="addRoleRequestModel"></param>
+        /// <param name="UserModel"></param>
         /// <returns></returns>
         public ResultMsg AddNewRole(AddRoleRequest addRoleRequestModel, Sys_Manager UserModel)
         {
@@ -86,14 +97,101 @@ namespace DapperBLL.Sys_BLL
                 AddUserId = UserModel.Id,
                 AddTime = DateTime.Now,
                 IsDelete = UserModel.IsDelete,
-                Remarks = UserModel.Remarks
+                Remarks = addRoleRequestModel.Remarks
             };
+
+
+            string Id = baseDALS.InsertModelGuid<Sys_ManagerRole>(managerRoleModel);
+
+            if (!String.IsNullOrEmpty(Id))
+            {
+                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Add_600);
+            }
+            else
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Add_601);
+            }
+        }
+
+        /// <summary>
+        /// 获取当前角色信息
+        /// </summary>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public ResultMsg SelectRoleModel(string RoleId)
+        {
+            Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
+
+            if (!DataCheck(RoleId,out managerRoleModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            List<string> RoleArray = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray }); ;
+        }
+
+        /// <summary>
+        /// 修改当前角色信息
+        /// </summary>
+        /// <param name="UpdateRoleRequestModel"></param>
+        /// <param name="UserModel"></param>
+        /// <returns></returns>
+        public ResultMsg UpdateNowRole(AddRoleRequest UpdateRoleRequestModel, Sys_Manager UserModel)
+        {
+            Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
+
+            if (!DataCheck(UpdateRoleRequestModel.Id, out managerRoleModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+
+            if (!view_ManagerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
+            }
+
+            managerRoleModel.RoleName = UpdateRoleRequestModel.RoleName;
+            managerRoleModel.IsDelete = UpdateRoleRequestModel.IsDelete;
+            managerRoleModel.Remarks = UpdateRoleRequestModel.Remarks;
+
+            return baseDALS.UpdateModel<Sys_ManagerRole>(managerRoleModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603); ;
+        }
+
+        /// <summary>
+        /// 修改当前角色权限信息
+        /// </summary>
+        /// <param name="UpdateRoleRequestModel"></param>
+        /// <param name="UserModel"></param>
+        /// <returns></returns>
+        public ResultMsg UpdateNowPurview(AddRoleRequest UpdateRoleRequestModel, Sys_Manager UserModel)
+        {
+            Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
+
+            if (!DataCheck(UpdateRoleRequestModel.Id, out managerRoleModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+
+            if (!view_ManagerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
+            }
+
+            //检查权限数据
+
+            List<Sys_RolePurview> ExistRolePurviewList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = managerRoleModel.Id });
 
             List<Sys_RolePurview> RolePurviewList = new List<Sys_RolePurview>();
 
-            if (addRoleRequestModel.SelectedArray.Count > 0)
+            if (UpdateRoleRequestModel.SelectedArray.Count > 0)
             {
-                foreach (var item in addRoleRequestModel.SelectedArray)
+                foreach (var item in UpdateRoleRequestModel.SelectedArray)
                 {
                     RolePurviewList.Add(new Sys_RolePurview()
                     {
@@ -113,70 +211,125 @@ namespace DapperBLL.Sys_BLL
 
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.ExecuteInsertGuid(managerRoleModel, tran);
+                if (ExistRolePurviewList.Count > 0)
+                {
+                    dapperHelps.DeleteList(ExistRolePurviewList, tran);
+                }
 
                 dapperHelps.ExecuteInsertList(RolePurviewList, tran);
 
                 tran.Commit();
             }
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
-        }
-
-        /// <summary>
-        /// 获取当前角色信息
-        /// </summary>
-        /// <param name="RoleId"></param>
-        /// <returns></returns>
-        public ResultMsg SelectRoleModel(string RoleId)
-        {
-            if (String.IsNullOrEmpty(RoleId))
-            {
-                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_400);
-            }
-
-            Sys_ManagerRole managerRoleModel = baseDALS.GetModelById<Sys_ManagerRole>(RoleId);
-
-            if (managerRoleModel == null)
-            {
-                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_400);
-            }
-
-            List<string> RoleArray = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
-
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray }); ;
-        }
-
-        /// <summary>
-        /// 修改当前角色信息
-        /// </summary>
-        /// <param name="RoleId"></param>
-        /// <returns></returns>
-        public ResultMsg UpdateNowRole(string RoleId)
-        {
-
-
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602);
         }
 
         /// <summary>
         /// 停用/启用当前角色
         /// </summary>
         /// <param name="RoleId"></param>
+        /// <param name="UserModel"></param>
         /// <returns></returns>
-        public ResultMsg EnableOrDisableRole(string RoleId)
+        public ResultMsg EnableOrDisableRole(string RoleId, Sys_Manager UserModel)
         {
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
+            Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
+
+            if (!DataCheck(RoleId, out managerRoleModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            if (managerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1019);
+            }
+
+            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+
+            if (!view_ManagerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
+            }
+
+            managerRoleModel.IsLocking = managerRoleModel.IsLocking ? false : true;
+
+            return baseDALS.UpdateModel<Sys_ManagerRole>(managerRoleModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_603);
+
         }
 
         /// <summary>
         /// 删除当前角色信息
         /// </summary>
         /// <param name="RoleId"></param>
+        /// <param name="UserModel"></param>
         /// <returns></returns>
-        public ResultMsg DeleteNowRole(string RoleId)
+        public ResultMsg DeleteNowRole(string RoleId, Sys_Manager UserModel)
         {
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
+            Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
+
+            if (!DataCheck(RoleId, out managerRoleModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            if (managerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1019);
+            }
+
+            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+
+            if (!view_ManagerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
+            }
+
+            List<Sys_Manager> ManagerList = baseDALS.GetListAll<Sys_Manager>("RelationId=@RelationId", null, new { RelationId = managerRoleModel.Id });
+
+            if (ManagerList.Count > 0)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1018);
+            }
+
+            List<Sys_RolePurview> ExistRolePurviewList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = managerRoleModel.Id });
+
+            DapperHelps dapperHelps = new DapperHelps();
+
+            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
+            {
+                dapperHelps.DeleteModel(managerRoleModel, tran);
+
+                dapperHelps.DeleteList(ExistRolePurviewList, tran);
+                tran.Commit();
+            }
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604);
         }
+
+        #region 提公方法
+
+        /// <summary>
+        /// 数据检查(参数是否为空,是否查询到数据)
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public bool DataCheck(string RoleId, out Sys_ManagerRole managerRoleModel)
+        {
+            managerRoleModel = new Sys_ManagerRole();
+            if (String.IsNullOrEmpty(RoleId))
+            {
+                return false;
+            }
+
+            managerRoleModel = baseDALS.GetModelById<Sys_ManagerRole>(RoleId);
+
+            if (managerRoleModel == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
     }
 }

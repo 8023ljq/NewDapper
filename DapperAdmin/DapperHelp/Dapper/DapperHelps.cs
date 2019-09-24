@@ -34,7 +34,7 @@ namespace DapperHelp.Dapper
         /// 事物操作打开数据库
         /// </summary>
         /// <returns></returns>
-        public  IDbConnection GetOpenConnection()
+        public IDbConnection GetOpenConnection()
         {
             var conn = new SqlConnection(readsqlconnection);
             conn.Open();
@@ -44,7 +44,7 @@ namespace DapperHelp.Dapper
         /// <summary>
         /// 打开数据库连接
         /// </summary>
-        private  void OpenConnect(IDbConnection conn)
+        private void OpenConnect(IDbConnection conn)
         {
             if (conn.State == ConnectionState.Closed)
             {
@@ -363,6 +363,7 @@ namespace DapperHelp.Dapper
                 using (IDbConnection conn = GetConnection(true))
                 {
                     OpenConnect(conn);
+
                     conn.Insert<T>(list, commandTimeout: commandTimeout);
                 }
             }
@@ -529,6 +530,149 @@ namespace DapperHelp.Dapper
             {
                 OpenConnect(conn);
                 return conn.Query<T>(execSql, param, commandTimeout: commandTimeout).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 删除单个实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool DeleteModel<T>(T item, IDbTransaction transaction = null) where T : class
+        {
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+
+                    return conn.Delete<T>(item, commandTimeout: commandTimeout);
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                return conn.Delete<T>(item, transaction: transaction, commandTimeout: commandTimeout);
+            }
+        }
+
+        /// <summary>
+        /// 批量删除实体(一旦有错立马返回)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool DeleteList<T>(IEnumerable<T> list, IDbTransaction transaction = null) where T : class
+        {
+            bool isOk = true;
+
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+
+                    foreach (var obj in list)
+                    {
+                        isOk = conn.Delete<T>(obj, commandTimeout: commandTimeout);
+                        if (!isOk)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                foreach (var obj in list)
+                {
+                    isOk = conn.Delete<T>(obj, transaction: transaction, commandTimeout: commandTimeout);
+                    if (!isOk)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 批量删除实体(返回成功条数以及错误条数)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public int DeleteListReturnNum<T>(IEnumerable<T> list, out int ErrorCount, IDbTransaction transaction = null) where T : class
+        {
+            bool isOk = false;
+            int SuccessCount = 0;
+            ErrorCount = 0;
+
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+
+                    foreach (var obj in list)
+                    {
+                        isOk = conn.Delete(obj, commandTimeout: commandTimeout);
+                        if (isOk)
+                        {
+                            SuccessCount++;
+                        }
+                        else
+                        {
+                            ErrorCount++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                foreach (var obj in list)
+                {
+                    isOk = conn.Delete(obj, transaction: transaction, commandTimeout: commandTimeout);
+                    if (isOk)
+                    {
+                        SuccessCount++;
+                    }
+                    else
+                    {
+                        ErrorCount++;
+                    }
+                }
+            }
+            return SuccessCount;
+        }
+
+        /// <summary>
+        /// 通过Sql语句删除(自主条件)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool DeleteListBySql<T>(string wherestr, object param = null, IDbTransaction transaction = null) where T : class
+        {
+            string sql = string.Format("delete {0} where {1}", typeof(T).Name.ToString(), wherestr);
+
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+                    return conn.Execute(sql, param, commandTimeout: commandTimeout, commandType: CommandType.Text) > 0 ? true : false;
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                return conn.Execute(sql, param, transaction: transaction, commandTimeout: commandTimeout, commandType: CommandType.Text) > 0 ? true : false;
             }
         }
 

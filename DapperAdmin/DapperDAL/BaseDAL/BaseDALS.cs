@@ -103,7 +103,9 @@ namespace DapperDAL.BaseDAL
             {
                 return false;
             }
-            var result = dapperHelps.ExecuteSqlInt(" DELETE @tableme WHERE Id in @ID ", new { tableme = typeof(T).Name.ToString(), ID = array });
+
+            string sqlstr = string.Format("DELETE {0} WHERE Id in @ID ", typeof(T).Name.ToString());
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = array });
             return result > 0;
         }
 
@@ -118,7 +120,8 @@ namespace DapperDAL.BaseDAL
             {
                 return false;
             }
-            var result = dapperHelps.ExecuteSqlInt(" DELETE @tableme WHERE Id in @ID ", new { tableme = typeof(T).Name.ToString(), ID = array });
+            string sqlstr = string.Format("DELETE {0} WHERE Id in @ID ", typeof(T).Name.ToString());
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = array });
             return result > 0;
         }
 
@@ -296,7 +299,7 @@ namespace DapperDAL.BaseDAL
         /// <param name="whereStr">查询条件</param>
         /// <param name="orderByStr">排序条件</param>
         /// <returns></returns>
-        public List<T> GetListAll<T>(string whereStr, string orderbystr = null, object parameter= null)
+        public List<T> GetListAll<T>(string whereStr, string orderbystr = null, object parameter = null)
         {
             string sqlstr = string.Format("select * from {0} where {1} order by {2}", typeof(T).Name.ToString(), whereStr, orderbystr == null ? "Id" : orderbystr);
 
@@ -354,7 +357,7 @@ namespace DapperDAL.BaseDAL
             List<T> List = new List<T>();
             string numberStr = String.Empty;
 
-            pageModel.count = dapperHelps.ExecuteReaderReturnList<T>(sqlstr).Count;
+            pageModel.count = dapperHelps.ExecuteReaderReturnList<T>(sqlstr, pageModel).Count;
 
             //if (String.IsNullOrEmpty(orderbystr))
             //{
@@ -376,10 +379,14 @@ namespace DapperDAL.BaseDAL
             //sqlstr = sqlArry[0] + numberStr + sqlArry[1];
             string sqlpage = string.Format("SELECT * FROM ( {0}) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum", sqlstr);
 
-            parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
-            parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+            pageModel.start = (pageModel.curPage - 1) * pageModel.pageSize;
+            pageModel.end = pageModel.curPage * pageModel.pageSize;
 
-            List = dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
+            //parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
+            //parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+
+            //List = dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
+            List = dapperHelps.ExecuteReaderReturnList<T>(sqlpage, pageModel);
             return List;
         }
 

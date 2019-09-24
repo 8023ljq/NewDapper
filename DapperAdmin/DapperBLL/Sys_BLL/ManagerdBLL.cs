@@ -61,7 +61,7 @@ namespace DapperBLL.Sys_BLL
             {
                 return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_400);
             }
-            manager.RoleId = managerModel.RoleId;
+            manager.RelationId = managerModel.RelationId;
             manager.Name = managerModel.Name;
             manager.Avatar = managerModel.Avatar;
             manager.Nickname = managerModel.Nickname;
