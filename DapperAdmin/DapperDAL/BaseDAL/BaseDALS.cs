@@ -125,6 +125,23 @@ namespace DapperDAL.BaseDAL
             return result > 0;
         }
 
+        /// <summary>
+        /// 根据主键删除(主键为GUID类型)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public bool DeleteStringId<T>(string Id)
+        {
+            if (String.IsNullOrEmpty(Id))
+            {
+                return false;
+            }
+            string sqlstr = string.Format("DELETE {0} WHERE Id = @ID ", typeof(T).Name.ToString());
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = Id });
+            return result > 0;
+        }
+
         #endregion
 
         #region 改

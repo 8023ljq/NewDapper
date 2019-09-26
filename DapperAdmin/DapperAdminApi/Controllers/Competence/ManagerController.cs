@@ -53,14 +53,14 @@ namespace DapperAdminApi.Controllers.Competence
             //检查主键
             if (String.IsNullOrEmpty(managerModel.Id))
             {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400));
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
             }
 
             //数据格式验证
             var IsValidStr = ValidatetionMethod.IsValid(managerModel);
             if (!IsValidStr.IsVaild)
             {
-                return Ok(ReturnHelpMethod.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
+                return Ok(ReturnHelpMethod.ReturnWarning(int.Parse(IsValidStr.ErrorMembers)));
             }
 
             managerModel.UpdateUserId = GetUserId;
@@ -82,7 +82,7 @@ namespace DapperAdminApi.Controllers.Competence
             var IsValidStr = ValidatetionMethod.IsValid(managerModel);
             if (!IsValidStr.IsVaild)
             {
-                return Ok(ReturnHelpMethod.ReturnError(int.Parse(IsValidStr.ErrorMembers)));
+                return Ok(ReturnHelpMethod.ReturnWarning(int.Parse(IsValidStr.ErrorMembers)));
             }
 
             //补充参数
@@ -102,10 +102,27 @@ namespace DapperAdminApi.Controllers.Competence
         {
             if (!RegexUtilsMethod.CheckGuID(mangaerId))
             {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400));
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
             }
 
             return Ok(managerdBLL.DisOrEnaManager(mangaerId));
+        }
+
+        /// <summary>
+        /// 删除管理员
+        /// </summary>
+        /// <param name="ManagerId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("deletemanager")]
+        public IHttpActionResult DeleteManager(string mangaerId)
+        {
+            if (!RegexUtilsMethod.CheckGuID(mangaerId))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
+            }
+
+            return Ok(managerdBLL.DeleteManager(mangaerId));
         }
     }
 }

@@ -202,10 +202,16 @@ namespace DapperCommonMethod.CommonEnum
         Http_1019 = 1019,
 
         /// <summary>
-        /// 当期角色属于超级管理员,不允许删除
+        /// 该管理员属于顶级管理员,不允许删除
         /// </summary>
-        [Description("当期角色属于超级管理员,不允许删除")]
+        [Description("该管理员属于顶级管理员,不允许删除")]
         Http_1020 = 1020,
+
+        /// <summary>
+        /// 该管理员属于顶级管理员,不允许修改角色信息
+        /// </summary>
+        [Description("该管理员属于顶级管理员,不允许修改角色信息")]
+        Http_1021 = 1021,
 
         #endregion
 

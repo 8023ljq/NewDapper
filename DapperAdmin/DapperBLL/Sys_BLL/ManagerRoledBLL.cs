@@ -2,7 +2,6 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
-using DapperCommonMethod.CommonSqlMethod;
 using DapperHelp.Dapper;
 using DapperModel;
 using DapperModel.CommonModel;
@@ -27,8 +26,6 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetRoleSelectList()
         {
-            ResultMsg resultMsg = new ResultMsg();
-
             List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
 
             List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
@@ -55,11 +52,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetManagerRoleList(SelectModel selectModel)
         {
-            ResultMsg resultMsg = new ResultMsg();
-
-            string sql = $@"select (select Name from Sys_Manager B where A.AddUserId=b.Id) as AddUserName,
-                                              (select Name from Sys_Manager B where A.UpdateUserId = b.Id) as UpdateUserName,
-                                              A.* {SqlMethod.GetRowNum("A.AddTime", "desc")} from Sys_ManagerRole A where A.IsDelete=0";
+            string sql = Sys_ManagerRoleSql.getPageList;
 
             if (!String.IsNullOrEmpty(selectModel.Keyword))
             {
@@ -79,8 +72,6 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg AddNewRole(AddRoleRequest addRoleRequestModel, Sys_Manager UserModel)
         {
-            ResultMsg resultMsg = new ResultMsg();
-
             List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("RoleName=@RoleName", null, addRoleRequestModel);
 
             if (ManagerRoleList.Count > 0)
@@ -311,11 +302,13 @@ namespace DapperBLL.Sys_BLL
         /// <summary>
         /// 数据检查(参数是否为空,是否查询到数据)
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="RoleId"></param>
+        /// <param name="managerRoleModel"></param>
         /// <returns></returns>
         public bool DataCheck(string RoleId, out Sys_ManagerRole managerRoleModel)
         {
             managerRoleModel = new Sys_ManagerRole();
+
             if (String.IsNullOrEmpty(RoleId))
             {
                 return false;

@@ -3,7 +3,6 @@ using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
-using DapperHelp.Dapper;
 using DapperModel;
 using DapperModel.CommonModel;
 using DapperModel.ViewModel.DBViewModel;
@@ -18,8 +17,6 @@ namespace DapperBLL.Sys_BLL
     /// </summary>
     public class ManagerdBLL : BaseBLLS
     {
-        private ResultMsg resultMsg = new ResultMsg();
-
         /// <summary>
         /// 获取管理员列表信息
         /// </summary>
@@ -27,7 +24,14 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetManagerList(SelectModel selectModel)
         {
-            List<Sys_ManagerViewModel> managersList = baseDALS.GetPageJoinList<Sys_ManagerViewModel>(Sys_ManagerSql.getPageList, selectModel);
+            string sql = Sys_ManagerSql.getPageList;
+
+            if (!String.IsNullOrEmpty(selectModel.Keyword))
+            {
+                sql += $@" and (A.Name like @Keyword OR A.Nickname like @Keyword OR A.Phone like @Keyword OR A.Email like @Keyword OR A.LastLoginIP like @Keyword)";
+            }
+
+            List<Sys_ManagerViewModel> managersList = baseDALS.GetPageJoinList<Sys_ManagerViewModel>(sql, selectModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managersList, pageModel = selectModel }); ;
         }
@@ -39,9 +43,9 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetManagerModel(string mangaerId)
         {
-            Sys_Manager managerModel = baseDALS.GetModelById<Sys_Manager>(mangaerId);
+            Sys_Manager managerModel = new Sys_Manager();
 
-            if (managerModel == null)
+            if (!DataCheck(mangaerId, out managerModel))
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
             }
@@ -56,23 +60,28 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg UpdateManagerInfo(Sys_Manager managerModel)
         {
-            Sys_Manager manager = baseDALS.GetModelById<Sys_Manager>(managerModel.Id);
-            if (manager == null)
+            Sys_Manager AddModel = new Sys_Manager();
+
+            if (!DataCheck(managerModel.Id, out AddModel))
             {
-                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_400);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
-            manager.RelationId = managerModel.RelationId;
-            manager.Name = managerModel.Name;
-            manager.Avatar = managerModel.Avatar;
-            manager.Nickname = managerModel.Nickname;
-            manager.Phone = managerModel.Phone;
-            manager.Email = managerModel.Email;
-            manager.Remarks = managerModel.Remarks;
-            manager.UpdateTime = DateTime.Now;
 
-            bool bo = baseDALS.UpdateModel<Sys_Manager>(manager);
+            if (AddModel.IsDefault && AddModel.RelationId != managerModel.RelationId)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1021);
+            }
 
-            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_300);
+            AddModel.RelationId = managerModel.RelationId;
+            AddModel.Name = managerModel.Name;
+            AddModel.Avatar = managerModel.Avatar;
+            AddModel.Nickname = managerModel.Nickname;
+            AddModel.Phone = managerModel.Phone;
+            AddModel.Email = managerModel.Email;
+            AddModel.Remarks = managerModel.Remarks;
+            AddModel.UpdateTime = DateTime.Now;
+
+            return baseDALS.UpdateModel<Sys_Manager>(AddModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
 
         /// <summary>
@@ -86,22 +95,22 @@ namespace DapperBLL.Sys_BLL
 
             if (ManagerList.Find(p => p.Name == managerModel.Name) != null)
             {
-                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1009);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1009);
             }
 
             if (ManagerList.Find(p => p.Nickname == managerModel.Nickname) != null)
             {
-                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1010);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1010);
             }
 
             if (ManagerList.Find(p => p.Phone == managerModel.Phone) != null)
             {
-                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1011);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1011);
             }
 
             if (ManagerList.Find(p => p.Email == managerModel.Email) != null)
             {
-                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1012);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1012);
             }
 
             managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
@@ -110,32 +119,14 @@ namespace DapperBLL.Sys_BLL
             managerModel.IsLocking = false;
             managerModel.IsDelete = false;
 
-            DapperHelps dapperHelps = new DapperHelps();
-
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
+            if (!String.IsNullOrEmpty(baseDALS.InsertModelGuid<Sys_Manager>(managerModel)))
             {
-                //添加管理员信息
-                dapperHelps.ExecuteInsertGuid(managerModel, tran);
-
-                dapperHelps.ExecuteInsertGuid(new Sys_Article()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CategoryId = Guid.NewGuid().ToString(),
-                    Title = "测试数据",
-                    ViewCount = 10,
-                    Sort = 1,
-                    AddUserId = managerModel.AddUserId,
-                    AddTime = DateTime.Now,
-                    IsTop = false,
-                    IsRed = false,
-                    IsPublish = false,
-                    IsDeleted = false
-                }, tran);
-
-                tran.Commit();
+                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Add_600);
             }
-
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
+            else
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Add_601);
+            }
         }
 
         /// <summary>
@@ -145,16 +136,75 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg DisOrEnaManager(string mangaerId)
         {
-            Sys_Manager manager = baseDALS.GetModelById<Sys_Manager>(mangaerId);
-            if (manager == null)
+            Sys_Manager managerModel = new Sys_Manager();
+
+            if (!DataCheck(mangaerId, out managerModel))
             {
-                return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_400);
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
-            manager.IsLocking = !manager.IsLocking;
 
-            bool bo = baseDALS.UpdateModel<Sys_Manager>(manager);
+            managerModel.IsLocking = !managerModel.IsLocking;
 
-            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_300);
+            bool bo = baseDALS.UpdateModel<Sys_Manager>(managerModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
+
+        /// <summary>
+        /// 删除管理员
+        /// </summary>
+        /// <param name="mangaerId"></param>
+        /// <returns></returns>
+        public ResultMsg DeleteManager(string mangaerId)
+        {
+            Sys_Manager AddModel = new Sys_Manager();
+
+            if (!DataCheck(mangaerId, out AddModel))
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            if (AddModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1020);
+            }
+
+            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(mangaerId);
+
+            if (!view_ManagerRoleModel.IsDefault)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
+            }
+
+            return baseDALS.DeleteStringId<Sys_Manager>(mangaerId) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Delete_605);
+        }
+
+        #region 提公方法
+
+        /// <summary>
+        /// 数据检查(参数是否为空,是否查询到数据)
+        /// </summary>
+        /// <param name="mangaerId"></param>
+        /// <param name="managerModel"></param>
+        /// <returns></returns>
+        public bool DataCheck(string mangaerId, out Sys_Manager managerModel)
+        {
+            managerModel = new Sys_Manager();
+
+            if (String.IsNullOrEmpty(mangaerId))
+            {
+                return false;
+            }
+
+            managerModel = baseDALS.GetModelById<Sys_Manager>(mangaerId);
+
+            if (managerModel == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
     }
 }

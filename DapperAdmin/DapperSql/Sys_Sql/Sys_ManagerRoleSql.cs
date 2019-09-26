@@ -10,6 +10,6 @@
         /// </summary>
         public static string getPageList = $@"select (select Name from Sys_Manager B where A.AddUserId=b.Id) as AddUserName,
                                               (select Name from Sys_Manager B where A.UpdateUserId = b.Id) as UpdateUserName,
-                                              A.* {GetRowNum("A.AddTime", "desc")} from Sys_ManagerRole A where A.IsDelete=0 and A.RoleName=@Keyword";
+                                              A.* {GetRowNum("A.AddTime", "desc")} from Sys_ManagerRole A where A.IsDelete=0";
     }
 }
