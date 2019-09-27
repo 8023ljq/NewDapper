@@ -1,30 +1,31 @@
 ﻿using Dapper;
 using DapperCommonMethod.CommonMethod;
+using DapperExtensions;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DapperHelp.Dapper
 {
     /// <summary>
     /// 传入连接字符串连接数据库
     /// </summary>
-    public class DenerateDapperHelps
+    public class LinkMySqlDapperHelps
     {
         //读数据库
-        private static string writesqlconnection ="";
+        private static string writesqlconnection = ConfigurationManager.ConnectionStrings["WriteMySqlData"].ConnectionString;
 
         //写数据库
-        private static string readsqlconnection = "";
+        private static string readsqlconnection = ConfigurationManager.ConnectionStrings["ReadMySqlData"].ConnectionString;
 
         //数据库连接超时时间
         static int commandTimeout = 30;
 
-        SqlConnection sqlconn = new SqlConnection(writesqlconnection);
+        MySqlConnection sqlconn = new MySqlConnection(writesqlconnection);
 
         /// <summary>
         /// 事物操作打开数据库
@@ -32,7 +33,7 @@ namespace DapperHelp.Dapper
         /// <returns></returns>
         public IDbConnection GetOpenConnection()
         {
-            var conn = new SqlConnection(readsqlconnection);
+            var conn = new MySqlConnection(readsqlconnection);
             conn.Open();
             return conn;
         }
@@ -82,9 +83,9 @@ namespace DapperHelp.Dapper
         {
             if (useWriteConn)
             {
-                return new SqlConnection(writesqlconnection);
+                return new MySqlConnection(writesqlconnection);
             }
-            return new SqlConnection(readsqlconnection);
+            return new MySqlConnection(readsqlconnection);
         }
 
 
@@ -140,5 +141,28 @@ namespace DapperHelp.Dapper
             }
         }
 
+        /// <summary>
+        /// 插入实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool ExecuteInsertGuid<T>(T item, string SqlStr, IDbTransaction transaction = null) where T : class
+        {
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+                    return conn.Execute(SqlStr, item, commandTimeout: commandTimeout) > 0 ? true : false;
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                return conn.Execute(SqlStr, commandTimeout: commandTimeout) > 0 ? true : false;
+            }
+        }
     }
 }

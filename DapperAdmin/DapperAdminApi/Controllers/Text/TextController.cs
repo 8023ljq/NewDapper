@@ -1,6 +1,8 @@
 ﻿using DapperBLL.Sys_BLL;
 using DapperCacheHelps.RedisHelper;
+using DapperHelp.Dapper;
 using DapperModel;
+using DapperSql.MySql_SQL;
 using System;
 using System.Web.Http;
 
@@ -50,7 +52,7 @@ namespace DapperAdminApi.Controllers.Text
 
             //menuBLL.InsertModelInt(menu);
 
-            ManagerGroupBLL managerGroupBLL = new ManagerGroupBLL();
+            LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
 
             Sys_ManagerGroup managerGroup = new Sys_ManagerGroup()
             {
@@ -65,7 +67,9 @@ namespace DapperAdminApi.Controllers.Text
                 Remarks = "备注信息"
             };
 
-            managerGroupBLL.InsertModelGuid<Sys_ManagerGroup>(managerGroup);
+
+
+           bool bo= linkMySqlDapper.ExecuteInsertGuid<Sys_ManagerGroup>(managerGroup, Sys_ManagerGroupSql.InsertAllSqlStr);
 
             return Ok();
         }
