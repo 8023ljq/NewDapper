@@ -25,6 +25,11 @@ namespace DapperModel
         public string ParentId { get; set; }
 
         /// <summary>
+        /// 所属资源类型(0菜单1按钮)
+        /// </summary>
+        public int ResourceType { get; set; }
+
+        /// <summary>
         /// 菜单名称
         /// </summary>	
         public string FullName { get; set; }
