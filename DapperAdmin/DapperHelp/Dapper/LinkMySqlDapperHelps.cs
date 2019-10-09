@@ -164,5 +164,30 @@ namespace DapperHelp.Dapper
                 return conn.Execute(SqlStr, commandTimeout: commandTimeout) > 0 ? true : false;
             }
         }
+
+        /// <summary>
+        /// 执行Sql语句返回执行状态
+        /// </summary>
+        /// <param name="Sql"></param>
+        /// <param name="parameter"></param>
+        /// <param name="useWriteConn"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public bool ExecuteSqlReturn(string Sql, object parameter = null, bool useWriteConn = false, IDbTransaction transaction = null)
+        {
+            if (transaction == null)
+            {
+                using (IDbConnection conn = GetConnection(true))
+                {
+                    OpenConnect(conn);
+                    return conn.Execute(Sql, parameter, commandTimeout: commandTimeout) > 0 ? true : false;
+                }
+            }
+            else
+            {
+                var conn = transaction.Connection;
+                return conn.Execute(Sql, parameter, commandTimeout: commandTimeout) > 0 ? true : false;
+            }
+        }
     }
 }

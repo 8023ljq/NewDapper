@@ -1,5 +1,7 @@
 ﻿using DapperBLL.Sys_BLL;
 using DapperCacheHelps.RedisHelper;
+using DapperCommonMethod.CommonEnum;
+using DapperCommonMethod.CommonMethod;
 using DapperHelp.Dapper;
 using DapperModel;
 using DapperSql.MySql_SQL;
@@ -17,8 +19,8 @@ namespace DapperAdminApi.Controllers.Text
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper();
-
+        private RedisHelper redis = new RedisHelper();
+        private LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
         /// <summary>
         /// 添加菜单
         /// </summary>
@@ -28,36 +30,12 @@ namespace DapperAdminApi.Controllers.Text
         [Route("addmenu")]
         public IHttpActionResult AddMenu()
         {
-            //MenuBLL menuBLL = new MenuBLL();
 
-            //Sys_Menu menu = new Sys_Menu()
-            //{
-            //    GuId = Guid.NewGuid().ToString(),
-            //    ParentId = "0",
-            //    FullName = "测试菜单",
-            //    Layers = 1,
-            //    IconUrl = "",
-            //    AddressUrl = "",
-            //    Sort =1,
-            //    Purview = "",
-            //    IsShow = true,
-            //    IsDefault = true,
-            //    AddUserId = "",
-            //    AddTime = DateTime.Now,
-            //    UpdateUserId = "",
-            //    UpdateTime = DateTime.Now,
-            //    IsDelete = false,
-            //    Remarks = "",
-            //};
-
-            //menuBLL.InsertModelInt(menu);
-
-            LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
 
             Sys_ManagerGroup managerGroup = new Sys_ManagerGroup()
             {
                 Id = Guid.NewGuid().ToString(),
-                GroupName = "administrator",
+                GroupName = "administrator123",
                 AddUserId = "524eed52-1a33-40ca-9a70-1c621c8d2640",
                 AddTime = DateTime.Now,
                 UpdateUserId = "524eed52-1a33-40ca-9a70-1c621c8d2640",
@@ -67,12 +45,26 @@ namespace DapperAdminApi.Controllers.Text
                 Remarks = "备注信息"
             };
 
+            bool bo = linkMySqlDapper.ExecuteInsertGuid<Sys_ManagerGroup>(managerGroup, Sys_ManagerGroupSql.InsertAllSqlStr);
 
-
-           bool bo= linkMySqlDapper.ExecuteInsertGuid<Sys_ManagerGroup>(managerGroup, Sys_ManagerGroupSql.InsertAllSqlStr);
-
-            return Ok();
+            return Ok(bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400));
         }
 
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("selectmenu")]
+        public IHttpActionResult SelectMenu(string groupname)
+        {
+            string sql = Sys_ManagerGroupSql.SelectSqlStr;
+            if (!String.IsNullOrEmpty(groupname))
+            {
+                sql += "where groupname=@groupname";
+            }
+
+            var Model = linkMySqlDapper.ExecuteReaderReturnT<Sys_ManagerGroup>(sql, new { groupname = groupname });
+
+            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200,new { data = Model } ));
+        }
     }
 }

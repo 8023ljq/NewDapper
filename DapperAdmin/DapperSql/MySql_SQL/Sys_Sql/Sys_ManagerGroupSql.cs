@@ -32,5 +32,11 @@ namespace DapperSql.MySql_SQL
                                                @IsLocking,
                                                @IsDelete,
                                                @Remarks)";
+
+        /// <summary>
+        /// 全列查查询
+        /// </summary>
+        public static string SelectSqlStr = $@"select * from Sys_ManagerGroup ";
     }
 }
+
