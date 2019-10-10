@@ -1,10 +1,13 @@
 ﻿using DapperBLL.BaseBLL;
+using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperModel;
 using DapperModel.ViewModel.DBViewModel;
+using DapperModel.ViewModel.RequestModel;
 using DapperSql.Sys_Sql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,10 +25,6 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetMenuList()
         {
             //查询当前用户的菜单权限
-           
-
-
-
             List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
             orderlist = GetMenuListNew(menuList, orderlist, null);
@@ -40,7 +39,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuModel(string guid)
         {
-            Sys_Menu menuModel = baseDALS.GetModel<Sys_Menu>(Sys_MenuSql.getmodel,null,new { Guid = guid });
+            Sys_Menu menuModel = baseDALS.GetModel<Sys_Menu>(Sys_MenuSql.getmodel, null, new { Guid = guid });
 
             if (menuModel == null)
             {
@@ -48,6 +47,63 @@ namespace DapperBLL.Sys_BLL
             }
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuModel });
+        }
+
+        /// <summary>
+        /// 添加菜单里按钮权限数据
+        /// </summary>
+        /// <param name="addMenuPower"></param>
+        /// <returns></returns>
+        public ResultMsg AddMenuPower(AddMenuPowerRequest addMenuPower, Sys_Manager userModel)
+        {
+            List<Sys_Menu> MenuList = baseDALS.GetList<Sys_Menu>(Sys_MenuSql.selectMenuPowerSql, null, addMenuPower);
+            Sys_Menu NowMenuModel = baseDALS.GetModelById<Sys_Menu>(addMenuPower.MenuId);
+
+            if (MenuList.Count <= 0 || NowMenuModel == null)
+            {
+                return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
+            }
+
+            //检查按钮是否存在
+            if (MenuList.Find(p => p.FullName == addMenuPower.PowerName) != null)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1022);
+            }
+
+            if (MenuList.Find(p => p.Purview == addMenuPower.PowerMark) != null)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1023);
+            }
+
+            Sys_Menu MenuModel = new Sys_Menu()
+            {
+                GuId = Guid.NewGuid().ToString(),
+                ParentId = addMenuPower.MenuId,
+                ResourceType = (int)ResourceTypeEnum.Button,
+                FullName = addMenuPower.PowerName,
+                Layers = 1,
+                AddressUrl = addMenuPower.RequestUrl,
+                Purview = addMenuPower.PowerMark,
+                IsShow = true,
+                IsDefault = true,
+                AddUserId = userModel.Id,
+                AddTime = DateTime.Now,
+                UpdateTime = DateTime.Now,
+                IsDelete = false,
+            };
+
+            L_AdminOperateLog adminOperateLogModel = new L_AdminOperateLog()
+            {
+                Id = Guid.NewGuid().ToString(),
+                AdminId = userModel.Id,
+                AdminName = userModel.Name,
+                OperateTime = DateTime.Now,
+                OperateType = (int)OperateEnum.Add,
+                OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + NowMenuModel.FullName + "的" + addMenuPower.PowerName + "按钮权限"),
+            };
+
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
         }
 
         /// <summary>

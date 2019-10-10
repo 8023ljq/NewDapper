@@ -1,5 +1,10 @@
 ﻿using DapperAdminApi.App_Start;
 using DapperBLL.Sys_BLL;
+using DapperCommonMethod.CommonEnum;
+using DapperCommonMethod.CommonMethod;
+using DapperModel;
+using DapperModel.ViewModel.RequestModel;
+using System;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Competence
@@ -34,6 +39,34 @@ namespace DapperAdminApi.Controllers.Competence
         {
             string NowUserRoleId = GetUserInfo().Id;
             return Ok(menuBLL.GetMenuList());
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：添加菜单里按钮权限数据 AddTime：2019-10-10 11:25:22  
+        /// </summary>
+        /// <param name="addMenuPower"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("addmenupower")]
+
+        public IHttpActionResult AddMenuPower(AddMenuPowerRequest addMenuPower)
+        {
+            //检查主键
+            if (String.IsNullOrEmpty(addMenuPower.MenuId))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
+            }
+
+            //数据格式验证
+            var IsValidStr = ValidatetionMethod.IsValid(addMenuPower);
+            if (!IsValidStr.IsVaild)
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning(int.Parse(IsValidStr.ErrorMembers)));
+            }
+
+            Sys_Manager userModel = GetUserInfo();
+
+            return Ok(menuBLL.AddMenuPower(addMenuPower, userModel));
         }
     }
 }

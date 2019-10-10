@@ -213,6 +213,18 @@ namespace DapperCommonMethod.CommonEnum
         [Description("该管理员属于顶级管理员,不允许修改角色信息")]
         Http_1021 = 1021,
 
+        /// <summary>
+        /// 当前菜单中已有此按钮
+        /// </summary>
+        [Description("当前菜单中已有此按钮")]
+        Http_1022 = 1022,
+
+        /// <summary>
+        /// 当前菜单中已有此按钮标识
+        /// </summary>
+        [Description("当前菜单中已有此按钮标识")]
+        Http_1023 = 1023,
+
         #endregion
 
         // ******************************************************************************

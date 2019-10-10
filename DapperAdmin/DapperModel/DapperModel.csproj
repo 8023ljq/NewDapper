@@ -54,6 +54,8 @@
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
+    <Compile Include="DBModel\L_Model\L_AdminLoginLog.cs" />
+    <Compile Include="DBModel\L_Model\L_AdminOperateLog.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />
     <Compile Include="DBModel\Sys_Model\Sys_Manager.cs" />
@@ -69,7 +71,9 @@
     <Compile Include="ViewModel\DBViewModel\View_ManagerRoleDetails.cs" />
     <Compile Include="ViewModel\DBViewModel\View_RoleRelatedGroupList.cs" />
     <Compile Include="ViewModel\RequestModel\AddManagerGroupRequest.cs" />
+    <Compile Include="ViewModel\RequestModel\AddMenuPowerRequest.cs" />
     <Compile Include="ViewModel\RequestModel\AddRoleRequest.cs" />
+    <Compile Include="ViewModel\ReturnViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleCategoryViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ManagerGroupViewModel.cs" />

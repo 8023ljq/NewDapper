@@ -20,5 +20,10 @@ namespace DapperSql.Sys_Sql
         /// 查询单个实体
         /// </summary>
         public static string getmodel = "select * from Sys_Menu where GuId=@Guid";
+
+        /// <summary>
+        /// 查询添加按钮时是否已存在
+        /// </summary>
+        public static string selectMenuPowerSql = "select * from Sys_Menu where ParentId=@MenuId and (FullName=@PowerName or Purview=@PowerMark)";
     }
 }

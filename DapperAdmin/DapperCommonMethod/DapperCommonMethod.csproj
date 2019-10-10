@@ -54,7 +54,10 @@
     <Compile Include="CommonConfig\AppSettingsConfig.cs" />
     <Compile Include="CommonConfig\CommonConfigs.cs" />
     <Compile Include="CommonConfig\LanguageConfig.cs" />
+    <Compile Include="CommonConfig\LogDescribeConfig.cs" />
     <Compile Include="CommonEnum\HttpCodeEnum.cs" />
+    <Compile Include="CommonEnum\OperateEnum.cs" />
+    <Compile Include="CommonEnum\ResourceTypeEnum.cs" />
     <Compile Include="CommonEnum\RoleTypeEnum.cs" />
     <Compile Include="CommonEnum\SqlTypeEnum.cs" />
     <Compile Include="CommonEnum\RandNumEnum.cs" />

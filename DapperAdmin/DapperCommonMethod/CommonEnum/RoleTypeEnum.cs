@@ -17,6 +17,6 @@ namespace DapperCommonMethod.CommonEnum
         /// 系统管理员
         /// </summary>
         [Description("系统管理员")]
-        System = 1,
+        System = 2,
     }
 }
