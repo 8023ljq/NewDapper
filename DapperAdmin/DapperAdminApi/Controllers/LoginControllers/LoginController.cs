@@ -8,7 +8,7 @@ using DapperModel;
 using System;
 using System.Web.Http;
 
-namespace DapperAdminApi.Controllers.SysControllers
+namespace DapperAdminApi.Controllers.LoginControllers
 {
     /// <summary>
     /// Author：Geek Dog  Content：登录接口 AddTime：2019-5-22 15:33:13  

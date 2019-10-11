@@ -149,8 +149,9 @@
     <Compile Include="Controllers\Competence\ManagerGroupController.cs" />
     <Compile Include="Controllers\Competence\ManagerRoleController.cs" />
     <Compile Include="Controllers\Competence\MenuController.cs" />
-    <Compile Include="Controllers\SysControllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginControllers\LoginController.cs" />
     <Compile Include="Controllers\Competence\ManagerController.cs" />
+    <Compile Include="Controllers\SysControllers\SysLogController.cs" />
     <Compile Include="Controllers\Text\TextController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
