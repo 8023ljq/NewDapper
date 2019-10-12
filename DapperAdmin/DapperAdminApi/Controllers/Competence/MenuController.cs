@@ -19,6 +19,48 @@ namespace DapperAdminApi.Controllers.Competence
         private MenuBLL menuBLL = new MenuBLL();
 
         /// <summary>
+        /// Author：Geek Dog  Content：添加菜单信息 AddTime：2019-10-11 16:36:06  
+        /// </summary>
+        /// <param name="menuModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("addmenuinfo")]
+        public IHttpActionResult AddMenuInfo(Sys_Menu menuModel)
+        {
+            menuModel.GuId = Guid.NewGuid().ToString();
+            return Ok(menuBLL.AddMenuInfo(menuModel, GetUserInfo()));
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：删除菜单 AddTime：2019-10-12 9:17:09  
+        /// </summary>
+        /// <param name="guId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("deletemenu")]
+        public IHttpActionResult DeleteMenu(string guId)
+        {
+            if (!RegexUtilsMethod.CheckGuID(guId))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
+            }
+
+            return Ok(menuBLL.DeleteMenu(guId, GetUserInfo()));
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：修改菜单信息 AddTime：2019-10-11 16:33:55  
+        /// </summary>
+        /// <param name="menuModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updatemenu")]
+        public IHttpActionResult UpdateMenu(Sys_Menu menuModel)
+        {
+            return Ok(menuBLL.UpdateMenu(menuModel, GetUserInfo()));
+        }
+
+        /// <summary>
         /// Author：Geek Dog  Content：获取单个菜单信息 AddTime：2019-8-21 9:23:54  
         /// </summary>
         /// <returns></returns>
@@ -26,6 +68,11 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenumodel")]
         public IHttpActionResult GetMenuModel(string guid)
         {
+            if (!RegexUtilsMethod.CheckGuID(guid))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
+            }
+
             return Ok(menuBLL.GetMenuModel(guid));
         }
 
@@ -48,7 +95,6 @@ namespace DapperAdminApi.Controllers.Competence
         /// <returns></returns>
         [HttpPost]
         [Route("addmenupower")]
-
         public IHttpActionResult AddMenuPower(AddMenuPowerRequest addMenuPower)
         {
             //检查主键
@@ -64,9 +110,23 @@ namespace DapperAdminApi.Controllers.Competence
                 return Ok(ReturnHelpMethod.ReturnWarning(int.Parse(IsValidStr.ErrorMembers)));
             }
 
-            Sys_Manager userModel = GetUserInfo();
+            return Ok(menuBLL.AddMenuPower(addMenuPower, GetUserInfo()));
+        }
 
-            return Ok(menuBLL.AddMenuPower(addMenuPower, userModel));
+        /// <summary>
+        /// Author：Geek Dog  Content：删除按钮权限 AddTime：2019-10-12 16:05:09  
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("deletemenupower")]
+        public IHttpActionResult DeleteMenuPower(string guid)
+        {
+            if (!RegexUtilsMethod.CheckGuID(guid))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
+            }
+            return Ok(menuBLL.DeleteMenuPower(guid,GetUserInfo()));
         }
     }
 }

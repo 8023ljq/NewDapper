@@ -27,6 +27,8 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList(SelectModel selectModel)
         {
+            //基础验证后期加
+
             return Ok(managerdBLL.GetManagerList(selectModel));
         }
 

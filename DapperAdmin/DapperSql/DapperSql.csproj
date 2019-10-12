@@ -54,5 +54,11 @@
     <Compile Include="SqlServer_SQL\Sys_Sql\Sys_MenuSql.cs" />
     <Compile Include="SqlServer_SQL\Sys_Sql\Sys_RoleRelatedGroupSql.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DapperCommonMethod\DapperCommonMethod.csproj">
+      <Project>{E8359DB9-E0C6-4CEC-9247-364F2278A219}</Project>
+      <Name>DapperCommonMethod</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

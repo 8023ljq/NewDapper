@@ -73,6 +73,12 @@ namespace DapperCommonMethod.CommonEnum
         [Description("删除失败")]
         Http_Delete_605 = 605,
 
+        /// <summary>
+        /// 请求参数有误
+        /// </summary>
+        [Description("请求参数有误")]
+        Http_606 = 606,
+
         // ******************************************************************************
         // Author：Geek Dog  
         // Content：程序错误提示标识(1000--1999匹配json文件中的key值一一对应)  
@@ -184,9 +190,9 @@ namespace DapperCommonMethod.CommonEnum
         Http_1016 = 1016,
 
         /// <summary>
-        /// 您不是超级管理员,无权修改角色信息
+        /// 您不是超级管理员,无权执行当前操作
         /// </summary>
-        [Description("您不是超级管理员,无权修改角色信息")]
+        [Description("您不是超级管理员,无权执行当前操作")]
         Http_1017 = 1017,
 
         /// <summary>
@@ -225,6 +231,35 @@ namespace DapperCommonMethod.CommonEnum
         [Description("当前菜单中已有此按钮标识")]
         Http_1023 = 1023,
 
+        /// <summary>
+        /// 未找到当前父级菜单
+        /// </summary>
+        [Description("未找到当前父级菜单")]
+        Http_1024 = 1024,
+
+        /// <summary>
+        /// 当前菜单名称已存在
+        /// </summary>
+        [Description("当前菜单名称已存在")]
+        Http_1025 = 1025,
+
+        /// <summary>
+        /// 当前菜单路由已存在
+        /// </summary>
+        [Description("当前菜单路由已存在")]
+        Http_1026 = 1026,
+
+        /// <summary>
+        /// 当前菜单下尚有子菜单存在,暂不允许删除
+        /// </summary>
+        [Description("当前菜单下尚有子菜单存在,暂不允许删除")]
+        Http_1027 = 1027,
+
+        /// <summary>
+        /// 请勿修改顶级菜单等级
+        /// </summary>
+        [Description("请勿修改顶级菜单等级")]
+        Http_1028 = 1028,
         #endregion
 
         // ******************************************************************************

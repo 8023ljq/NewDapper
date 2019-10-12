@@ -1,6 +1,5 @@
-
-using Dapper.Contrib.Extensions;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DapperModel
 {
@@ -17,6 +16,7 @@ namespace DapperModel
         /// <summary>
         /// 自增标识
         /// </summary>
+        [RegularExpression(@"^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$", ErrorMessage = "5000")]
         public string GuId { get; set; }
 
         /// <summary>

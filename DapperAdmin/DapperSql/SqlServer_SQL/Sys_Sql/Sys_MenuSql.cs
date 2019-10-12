@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DapperCommonMethod.CommonEnum;
 
 namespace DapperSql.Sys_Sql
 {
@@ -11,10 +7,12 @@ namespace DapperSql.Sys_Sql
     /// </summary>
     public class Sys_MenuSql
     {
+        public static string selectMenuIsExist = "select * from Sys_Menu where FullName=@FullName or AddressUrl=@AddressUrl or GuId=@ParentId";
+
         /// <summary>
         /// 查询所有菜单sql
         /// </summary>
-        public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete order by Layers,Sort";
+        public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete and ResourceType="+ (int)ResourceTypeEnum.Menu + " order by Layers,Sort";
 
         /// <summary>
         /// 查询单个实体
