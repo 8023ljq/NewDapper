@@ -12,7 +12,8 @@ namespace DapperSql.Sys_Sql
         /// <summary>
         /// 查询所有菜单sql
         /// </summary>
-        public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete and ResourceType="+ (int)ResourceTypeEnum.Menu + " order by Layers,Sort";
+        //public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete and ResourceType="+ (int)ResourceTypeEnum.Menu + " order by Layers,Sort";
+        public static string selectListSql = "select * from Sys_Menu where IsDelete=@IsDelete order by Layers,Sort";
 
         /// <summary>
         /// 查询单个实体

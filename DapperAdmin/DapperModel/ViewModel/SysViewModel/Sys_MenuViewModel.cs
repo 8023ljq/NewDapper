@@ -104,5 +104,10 @@ namespace DapperModel.ViewModel.DBViewModel
         /// 下级菜单
         /// </summary>
         public List<Sys_MenuViewModel> children { get; set; }
+
+        /// <summary>
+        /// 下级按钮
+        /// </summary>
+        public List<Sys_MenuViewModel> Buttonchildren { get; set; }
     }
 }

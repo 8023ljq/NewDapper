@@ -25,7 +25,7 @@ namespace DapperModel
         /// 用户名
         /// </summary>	
         [Required(ErrorMessage = "3001")]
-        [RegularExpression(@"^[A-Za-z]{4,16}$", ErrorMessage = "5001")]
+        [RegularExpression(@"^[A-Za-z0-9]{6,16}$", ErrorMessage = "5001")]
         public string Name { get; set; }
 
         /// <summary>

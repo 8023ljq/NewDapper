@@ -44,7 +44,7 @@ namespace DapperCommonMethod.CommonMethod
         /// <returns></returns>
         public static bool CheckUserName(string UserName)
         {
-            Regex reg = new Regex(@"^[A-Za-z0-9]{4,16}$");
+            Regex reg = new Regex(@"^[A-Za-z0-9]{6,16}$");
             return reg.IsMatch(UserName);
         }
 

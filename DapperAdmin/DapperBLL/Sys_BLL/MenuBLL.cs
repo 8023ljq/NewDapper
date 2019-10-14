@@ -357,16 +357,22 @@ namespace DapperBLL.Sys_BLL
         {
             if (!string.IsNullOrEmpty(parentid))
             {
-                var CounList = menuList.Where(p => p.ParentId == parentid).ToList();
+                var MenuList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Menu).ToList();
+
+                var ButtonList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Button).ToList();
 
                 Sys_MenuViewModel parten = menuList.Find(p => p.GuId == parentid);
 
                 List<Sys_MenuViewModel> menus = new List<Sys_MenuViewModel>();
-                foreach (var item in CounList)
+                foreach (var item in MenuList)
                 {
                     menus.Add(item);
                     parten.children = menus;
                     GetMenuListNew(menuList, sumlist, item.GuId);
+                }
+                if (ButtonList.Count > 0)
+                {
+                    parten.Buttonchildren = ButtonList;
                 }
             }
             else

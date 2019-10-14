@@ -24,9 +24,16 @@ namespace DapperBLL.Sys_BLL
         /// 获取管理员角色下拉框列表
         /// </summary>
         /// <returns></returns>
-        public ResultMsg GetRoleSelectList()
+        public ResultMsg GetRoleSelectList(Sys_Manager ManagerModel)
         {
-            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("IsDelete=@IsDelete", null, new { IsDelete = 0 });
+            string whereStr = $"IsDelete=@IsDelete";
+
+            if (!ManagerModel.IsDefault)
+            {
+                whereStr += " and Id=@Id";
+            }
+
+            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>(whereStr, null, new { IsDelete = 0, Id = ManagerModel.RelationId });
 
             List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
             if (ManagerRoleList.Count > 0)
@@ -113,7 +120,7 @@ namespace DapperBLL.Sys_BLL
         {
             Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
 
-            if (!DataCheck(RoleId,out managerRoleModel))
+            if (!DataCheck(RoleId, out managerRoleModel))
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }

@@ -58,7 +58,7 @@ namespace DapperBLL.Sys_BLL
         /// </summary>
         /// <param name="managerModel"></param>
         /// <returns></returns>
-        public ResultMsg UpdateManagerInfo(Sys_Manager managerModel)
+        public ResultMsg UpdateManagerInfo(Sys_Manager managerModel, Sys_Manager LoginUser)
         {
             Sys_Manager AddModel = new Sys_Manager();
 
@@ -67,7 +67,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            if (AddModel.IsDefault && AddModel.RelationId != managerModel.RelationId)
+            if (AddModel.IsDefault && AddModel.RelationId != LoginUser.RelationId)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1021);
             }

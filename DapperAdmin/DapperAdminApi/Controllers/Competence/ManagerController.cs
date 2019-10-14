@@ -67,7 +67,7 @@ namespace DapperAdminApi.Controllers.Competence
 
             managerModel.UpdateUserId = GetUserId;
 
-            return Ok(managerdBLL.UpdateManagerInfo(managerModel));
+            return Ok(managerdBLL.UpdateManagerInfo(managerModel,GetUserInfo()));
         }
 
         /// <summary>
@@ -81,6 +81,10 @@ namespace DapperAdminApi.Controllers.Competence
         {
             //数据格式验证
             managerModel.Id = Guid.NewGuid().ToString();
+            if (!RegexUtilsMethod.CheckPwd(managerModel.Password))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_Format_5002));
+            }
             var IsValidStr = ValidatetionMethod.IsValid(managerModel);
             if (!IsValidStr.IsVaild)
             {

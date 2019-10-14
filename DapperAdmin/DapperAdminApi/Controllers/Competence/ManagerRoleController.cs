@@ -23,7 +23,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getroleselectlist")]
         public IHttpActionResult GetRoleSelectList()
         {
-            return Ok(managerRoledBLL.GetRoleSelectList());
+            return Ok(managerRoledBLL.GetRoleSelectList(GetUserInfo()));
         }
 
         /// <summary>

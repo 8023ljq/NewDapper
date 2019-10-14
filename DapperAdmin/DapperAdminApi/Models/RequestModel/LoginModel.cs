@@ -18,14 +18,16 @@ namespace DapperAdminApi.Models.RequestModel
         /// 用户名
         /// 1003:请输入用户名
         /// </summary>
-        [Required(ErrorMessage = "1001")]
+        [Required(ErrorMessage = "1003")]
+        [RegularExpression(@"^[A-Za-z0-9]{4,16}$", ErrorMessage = "1002")]
         public string UserName { get; set; }
 
         /// <summary>
         /// 登录密码
         /// 1004:请输入密码
         /// </summary>
-        [Required(ErrorMessage = "1002")]
+        [Required(ErrorMessage = "1004")]
+        [RegularExpression(@"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$", ErrorMessage = "1002")]
         public string PassWord { get; set; }
     }
 }

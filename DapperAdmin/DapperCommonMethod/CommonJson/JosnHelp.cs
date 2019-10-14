@@ -63,28 +63,35 @@ namespace DapperCommonMethod.CommonJson
         public static string Readjson(object Key, string Language)
         {
             string jsonfile = String.Empty;
-            string WebUrl = HostingEnvironment.MapPath("~/");
-            if (Language == LanguageConfig.CN)
+            try
             {
-                jsonfile = AppSettingsConfig.CNJsonAddress;//JSON文件路径
-            }
-            else
-            {
-                jsonfile = AppSettingsConfig.ENJsonAddress;//JSON文件路径
-            }
-
-
-            using (System.IO.StreamReader file = System.IO.File.OpenText(WebUrl+jsonfile))
-            {
-                using (JsonTextReader reader = new JsonTextReader(file))
+                string WebUrl = HostingEnvironment.MapPath("~/");
+                if (Language == LanguageConfig.CN)
                 {
-                    //JObject jObject = (JObject)JToken.ReadFrom(reader);
-                    //var value = jObject[Key].ToString();
-
-                    var jObject = JToken.ReadFrom(reader);
-                    var value = jObject[Key].ToString();
-                    return value;
+                    jsonfile = AppSettingsConfig.CNJsonAddress;//JSON文件路径
                 }
+                else
+                {
+                    jsonfile = AppSettingsConfig.ENJsonAddress;//JSON文件路径
+                }
+
+
+                using (System.IO.StreamReader file = System.IO.File.OpenText(WebUrl + jsonfile))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        //JObject jObject = (JObject)JToken.ReadFrom(reader);
+                        //var value = jObject[Key].ToString();
+
+                        var jObject = JToken.ReadFrom(reader);
+                        var value = jObject[Key].ToString();
+                        return value;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+               return jsonfile = "未找到错误编码文字码,请检查ENUM与JSON是否一一对应";
             }
         }
 

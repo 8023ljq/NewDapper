@@ -283,5 +283,79 @@ namespace DapperCommonMethod.CommonEnum
         Http_Erify_2001 = 2001,
 
         #endregion
+
+        // ******************************************************************************
+        // Author：Geek Dog  
+        // Content：必填项验证错误码(3000-3999匹配json文件中的key值一一对应)  
+        // AddTime：2019-1-8 16:32:05  
+        //*******************************************************************************
+
+        #region 必填项验证错误码
+
+        /// <summary>
+        /// 请选择管理员角色
+        /// </summary>
+        [Description("请选择管理员角色")]
+        Http_Required_3000 = 3000,
+
+        /// <summary>
+        /// 请填写账号名称
+        /// </summary>
+        [Description("请填写账号名称")]
+        Http_Required_3001 = 3001,
+
+        /// <summary>
+        /// 请填写登录密码
+        /// </summary>
+        [Description("请填写登录密码")]
+        Http_Required_3002 = 3002,
+
+        /// <summary>
+        /// 请填写联系手机
+        /// </summary>
+        [Description("请填写联系手机")]
+        Http_Required_3003 = 3003,
+
+        /// <summary>
+        /// 请填写角色名称
+        /// </summary>
+        [Description("请填写角色名称")]
+        Http_Required_3004 = 3004,
+
+        #endregion
+
+        // ******************************************************************************
+        // Author：Geek Dog  
+        // Content：数据格式验证错误码(5000-5999匹配json文件中的key值一一对应)  
+        // AddTime：2019-1-8 16:32:05  
+        //*******************************************************************************
+
+        #region 数据格式验证错误码
+
+        /// <summary>
+        /// 数据格式有问题
+        /// </summary>
+        [Description("数据格式有问题")]
+        Http_Format_5000 = 5000,
+
+        /// <summary>
+        /// 账号名称格式有问题
+        /// </summary>
+        [Description("账号名称格式有问题")]
+        Http_Format_5001 = 5001,
+
+        /// <summary>
+        /// 密码格式错误
+        /// </summary>
+        [Description("密码格式错误")]
+        Http_Format_5002 = 5002,
+
+        /// <summary>
+        /// 手机格式错误
+        /// </summary>
+        [Description("手机格式错误")]
+        Http_Format_5003 = 5003,
+
+        #endregion
     }
 }
