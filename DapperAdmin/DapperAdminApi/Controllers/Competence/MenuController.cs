@@ -84,8 +84,18 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenulist")]
         public IHttpActionResult GetMenuList()
         {
-            //string NowUserRoleId = GetUserInfo().Id;
-            return Ok(menuBLL.GetMenuList());
+            return Ok(menuBLL.GetMenuList(GetUserInfo()));
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：获取所有菜单集合 AddTime：2019-10-15 15:53:16  
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getallmenulist")]
+        public IHttpActionResult GetAllMenuList()
+        {
+            return Ok(menuBLL.GetAllMenuList());
         }
 
         /// <summary>

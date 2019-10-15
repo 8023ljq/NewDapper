@@ -26,6 +26,12 @@ namespace DapperCommonMethod.CommonEnum
         Http_400 = 400,
 
         /// <summary>
+        /// 错误页面
+        /// </summary>
+        [Description("错误页面")]
+        Http_404 = 404,
+
+        /// <summary>
         /// 服务内部错误
         /// </summary>
         [Description("服务内部错误")]

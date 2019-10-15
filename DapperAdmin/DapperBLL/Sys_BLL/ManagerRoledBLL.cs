@@ -127,7 +127,9 @@ namespace DapperBLL.Sys_BLL
 
             List<string> RoleArray = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray }); ;
+            List<string> PowerArray= baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId", null, new { RelationRoleId = managerRoleModel.Id }).Select(p => p.RelationButtonId).ToList();
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray , PowerArray = PowerArray }); ;
         }
 
         /// <summary>
@@ -182,7 +184,7 @@ namespace DapperBLL.Sys_BLL
             }
 
             //检查权限数据
-
+            //角色权限处理
             List<Sys_RolePurview> ExistRolePurviewList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = managerRoleModel.Id });
 
             List<Sys_RolePurview> RolePurviewList = new List<Sys_RolePurview>();
@@ -205,6 +207,30 @@ namespace DapperBLL.Sys_BLL
                 }
             }
 
+            //按钮权限处理
+            List<Sys_MenuButtonPower> ExistMenuButtonPowersList= baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId and IsDelete=0", null, new { RelationRoleId = managerRoleModel.Id });
+
+            List<Sys_MenuButtonPower> MenuButtonPowerList = new List<Sys_MenuButtonPower>();
+
+            if (UpdateRoleRequestModel.MenuPowerArry.Count > 0)
+            {
+                foreach (var Poweritem in UpdateRoleRequestModel.MenuPowerArry)
+                {
+                    MenuButtonPowerList.Add(new Sys_MenuButtonPower
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        RelationButtonId = Poweritem,
+                        RelationRoleId= managerRoleModel.Id,
+                        IsShow = false,
+                        IsDefault = false,
+                        AddUserId = UserModel.Id,
+                        AddTime = DateTime.Now,
+                        UpdateTime = DateTime.Now,
+                        IsDelete = false
+                    });
+                }
+            }
+
             DapperHelps dapperHelps = new DapperHelps();
 
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
@@ -214,7 +240,14 @@ namespace DapperBLL.Sys_BLL
                     dapperHelps.DeleteList(ExistRolePurviewList, tran);
                 }
 
+                if (ExistMenuButtonPowersList.Count > 0)
+                {
+                    dapperHelps.DeleteList(ExistMenuButtonPowersList, tran);
+                }
+
                 dapperHelps.ExecuteInsertList(RolePurviewList, tran);
+
+                dapperHelps.ExecuteInsertList(MenuButtonPowerList, tran);
 
                 tran.Commit();
             }

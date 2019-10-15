@@ -196,10 +196,36 @@ namespace DapperBLL.Sys_BLL
         }
 
         /// <summary>
+        /// 根据用户角色获取对应的菜单信息
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public ResultMsg GetMenuList(Sys_Manager userModel)
+        {
+            //根据角色查询不同的菜单权限
+            List<Sys_RolePurview> rolePurviewsList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = userModel.RelationId });
+            string[] menuarray = rolePurviewsList.Select(p => p.ResourceId).ToArray();
+
+            //菜单超过三十个需要手动分页查询
+
+            if (rolePurviewsList.Count <= 0)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_404);
+            }
+
+            //查询当前用户的菜单权限
+            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>("select * from Sys_Menu where IsDelete=@IsDelete and GuId in @GuId", null, new { IsDelete = 0, GuId = menuarray });
+            List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
+            orderlist = GetMenuListNew(menuList, orderlist, null);
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = orderlist });
+        }
+
+        /// <summary>
         /// 获取菜单列表
         /// </summary>
         /// <returns></returns>
-        public ResultMsg GetMenuList()
+        public ResultMsg GetAllMenuList()
         {
             //查询当前用户的菜单权限
             List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });

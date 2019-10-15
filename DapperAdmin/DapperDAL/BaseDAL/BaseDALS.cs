@@ -295,6 +295,18 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
+        /// 获取集合对象(in查询方式,根据业务需要使用必要时需要手动分页查询)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereArry"></param>
+        /// <returns></returns>
+        public List<T> GetListByIn<T>(string[] whereArry)
+        {
+            string sqlstr = string.Format("select * from {0} where GuId in @Arry", typeof(T).Name.ToString());
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, new { Arry= whereArry }  );
+        }
+
+        /// <summary>
         /// 获取集合对象(sql语句查询)
         /// </summary>
         /// <typeparam name="T"></typeparam>

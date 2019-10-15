@@ -1,28 +1,33 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace DapperModel
 {
     /// <summary>
     /// 菜单按钮权限表
     /// </summary>
-    public class Sys_MenuButtonPowerViewModel
+    public class Sys_MenuButtonPower
     {
 	     
         /// <summary>
         /// 主键Id
         /// </summary>	
         public string Id { get; set; }
- 
+
         /// <summary>
-        /// 关联菜单主键Id
+        /// 关联Id(菜单关联)
         /// </summary>	
-        public string RelationId { get; set; }
- 
+        public string RelationMenuId { get; set; }
+
+        /// <summary>
+        /// 关联Id(按钮关联)
+        /// </summary>	
+        public string RelationButtonId { get; set; }
+
+        /// <summary>
+        /// 关联Id(角色表主键关联)
+        /// </summary>
+        public string RelationRoleId { get; set; }
+
         /// <summary>
         /// 按钮名称
         /// </summary>	

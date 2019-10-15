@@ -2,6 +2,9 @@
 
 namespace DapperModel
 {
+    /// <summary>
+    /// 角色权限表
+    /// </summary>
     public class Sys_RolePurview
     {
 
