@@ -214,7 +214,7 @@ namespace DapperBLL.Sys_BLL
             }
 
             //查询当前用户的菜单权限
-            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>("select * from Sys_Menu where IsDelete=@IsDelete and GuId in @GuId", null, new { IsDelete = 0, GuId = menuarray });
+            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>("select * from Sys_Menu where IsDelete=@IsDelete and GuId in @GuId order by Layers,Sort desc", null, new { IsDelete = 0, GuId = menuarray });
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
             orderlist = GetMenuListNew(menuList, orderlist, null);
 
