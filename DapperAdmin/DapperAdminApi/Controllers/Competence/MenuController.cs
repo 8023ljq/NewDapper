@@ -108,7 +108,7 @@ namespace DapperAdminApi.Controllers.Competence
         public IHttpActionResult AddMenuPower(AddMenuPowerRequest addMenuPower)
         {
             //检查主键
-            if (String.IsNullOrEmpty(addMenuPower.MenuId))
+            if (String.IsNullOrEmpty(addMenuPower.ParentId))
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
             }
@@ -137,6 +137,47 @@ namespace DapperAdminApi.Controllers.Competence
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
             }
             return Ok(menuBLL.DeleteMenuPower(guid,GetUserInfo()));
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：修改按钮数据 AddTime：2019-10-16 11:14:55  
+        /// </summary>
+        /// <param name="addMenuPower"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updatemenupower")]
+        public IHttpActionResult UpdateMenuPower(AddMenuPowerRequest addMenuPower)
+        {
+            //检查主键
+            if (String.IsNullOrEmpty(addMenuPower.GuId))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
+            }
+
+            //数据格式验证
+            var IsValidStr = ValidatetionMethod.IsValid(addMenuPower);
+            if (!IsValidStr.IsVaild)
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning(int.Parse(IsValidStr.ErrorMembers)));
+            }
+
+            return Ok(menuBLL.UpdateMenuPower(addMenuPower, GetUserInfo()));
+        }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：获取单个菜单按钮数据 AddTime：2019-10-16 10:15:57  
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getmenupower")]
+        public IHttpActionResult GetMenuPower(string guid)
+        {
+            if (!RegexUtilsMethod.CheckGuID(guid))
+            {
+                return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
+            }
+            return Ok(menuBLL.GetMenuPower(guid));
         }
     }
 }

@@ -274,19 +274,19 @@ namespace DapperBLL.Sys_BLL
 
             List<Sys_Menu> MenuList = baseDALS.GetList<Sys_Menu>(Sys_MenuSql.selectMenuPowerSql, null, addMenuPower);
 
-            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = addMenuPower.MenuId });
+            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = addMenuPower.ParentId });
             if (NowMenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
             //检查按钮是否存在
-            if (MenuList.Find(p => p.FullName == addMenuPower.PowerName) != null)
+            if (MenuList.Find(p => p.FullName == addMenuPower.FullName) != null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1022);
             }
 
-            if (MenuList.Find(p => p.Purview == addMenuPower.PowerMark) != null)
+            if (MenuList.Find(p => p.Purview == addMenuPower.Purview) != null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1023);
             }
@@ -294,13 +294,13 @@ namespace DapperBLL.Sys_BLL
             Sys_Menu MenuModel = new Sys_Menu()
             {
                 GuId = Guid.NewGuid().ToString(),
-                ParentId = addMenuPower.MenuId,
+                ParentId = addMenuPower.ParentId,
                 ResourceType = (int)ResourceTypeEnum.Button,
-                FullName = addMenuPower.PowerName,
+                FullName = addMenuPower.FullName,
                 Layers = 1,
                 IconUrl = String.Empty,
                 AddressUrl = addMenuPower.RequestUrl,
-                Purview = addMenuPower.PowerMark,
+                Purview = addMenuPower.Purview,
                 IsShow = true,
                 IsDefault = true,
                 AddUserId = userModel.Id,
@@ -316,7 +316,7 @@ namespace DapperBLL.Sys_BLL
                 AdminName = userModel.Name,
                 OperateTime = DateTime.Now,
                 OperateType = (int)OperateEnum.Add,
-                OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + NowMenuModel.FullName + "的" + addMenuPower.PowerName + "权限"),
+                OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + NowMenuModel.FullName + "的" + addMenuPower.FullName + "权限"),
             };
 
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
@@ -370,6 +370,46 @@ namespace DapperBLL.Sys_BLL
             }
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604);
+        }
+
+        /// <summary>
+        /// 修改按钮权限操作
+        /// </summary>
+        /// <param name="addMenuPower"></param>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public ResultMsg UpdateMenuPower(AddMenuPowerRequest addMenuPower, Sys_Manager userModel)
+        {
+            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = addMenuPower.GuId });
+            if (NowMenuModel == null)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            NowMenuModel.FullName = addMenuPower.FullName;
+            NowMenuModel.Purview = addMenuPower.Purview;
+            NowMenuModel.UpdateTime = DateTime.Now;
+            NowMenuModel.UpdateUserId = userModel.Id;
+
+            bool bo = baseDALS.UpdateModel<Sys_Menu>(NowMenuModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
+        }
+
+        /// <summary>
+        /// 获取单个菜单按钮数据
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public ResultMsg GetMenuPower(string guid)
+        {
+            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = guid });
+            if (NowMenuModel == null)
+            {
+                return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
+            }
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = NowMenuModel });
         }
 
         /// <summary>
