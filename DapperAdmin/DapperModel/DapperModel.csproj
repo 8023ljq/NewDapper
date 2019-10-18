@@ -86,9 +86,6 @@
     <Compile Include="ViewModel\SysViewModel\Sys_RoleRelatedGroupViewModel.cs" />
     <Compile Include="ViewModel\ReturnViewModel\RoleSelectViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
