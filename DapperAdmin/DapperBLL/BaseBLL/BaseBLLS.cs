@@ -1,6 +1,6 @@
-﻿using DapperDAL.BaseDAL;
+﻿using DapperCacheHelps.RedisHelper;
+using DapperDAL.BaseDAL;
 using DapperModel.CommonModel;
-using System;
 using System.Collections.Generic;
 
 namespace DapperBLL.BaseBLL
@@ -12,183 +12,15 @@ namespace DapperBLL.BaseBLL
     {
         public BaseDALS baseDALS = new BaseDALS();
 
-        #region 增
+        /// <summary>
+        /// 缓存管理员信息
+        /// </summary>
+        public static RedisHelper redis = new RedisHelper();
 
         /// <summary>
-        /// 新增操作并返回主键ID(主键为Int类型)
+        /// 缓存管理员信息
         /// </summary>
-        /// <typeparam name="T">实体对象</typeparam>
-        /// <param name="Model">赋值的实体对象</param>
-        /// <param name="ID">主键ID</param>
-        /// <returns></returns>
-        public bool InsertModelInt<T>(T Model, out long ID) where T : class
-        {
-            ID = baseDALS.InsertModelInt(Model);
-            if (ID > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 新增操作(主键为Int类型)
-        /// </summary>
-        /// <typeparam name="T">实体对象</typeparam>
-        /// <param name="Model">赋值的实体对象</param>
-        /// <returns></returns>
-        public bool InsertModelInt<T>(T Model) where T : class
-        {
-            long ID = baseDALS.InsertModelInt(Model);
-            if (ID > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 新增操作并返回主键ID(主键为Guid类型)
-        /// </summary>
-        /// <typeparam name="T">实体对象</typeparam>
-        /// <param name="Model">赋值的实体对象</param>
-        /// <param name="ID">主键ID</param>
-        /// <returns></returns>
-        public bool InsertModelGuid<T>(T Model, out string ID) where T : class
-        {
-            ID = baseDALS.InsertModelGuid(Model);
-            if (!String.IsNullOrEmpty(ID))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 新增操作(主键为Guid类型)
-        /// </summary>
-        /// <typeparam name="T">实体对象</typeparam>
-        /// <param name="Model">赋值的实体对象</param>
-        /// <returns></returns>
-        public bool InsertModelGuid<T>(T Model) where T : class
-        {
-            string ID = baseDALS.InsertModelGuid(Model);
-            if (!String.IsNullOrEmpty(ID))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 添加集合
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Model"></param>
-        /// <returns></returns>
-        public bool InsertList<T>(List<T> modelList) where T : class
-        {
-            if (modelList.Count <= 0)
-            {
-                return false;
-            }
-            baseDALS.InsertList(modelList);
-            return true;
-        }
-
-        #endregion
-
-        #region 删
-
-        /// <summary>
-        /// 根据主键删除(主键为int类型)
-        /// </summary>
-        /// <param name="array">删除主键数组集合</param>
-        /// <returns></returns>
-        public bool DeleteIntId<T>(int[] array)
-        {
-            if (array.Length <= 0)
-            {
-                return false;
-            }
-            return baseDALS.DeleteIntId<T>(array);
-        }
-
-        /// <summary>
-        /// 根据主键删除(主键为GUID类型)
-        /// </summary>
-        /// <param name="array">删除主键数组集合</param>
-        /// <returns></returns>
-        public bool DeleteStringId<T>(string[] array)
-        {
-            if (array.Length <= 0)
-            {
-                return false;
-            }
-            return baseDALS.DeleteStringId<T>(array);
-        }
-
-        #endregion
-
-        #region 改
-
-        /// <summary>
-        /// 修改操作(单个实体)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Model"></param>
-        /// <returns></returns>
-        public bool UpdateModel<T>(T Model) where T : class
-        {
-            return baseDALS.UpdateModel(Model);
-        }
-
-        /// <summary>
-        /// 批量更新实体,返回更新状态
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="List"></param>
-        /// <returns></returns>
-        public bool UpdateList<T>(List<T> List) where T : class
-        {
-            return baseDALS.UpdateList(List);
-        }
-
-        /// <summary>
-        /// 批量修改返回成功和失败的条数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="List"></param>
-        /// <param name="ErrorCount"></param>
-        /// <returns></returns>
-        public int UpdateList<T>(List<T> List, out int ErrorCount) where T : class
-        {
-            return baseDALS.UpdateList(List, out ErrorCount);
-        }
-
-        /// <summary>
-        /// 修改功能(sql语句修改)
-        /// </summary>
-        /// <param name="sqlStr"></param>
-        /// <returns></returns>
-        public int Update(string sqlStr)
-        {
-            return baseDALS.Update(sqlStr);
-        }
-
-        #endregion
+        public static RedisHelper Commonredis = new RedisHelper(1);
 
         #region 查
 

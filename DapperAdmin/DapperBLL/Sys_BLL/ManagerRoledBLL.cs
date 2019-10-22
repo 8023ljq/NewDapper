@@ -98,7 +98,6 @@ namespace DapperBLL.Sys_BLL
                 Remarks = addRoleRequestModel.Remarks
             };
 
-
             string Id = baseDALS.InsertModelGuid<Sys_ManagerRole>(managerRoleModel);
 
             if (!String.IsNullOrEmpty(Id))

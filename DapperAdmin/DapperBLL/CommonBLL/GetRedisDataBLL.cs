@@ -40,9 +40,6 @@ namespace DapperBLL.CommonBLL
             {
                 orderlist = GetMenuListNew(menuViewModelsList, orderlist, null);
             }
-            //orderlist = GetMenuListNew(menuViewModelsList, orderlist, null);
-            //Commonredis.ListSet<Sys_MenuViewModel>(redisPrefix, orderlist, TimeSpan.FromHours(12));
-            //return orderlist;
 
             return orderlist;
         }

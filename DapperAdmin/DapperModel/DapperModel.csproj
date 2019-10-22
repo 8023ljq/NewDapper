@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CodeGenerateModel\DataBaseTable.cs" />
     <Compile Include="CommonModel\PageModel.cs" />
+    <Compile Include="CommonModel\RedisManagerModel.cs" />
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
@@ -74,7 +75,9 @@
     <Compile Include="ViewModel\RequestModel\AddManagerGroupRequest.cs" />
     <Compile Include="ViewModel\RequestModel\AddMenuPowerRequest.cs" />
     <Compile Include="ViewModel\RequestModel\AddRoleRequest.cs" />
-    <Compile Include="ViewModel\ReturnViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\RequestModel\LoginModelRequest.cs" />
+    <Compile Include="ViewModel\ReturnModel\ManagerReturnModel.cs" />
+    <Compile Include="ViewModel\ReturnModel\MenuReturnModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleCategoryViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ManagerGroupViewModel.cs" />
@@ -84,7 +87,7 @@
     <Compile Include="ViewModel\SysViewModel\Sys_ManagerViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_MenuViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_RoleRelatedGroupViewModel.cs" />
-    <Compile Include="ViewModel\ReturnViewModel\RoleSelectViewModel.cs" />
+    <Compile Include="ViewModel\ReturnModel\RoleSelectReturnModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using DapperBLL.BaseBLL;
+using DapperBLL.CommonBLL;
 using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
@@ -53,7 +54,6 @@ namespace DapperBLL.Sys_BLL
                 }
             }
 
-
             Sys_Menu MenuModel = new Sys_Menu()
             {
                 GuId = menuModel.GuId,
@@ -82,6 +82,8 @@ namespace DapperBLL.Sys_BLL
                 OperateType = (int)OperateEnum.Add,
                 OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + menuModel.FullName),
             };
+
+            Commonredis.ListSet(RedisPrefixConfig.RedisMenuList, MenuList, TimeSpan.FromHours(24));
 
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
@@ -214,11 +216,11 @@ namespace DapperBLL.Sys_BLL
             }
 
             //查询当前用户的菜单权限
-            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>("select * from Sys_Menu where IsDelete=@IsDelete and GuId in @GuId order by Layers,Sort desc", null, new { IsDelete = 0, GuId = menuarray });
-            List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
-            orderlist = GetMenuListNew(menuList, orderlist, null);
+            GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
+            var menuAllList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, menuarray);
+            List<Sys_MenuViewModel> menuList = menuAllList.Where(p => menuarray.Contains(p.GuId)).ToList();
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = orderlist });
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
         }
 
         /// <summary>
@@ -228,11 +230,10 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetAllMenuList()
         {
             //查询当前用户的菜单权限
-            List<Sys_MenuViewModel> menuList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });
-            List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
-            orderlist = GetMenuListNew(menuList, orderlist, null);
+            GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
+            List<Sys_MenuViewModel> menuList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, null);
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = orderlist });
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
         }
 
         /// <summary>
@@ -251,7 +252,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
             }
 
-            MenuViewModel menuViewModel = new MenuViewModel()
+            MenuReturnModel menuViewModel = new MenuReturnModel()
             {
                 MenuModel = menuModel,
                 MenuPowerList = menuList,
@@ -411,48 +412,5 @@ namespace DapperBLL.Sys_BLL
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = NowMenuModel });
         }
-
-        /// <summary>
-        /// 递归获取菜单集合
-        /// </summary>
-        /// <param name="menuList">上合集</param>
-        /// <param name="sumlist">下级合集</param>
-        /// <param name="parentid"></param>
-        /// <returns></returns>
-        public static List<Sys_MenuViewModel> GetMenuListNew(List<Sys_MenuViewModel> menuList, List<Sys_MenuViewModel> sumlist, string parentid)
-        {
-            if (!string.IsNullOrEmpty(parentid))
-            {
-                var MenuList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Menu).ToList();
-
-                var ButtonList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Button).ToList();
-
-                Sys_MenuViewModel parten = menuList.Find(p => p.GuId == parentid);
-
-                List<Sys_MenuViewModel> menus = new List<Sys_MenuViewModel>();
-                foreach (var item in MenuList)
-                {
-                    menus.Add(item);
-                    parten.children = menus;
-                    GetMenuListNew(menuList, sumlist, item.GuId);
-                }
-                if (ButtonList.Count > 0)
-                {
-                    parten.Buttonchildren = ButtonList;
-                }
-            }
-            else
-            {
-                var CounList = menuList.Where(p => p.ParentId == "0").ToList();
-                foreach (var item in CounList)
-                {
-                    sumlist.Add(item);
-                    GetMenuListNew(menuList, sumlist, item.GuId);
-                }
-            }
-            return sumlist;
-        }
-
-
     }
 }
