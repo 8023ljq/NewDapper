@@ -92,6 +92,7 @@ namespace DapperAdminApi.Controllers.Competence
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route("getallmenulist")]
         public IHttpActionResult GetAllMenuList()
         {
