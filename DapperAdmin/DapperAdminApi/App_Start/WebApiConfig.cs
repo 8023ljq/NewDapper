@@ -18,8 +18,6 @@ namespace DapperAdminApi
         public static void Register(HttpConfiguration config)
         {
             // Web API 配置和服务
-
-            // Web API 配置和服务
             //跨域配置
             var allowOrigins = ConfigurationManager.AppSettings["cors_allowOrigins"];
             var allowHeaders = ConfigurationManager.AppSettings["cors_allowHeaders"];

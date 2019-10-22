@@ -156,8 +156,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\RequestModel\LoginModel.cs" />
-    <Compile Include="Models\ReturnModel\AdminModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +194,10 @@
     <ProjectReference Include="..\DapperCommonMethod\DapperCommonMethod.csproj">
       <Project>{E8359DB9-E0C6-4CEC-9247-364F2278A219}</Project>
       <Name>DapperCommonMethod</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperDAL\DapperDAL.csproj">
+      <Project>{FA114D67-030C-4C08-B39D-92695148C0AC}</Project>
+      <Name>DapperDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\DapperHelp\DapperHelp.csproj">
       <Project>{67B8EE29-7C4B-44BE-B8DC-AB5CC394B81D}</Project>

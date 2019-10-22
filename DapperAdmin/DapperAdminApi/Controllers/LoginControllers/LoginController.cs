@@ -1,10 +1,8 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperAdminApi.Models.RequestModel;
-using DapperAdminApi.Models.ReturnModel;
 using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
-using DapperModel;
+using DapperModel.ViewModel.RequestModel;
 using System;
 using System.Web.Http;
 
@@ -27,7 +25,7 @@ namespace DapperAdminApi.Controllers.LoginControllers
         [HttpPost]
         [AllowAnonymous]
         [Route("loginact")]
-        public IHttpActionResult LoginAct(LoginModel Model)
+        public IHttpActionResult LoginAct(LoginModelRequest Model)
         {
             //数据验证
             var IsValidStr = ValidatetionMethod.IsValid(Model);
@@ -36,51 +34,9 @@ namespace DapperAdminApi.Controllers.LoginControllers
                 return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
             }
 
-            Sys_Manager managerModel = managerdBLL.GetModelAll<Sys_Manager>("Name=@Name", new { Name = Model.UserName });
+            ManagerdBLL managerdBLL = new ManagerdBLL();
 
-            //检查用户是否存在
-            if (managerModel == null)
-            {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1002));
-            }
-
-            //检查密码
-            string PassWord = DESEncryptMethod.Encrypt(Model.PassWord, managerModel.RandomCode);
-            if (PassWord != managerModel.Password)
-            {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1002));
-            }
-
-            //查询用户角色
-            Sys_ManagerRole managerroleModel = managerRoledBLL.GetModelById<Sys_ManagerRole>(managerModel.RelationId);
-
-            //返回管理员信息
-            AdminModel adminModel = new AdminModel()
-            {
-                UserId = managerModel.Id,
-                AdminName = String.IsNullOrEmpty(managerModel.Nickname) ? managerModel.Name : managerModel.Nickname,
-                Avatar = managerModel.Avatar,
-                RoleName = managerroleModel.RoleName,
-                RegisteTime = managerroleModel.AddTime.Value,
-            };
-
-            //登录成功报存管理员信息
-            string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(), ExpandMethod.GetTimeStamp());
-
-            //处理单点登录问题
-            if (!String.IsNullOrEmpty(managerModel.TokenId))
-            {
-                redis.KeyDelete(managerModel.TokenId);
-            }
-
-            managerModel.TokenId = Token;
-            managerModel.LoginTimes = managerModel.LoginTimes + 1;
-            managerModel.LastLoginIP = GetLoginIp;
-            managerModel.LastLoginTime = DateTime.Now;
-            redis.StringSet(Token, managerModel, TimeSpan.FromMinutes(30));
-            managerdBLL.UpdateModel<Sys_Manager>(managerModel);
-
-            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token }));
+            return Ok(managerdBLL.ManagerLogin(Model, GetLoginIp));
         }
 
         /// <summary>

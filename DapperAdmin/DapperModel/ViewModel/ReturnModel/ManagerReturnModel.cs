@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace DapperAdminApi.Models.ReturnModel
+namespace DapperModel.ViewModel.ReturnModel
 {
     /// <summary>
     /// Author：Geek Dog  Content：返回系统管理员信息 AddTime：2019-5-27 10:15:14  
     /// </summary>
-    public class AdminModel
+    public class ManagerReturnModel
     {
         /// <summary>
         /// 管理员主键
