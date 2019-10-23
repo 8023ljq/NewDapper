@@ -25,7 +25,7 @@ namespace DapperBLL.Sys_BLL
         /// <param name="Model"></param>
         /// <param name="GetLoginIp"></param>
         /// <returns></returns>
-        public ResultMsg ManagerLogin(LoginModelRequest Model,string GetLoginIp)
+        public ResultMsg ManagerLogin(LoginModelRequest Model, string GetLoginIp)
         {
             Sys_Manager managerModel = baseDALS.GetModelAll<Sys_Manager>("Name=@Name", new { Name = Model.UserName });
 
@@ -81,11 +81,12 @@ namespace DapperBLL.Sys_BLL
                 LoginTimes = managerModel.LoginTimes,
                 LastLoginIP = managerModel.LastLoginIP,
                 LastLoginTime = managerModel.LastLoginTime,
+                IsDefault = managerModel.IsDefault,
                 Remarks = managerModel.Remarks,
             };
 
             redis.StringSet(Token, redisManagerModel, TimeSpan.FromMinutes(30));
-                     
+
             baseDALS.UpdateModel<Sys_Manager>(managerModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token });

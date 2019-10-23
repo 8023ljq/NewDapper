@@ -104,6 +104,19 @@ namespace DapperCommonMethod.CommonMethod
         }
 
         /// <summary>
+        /// Author：Geek Dog  Content：检查是否IP地址 AddTime：2019-10-23 11:51:08  
+        /// </summary>
+        /// <param name="IP"></param>
+        /// <returns></returns>
+        public static bool CheckIP(string IP)
+        {
+            Regex reg = new Regex(@"^d{1,3}[.]d{1,3}[.]d{1,3}[.]d{1,3}$");
+            return reg.IsMatch(IP);
+        }
+
+
+
+        /// <summary>
         /// Author：Geek Dog  Content：sql注入验证 AddTime：2019-2-13 18:06:29 
         /// </summary>
         /// <param name="SqlStr"></param>

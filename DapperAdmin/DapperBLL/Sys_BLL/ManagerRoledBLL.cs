@@ -124,11 +124,11 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            List<string> RoleArray = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
+            List<string> RoleArray = baseDALS.GetList<Sys_RolePurview>(Sys_ManagerRoleSql.getMenuPurview, null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
 
-            List<string> PowerArray= baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId", null, new { RelationRoleId = managerRoleModel.Id }).Select(p => p.RelationButtonId).ToList();
+            List<string> PowerArray = baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId", null, new { RelationRoleId = managerRoleModel.Id }).Select(p => p.RelationButtonId).ToList();
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray , PowerArray = PowerArray }); ;
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray, PowerArray = PowerArray }); ;
         }
 
         /// <summary>
@@ -170,6 +170,8 @@ namespace DapperBLL.Sys_BLL
         {
             Sys_ManagerRole managerRoleModel = new Sys_ManagerRole();
 
+            UpdateRoleRequestModel.SelectedArray = UpdateRoleRequestModel.SelectedArray.Concat(UpdateRoleRequestModel.FatherArray).ToList();
+
             if (!DataCheck(UpdateRoleRequestModel.Id, out managerRoleModel))
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
@@ -207,7 +209,7 @@ namespace DapperBLL.Sys_BLL
             }
 
             //按钮权限处理
-            List<Sys_MenuButtonPower> ExistMenuButtonPowersList= baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId and IsDelete=0", null, new { RelationRoleId = managerRoleModel.Id });
+            List<Sys_MenuButtonPower> ExistMenuButtonPowersList = baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId and IsDelete=0", null, new { RelationRoleId = managerRoleModel.Id });
 
             List<Sys_MenuButtonPower> MenuButtonPowerList = new List<Sys_MenuButtonPower>();
 
@@ -219,7 +221,7 @@ namespace DapperBLL.Sys_BLL
                     {
                         Id = Guid.NewGuid().ToString(),
                         RelationButtonId = Poweritem,
-                        RelationRoleId= managerRoleModel.Id,
+                        RelationRoleId = managerRoleModel.Id,
                         IsShow = false,
                         IsDefault = false,
                         AddUserId = UserModel.Id,

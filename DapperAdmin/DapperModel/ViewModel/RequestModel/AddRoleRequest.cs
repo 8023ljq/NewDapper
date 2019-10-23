@@ -36,6 +36,11 @@ namespace DapperModel.ViewModel.RequestModel
         public List<string> SelectedArray { get; set; }
 
         /// <summary>
+        /// 父级权限主键
+        /// </summary>
+        public List<string> FatherArray { get; set; }
+
+        /// <summary>
         /// 选中按钮权限的主键ID
         /// </summary>
         public List<string> MenuPowerArry { get; set; }

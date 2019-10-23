@@ -36,7 +36,7 @@ namespace DapperAdminApi.Controllers.LoginControllers
 
             ManagerdBLL managerdBLL = new ManagerdBLL();
 
-            return Ok(managerdBLL.ManagerLogin(Model, GetLoginIp));
+            return Ok(managerdBLL.ManagerLogin(Model, GetIPAddress));
         }
 
         /// <summary>

@@ -50,7 +50,6 @@ namespace DapperAdminApi.Controllers.Text
             return Ok(bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400));
         }
 
-
         [HttpGet]
         [AllowAnonymous]
         [Route("selectmenu")]
@@ -64,7 +63,21 @@ namespace DapperAdminApi.Controllers.Text
 
             var Model = linkMySqlDapper.ExecuteReaderReturnT<Sys_ManagerGroup>(sql, new { groupname = groupname });
 
-            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200,new { data = Model } ));
+            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = Model }));
+        }
+
+        /// <summary>
+        /// 测试发送短信
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("sendsms")]
+        public IHttpActionResult SendSMS()
+        {
+            string Code = "666888";
+            bool Sendbo = SMSHelpMethod.Send("15072137573", "SMS_97040028", "{'code':'" + Code + "'}");
+            return Ok(Sendbo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200));
         }
     }
 }

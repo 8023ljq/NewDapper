@@ -26,7 +26,7 @@ namespace DapperModel.CommonModel
         /// 用户头像
         /// </summary>
         public string Avatar { get; set; }
-        
+
         /// <summary>
         /// 用户昵称
         /// </summary>
@@ -56,6 +56,11 @@ namespace DapperModel.CommonModel
         /// 最后一次登录时间
         /// </summary>	
         public DateTime? LastLoginTime { get; set; }
+
+        /// <summary>
+        /// 是否系统默认
+        /// </summary>
+        public bool IsDefault { get; set; }
 
         /// <summary>
         /// 备注

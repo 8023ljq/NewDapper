@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="aliyun-net-sdk-core">
+      <HintPath>..\packages\aliyun\aliyun-net-sdk-core.dll</HintPath>
+    </Reference>
+    <Reference Include="aliyun-net-sdk-dysmsapi">
+      <HintPath>..\packages\aliyun\aliyun-net-sdk-dysmsapi.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -42,6 +48,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,6 +79,7 @@
     <Compile Include="CommonMethod\ExpandMethod.cs" />
     <Compile Include="CommonMethod\RegexUtilsMethod.cs" />
     <Compile Include="CommonMethod\ReturnHelpMethod.cs" />
+    <Compile Include="CommonMethod\SMSHelpMethod.cs" />
     <Compile Include="CommonMethod\ValidatetionMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
     <Compile Include="CommonSqlMethod\SqlMethod.cs" />
@@ -98,6 +107,9 @@
     <Content Include="CommonJson\JsonFile\zh-CN.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
