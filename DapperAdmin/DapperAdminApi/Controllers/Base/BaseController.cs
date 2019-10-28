@@ -1,11 +1,9 @@
-﻿using DapperCacheHelps.RedisHelper;
-using DapperCommonMethod.CommonMethod;
+﻿using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperModel;
-using Microsoft.AspNetCore.Rewrite.Internal.ApacheModRewrite;
+using DapperThirdHelps.RedisHelper;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Web;
 using System.Web.Http;
 

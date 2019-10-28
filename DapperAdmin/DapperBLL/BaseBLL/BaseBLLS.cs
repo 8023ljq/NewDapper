@@ -1,6 +1,6 @@
-﻿using DapperCacheHelps.RedisHelper;
-using DapperDAL.BaseDAL;
+﻿using DapperDAL.BaseDAL;
 using DapperModel.CommonModel;
+using DapperThirdHelps.RedisHelper;
 using System.Collections.Generic;
 
 namespace DapperBLL.BaseBLL

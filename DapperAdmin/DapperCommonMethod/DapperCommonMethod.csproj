@@ -91,10 +91,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DapperCacheHelps\DapperCacheHelps.csproj">
-      <Project>{33741398-4BC7-49DF-9E71-44EEC4514E1C}</Project>
-      <Name>DapperCacheHelps</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DapperModel\DapperModel.csproj">
       <Project>{273B2D8F-6932-48FA-9338-A09D7E1F72A9}</Project>
       <Name>DapperModel</Name>

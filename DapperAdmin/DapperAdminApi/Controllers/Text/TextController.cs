@@ -1,10 +1,10 @@
 ﻿using DapperBLL.Sys_BLL;
-using DapperCacheHelps.RedisHelper;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperHelp.Dapper;
 using DapperModel;
 using DapperSql.MySql_SQL;
+using DapperThirdHelps.RedisHelper;
 using System;
 using System.Web.Http;
 
@@ -14,12 +14,11 @@ namespace DapperAdminApi.Controllers.Text
     /// 测试控制器
     /// </summary>
     [RoutePrefix("v1/api/text")]
-    public class TextController : ApiController
+    public class TextController : BaseController
     {
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        private RedisHelper redis = new RedisHelper();
         private LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
         /// <summary>
         /// 添加菜单

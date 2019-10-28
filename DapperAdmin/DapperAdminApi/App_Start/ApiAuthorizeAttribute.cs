@@ -1,8 +1,8 @@
-﻿using DapperCacheHelps.RedisHelper;
-using DapperCommonMethod.CommonEnum;
+﻿using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonJson;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
+using DapperThirdHelps.RedisHelper;
 using System;
 using System.Linq;
 using System.Net.Http;
