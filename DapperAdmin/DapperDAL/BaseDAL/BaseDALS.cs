@@ -303,7 +303,7 @@ namespace DapperDAL.BaseDAL
         public List<T> GetListByIn<T>(string[] whereArry)
         {
             string sqlstr = string.Format("select * from {0} where GuId in @Arry", typeof(T).Name.ToString());
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, new { Arry= whereArry }  );
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, new { Arry = whereArry });
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace DapperDAL.BaseDAL
         {
             if (!String.IsNullOrEmpty(orderbystr))
             {
-                sqlStr += orderbystr;
+                sqlStr = "order by" + orderbystr;
             }
             return dapperHelps.ExecuteReaderReturnList<T>(sqlStr, parameter);
         }

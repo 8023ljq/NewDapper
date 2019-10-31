@@ -34,8 +34,6 @@ namespace DapperAdminApi.Controllers.LoginControllers
                 return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
             }
 
-            ManagerdBLL managerdBLL = new ManagerdBLL();
-
             return Ok(managerdBLL.ManagerLogin(Model, GetIPAddress));
         }
 

@@ -1,11 +1,6 @@
 ﻿using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonJson;
 using DapperCommonMethod.CommonModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DapperCommonMethod.CommonMethod
 {
