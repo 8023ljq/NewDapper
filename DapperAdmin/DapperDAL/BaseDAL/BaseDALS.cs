@@ -364,12 +364,12 @@ namespace DapperDAL.BaseDAL
 
             parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
             parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+            parametersp.AddDynamicParams(pageModel);
 
             pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString(), wherestr), parametersp);
 
             string sql = string.Format(sqlpage, orderby, wherestr, typeof(T).Name.ToString());
-            var list = dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
-            return list;
+            return dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
         }
 
         /// <summary>
@@ -384,39 +384,17 @@ namespace DapperDAL.BaseDAL
         {
             DynamicParameters parametersp = new DynamicParameters();
             List<T> List = new List<T>();
+
             string numberStr = String.Empty;
-
-            pageModel.count = dapperHelps.ExecuteReaderReturnList<T>(sqlstr, pageModel).Count;
-
-            //if (String.IsNullOrEmpty(orderbystr))
-            //{
-            //    numberStr = $@" , ROW_NUMBER() OVER (ORDER BY A.AddTime DESC) rownum from ";
-            //}
-            //else
-            //{
-            //    numberStr = $@", ROW_NUMBER() OVER (ORDER BY {orderbystr} DESC) rownum from ";
-            //}
-
-            //sqlstr = sqlstr.ToUpper();
-
-            //if (!sqlstr.Contains("FROM"))
-            //{
-            //    return List;
-            //}
-            //string[] sqlArry = sqlstr.Split(new string[] { "FROM" }, StringSplitOptions.RemoveEmptyEntries);
-
-            //sqlstr = sqlArry[0] + numberStr + sqlArry[1];
             string sqlpage = string.Format("SELECT * FROM ( {0}) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum", sqlstr);
 
-            pageModel.start = (pageModel.curPage - 1) * pageModel.pageSize;
-            pageModel.end = pageModel.curPage * pageModel.pageSize;
+            parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
+            parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+            parametersp.AddDynamicParams(pageModel);
 
-            //parametersp.Add("@start", (pageModel.curPage - 1) * pageModel.pageSize);
-            //parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
+            pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(sqlstr, parametersp);
 
-            //List = dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
-            List = dapperHelps.ExecuteReaderReturnList<T>(sqlpage, pageModel);
-            return List;
+            return  dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
         }
 
         #endregion
