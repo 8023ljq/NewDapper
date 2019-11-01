@@ -383,8 +383,7 @@ namespace DapperDAL.BaseDAL
         public List<T> GetPageJoinList<T>(string sqlstr, PageModel pageModel, string orderbystr = null)
         {
             DynamicParameters parametersp = new DynamicParameters();
-            List<T> List = new List<T>();
-
+          
             string numberStr = String.Empty;
             string sqlpage = string.Format("SELECT * FROM ( {0}) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum", sqlstr);
 
