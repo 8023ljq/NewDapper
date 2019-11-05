@@ -12,7 +12,9 @@ namespace DapperDAL.BaseDAL
     /// </summary>
     public class BaseDALS
     {
-        DapperHelps dapperHelps = new DapperHelps();
+        private DapperHelps dapperHelps = new DapperHelps();
+
+        private DynamicParameters parametersp = new DynamicParameters();
 
         #region 增
 
@@ -105,7 +107,9 @@ namespace DapperDAL.BaseDAL
             }
 
             string sqlstr = string.Format("DELETE {0} WHERE Id in @ID ", typeof(T).Name.ToString());
-            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = array });
+            parametersp.Add("@ID", array);
+
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
             return result > 0;
         }
 
@@ -121,7 +125,9 @@ namespace DapperDAL.BaseDAL
                 return false;
             }
             string sqlstr = string.Format("DELETE {0} WHERE Id in @ID ", typeof(T).Name.ToString());
-            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = array });
+            parametersp.Add("@ID", array);
+
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
             return result > 0;
         }
 
@@ -138,7 +144,9 @@ namespace DapperDAL.BaseDAL
                 return false;
             }
             string sqlstr = string.Format("DELETE {0} WHERE Id = @ID ", typeof(T).Name.ToString());
-            var result = dapperHelps.ExecuteSqlInt(sqlstr, new { ID = Id });
+            parametersp.Add("@ID", Id);
+
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
             return result > 0;
         }
 
@@ -249,7 +257,8 @@ namespace DapperDAL.BaseDAL
         public T GetModelById<T>(int Id) where T : class
         {
             string sqlstr = string.Format("select * from {0} where Id=@ID", typeof(T).Name.ToString());
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, new { ID = Id });
+            parametersp.Add("@ID", Id);
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parametersp);
         }
 
         /// <summary>
@@ -262,7 +271,8 @@ namespace DapperDAL.BaseDAL
         public T GetModelById<T>(string Id) where T : class
         {
             string sqlstr = string.Format("select * from {0} where Id=@ID", typeof(T).Name.ToString());
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, new { ID = Id });
+            parametersp.Add("@ID", Id);
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parametersp);
         }
 
         /// <summary>
@@ -277,7 +287,10 @@ namespace DapperDAL.BaseDAL
             {
                 sqlStr += orderbystr;
             }
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlStr, parameter);
+
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlStr, parametersp);
         }
 
         /// <summary>
@@ -291,7 +304,9 @@ namespace DapperDAL.BaseDAL
         {
             string sqlstr = string.Format("select * from {0} where {1}", typeof(T).Name.ToString(), whereStr);
 
-            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parameter);
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parametersp);
         }
 
         /// <summary>
@@ -303,7 +318,8 @@ namespace DapperDAL.BaseDAL
         public List<T> GetListByIn<T>(string[] whereArry)
         {
             string sqlstr = string.Format("select * from {0} where GuId in @Arry", typeof(T).Name.ToString());
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, new { Arry = whereArry });
+            parametersp.Add("@Arry", whereArry);
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parametersp);
         }
 
         /// <summary>
@@ -316,9 +332,12 @@ namespace DapperDAL.BaseDAL
         {
             if (!String.IsNullOrEmpty(orderbystr))
             {
-                sqlStr = "order by" + orderbystr;
+                sqlStr += " order by " + orderbystr;
             }
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlStr, parameter);
+
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlStr, parametersp);
         }
 
         /// <summary>
@@ -332,7 +351,9 @@ namespace DapperDAL.BaseDAL
         {
             string sqlstr = string.Format("select * from {0} where {1} order by {2}", typeof(T).Name.ToString(), whereStr, orderbystr == null ? "Id" : orderbystr);
 
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parameter);
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parametersp);
         }
 
         /// <summary>
@@ -346,17 +367,16 @@ namespace DapperDAL.BaseDAL
         /// <param name="curPage">第几页</param>
         /// <param name="count">总行数</param>
         /// <returns></returns>
-        public List<T> GetPageList<T>(string wherestr, PageModel pageModel, string orderbystr = null)
+        public List<T> GetPageList<T>(string wherestr, PageModel pageModel, string orderbystr = null, string SortStr = "desc")
         {
-            DynamicParameters parametersp = new DynamicParameters();
             string orderby = String.Empty;
             if (String.IsNullOrEmpty(orderbystr))
             {
-                orderby = " ORDER BY AddTime DESC ";
+                orderby = $@" ORDER BY CreateTime {SortStr} ";
             }
             else
             {
-                orderby = $@" ORDER BY {orderbystr} DESC ";
+                orderby = $@" ORDER BY {orderbystr} {SortStr} ";
             }
 
             string sqlpage = "SELECT * FROM (SELECT A.*, ROW_NUMBER() OVER ({0}) rownum FROM {2} as A  where {1} ) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum";
@@ -369,7 +389,8 @@ namespace DapperDAL.BaseDAL
             pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(string.Format(countSql, typeof(T).Name.ToString(), wherestr), parametersp);
 
             string sql = string.Format(sqlpage, orderby, wherestr, typeof(T).Name.ToString());
-            return dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
+            var list = dapperHelps.ExecuteReaderReturnList<T>(sql, parametersp);
+            return list;
         }
 
         /// <summary>
@@ -382,8 +403,6 @@ namespace DapperDAL.BaseDAL
         /// <returns></returns>
         public List<T> GetPageJoinList<T>(string sqlstr, PageModel pageModel, string orderbystr = null)
         {
-            DynamicParameters parametersp = new DynamicParameters();
-          
             string numberStr = String.Empty;
             string sqlpage = string.Format("SELECT * FROM ( {0}) Z WHERE Z.rownum > @start AND Z.rownum<= @end ORDER BY Z.rownum", sqlstr);
 
@@ -391,9 +410,9 @@ namespace DapperDAL.BaseDAL
             parametersp.Add("@end", pageModel.curPage * pageModel.pageSize);
             parametersp.AddDynamicParams(pageModel);
 
-            pageModel.count = dapperHelps.ExecuteReaderReturnT<int>(sqlstr, parametersp);
+            pageModel.count = dapperHelps.ExecuteReaderReturnList<T>(sqlstr, pageModel).Count;
 
-            return  dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
+            return dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
         }
 
         #endregion
