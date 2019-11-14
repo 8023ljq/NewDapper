@@ -6,6 +6,9 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Reflection;
+using DapperModel.CommonModel;
+using DapperCommonMethod.CommonConfig;
+using System.Linq;
 
 namespace DapperCommonMethod.CommonMethod
 {
@@ -23,7 +26,8 @@ namespace DapperCommonMethod.CommonMethod
         /// <summary>
         /// 将DataTable转换为excel2003格式。
         /// </summary>
-        /// <param name="dt"></param>
+        /// <param name="dt">数据集</param>
+        /// <param name="sheetName">生成文件名</param>
         /// <returns></returns>
         public static byte[] DataTable2Excel(this DataTable dt, string sheetName)
         {
@@ -148,5 +152,172 @@ namespace DapperCommonMethod.CommonMethod
             return !t.IsValueType || (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
         #endregion
+
+        /// <summary>
+        /// 记录修改前后数据(单做记录处理)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t1">原数据实体</param>
+        /// <param name="t2">新数据实体</param>
+        /// <param name="logInfo">返回内容实体</param>
+        /// <returns></returns>
+        public static List<UpdateInfo> Comparison<T>(this T t1, T t2, List<UpdateInfo> logInfo = null) where T : class, new()
+        {
+            if (t1 == null || t2 == null)
+            {
+                return null;
+            }
+            Type type1 = t1.GetType();
+            Type type2 = t2.GetType();
+            PropertyInfo[] properties1 = type1.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            PropertyInfo[] properties2 = type2.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            string tStr = string.Empty;
+            if (logInfo == null)
+            {
+                logInfo = new List<UpdateInfo>();
+            }
+
+            foreach (PropertyInfo item in properties1)
+            {
+                string PropertyName = item.Name;
+                if (item.PropertyType.Name == "List`1")
+                {
+                    break;
+                }
+                //获取实体类的Description属性
+                var attr = (DescriptionAttribute)Attribute.GetCustomAttribute(item, typeof(DescriptionAttribute));
+                if (attr != null)
+                {
+                    PropertyName = attr.Description.ToString();
+                }
+
+                object value1 = item.GetValue(t1, null);
+                object value2 = item.GetValue(t2, null);
+                if (!item.PropertyType.IsConstructedGenericType)
+                {
+                    if (item.PropertyType != typeof(string) && !item.PropertyType.IsValueType && item.PropertyType != typeof(DateTime))
+                    {
+                        value1.Comparison(value2, logInfo);
+                    }
+                    else
+                    {
+                        string str1 = string.Empty;
+                        string str2 = string.Empty;
+                        if (value1 != null)
+                        {
+                            str1 = value1.ToString();
+                        }
+                        if (value2 != null)
+                        {
+                            str2 = value2.ToString();
+                        }
+
+                        if (str1 != str2)
+                        {
+                            UpdateInfo info = new UpdateInfo();
+                            info.Key = PropertyName;
+                            info.OldValue = str1.ToString();
+                            info.NewValue = str2.ToString();
+                            //tStr += $@"{PropertyName}的值由:'{value1}'更改为:'{value2}',";
+                            logInfo.Add(info);
+                        }
+                    }
+                }
+            }
+            return logInfo;
+        }
+
+        /// <summary>
+        /// 根据同属性给要赋值的类(t1)赋值并生成记录
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <param name="strName"></param>
+        /// <param name="IsFiltration"></param>
+        /// <returns></returns>
+        public static List<UpdateInfo> UpdateLog<T>(this T t1, T t2, string strName = null, bool IsFiltration = true)
+        {
+            Type type1 = t1.GetType();
+            Type type2 = t2.GetType();
+            List<UpdateInfo> updateInfos = new List<UpdateInfo>();
+            PropertyInfo[] oldpro = type1.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            //PropertyInfo[] newpro = type2.GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            bool IsFiltra = IsFiltration;
+            foreach (PropertyInfo sp in oldpro)
+            {
+                if (!String.IsNullOrEmpty(strName))
+                {
+                    var PropertyArr = strName.Split(',');
+                    if (PropertyArr.Any(s => s == sp.Name))
+                    {
+                        if (sp.PropertyType != typeof(string) && !sp.PropertyType.IsValueType && sp.PropertyType != typeof(DateTime))
+                        {
+                            break;
+                        }
+                        UpdateInfo info = new UpdateInfo();
+                        info.Key = sp.Name;
+                        info.OldValue = sp.GetValue(t1).ToString();
+                        info.NewValue = sp.GetValue(t2).ToString();
+                        updateInfos.Add(info);
+                        sp.SetValue(t1, sp.GetValue(t2));
+
+                    }
+                }
+                else
+                {
+                    //开启就过滤并验证
+                    if (IsFiltra)
+                    {
+                        IsFiltra = IsSetValue(sp.Name);
+                    }
+                    //不开启直接赋值
+                    else
+                    {
+                        IsFiltra = false;
+                    }
+                    //属性相同并且值不为空赋值
+                    if (IsFiltra && sp.GetValue(t2) != null)
+                    {
+                        if (sp.PropertyType != typeof(string) && !sp.PropertyType.IsValueType && sp.PropertyType != typeof(DateTime))
+                        {
+                            break;
+                        }
+                        UpdateInfo info = new UpdateInfo();
+                        info.Key = sp.Name;
+                        info.OldValue = sp.GetValue(t1).ToString();
+                        info.NewValue = sp.GetValue(t2).ToString();
+                        updateInfos.Add(info);
+                        sp.SetValue(t1, sp.GetValue(t2));
+                    }
+                    //重置IsFiltra
+                    IsFiltra = IsFiltration;
+                }
+            }
+            return updateInfos;
+        }
+
+        /// <summary>
+        /// 默认设置不赋值
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        public static bool IsSetValue(string Name)
+        {
+            string Filtration = AppSettingsConfig.Filtration;
+            if (!String.IsNullOrEmpty(Filtration))
+            {
+                List<string> Filtra = Filtration.Split(',').ToList();
+                if (Filtra.Contains(Name))
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

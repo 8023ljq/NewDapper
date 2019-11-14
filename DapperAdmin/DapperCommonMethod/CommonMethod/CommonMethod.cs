@@ -26,8 +26,8 @@ namespace DapperCommonMethod.CommonMethod
             string str = String.Empty;
             try
             {
-                string JsonUrl = CommonConfigs.BankJsonName;
-                string ApiUrl = CommonConfigs.BankNameApi;
+                string JsonUrl = AppSettingsConfig.BankJsonName;
+                string ApiUrl = AppSettingsConfig.BankNameApi;
                 string WebUrl = HostingEnvironment.MapPath("~/");
                 JsonUrl = WebUrl + JsonUrl;
                 ApiUrl = ApiUrl.Replace("##", GetBankNum);

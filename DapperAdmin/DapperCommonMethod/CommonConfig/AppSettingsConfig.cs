@@ -27,16 +27,6 @@ namespace DapperCommonMethod.CommonConfig
         public static string bankNameApi = ConfigurationManager.AppSettings["bankNameApi"];
 
         /// <summary>
-        /// Redis默认前缀
-        /// </summary>
-        public static string redisKey = ConfigurationManager.AppSettings["redisKey"];
-
-        /// <summary>
-        /// JSON文件路径
-        /// </summary>
-        public static string JsonUrl = ConfigurationManager.AppSettings["JsonUrl"];
-
-        /// <summary>
         /// 是否开启短信验证码
         /// </summary>
         public static bool IsOpenSMS = ConfigurationManager.AppSettings["IsOpenSMS"] == "false" ? false : true;
@@ -47,9 +37,9 @@ namespace DapperCommonMethod.CommonConfig
         public static string OpenSMS = ConfigurationManager.AppSettings["OpenSMS"];
 
         /// <summary>
-        /// 协议生成PDF路径
+        /// 系统默认密码
         /// </summary>
-        public static string PdfAddress = ConfigurationManager.AppSettings["PdfAddress"];
+        public static string PublicPwd = ConfigurationManager.AppSettings["PublicPwd"];
 
         /// <summary>
         /// 中文josn地址
@@ -62,6 +52,11 @@ namespace DapperCommonMethod.CommonConfig
         public static string ENJsonAddress = ConfigurationManager.AppSettings["ENJsonAddress"];
 
         /// <summary>
+        /// Redis默认前缀
+        /// </summary>
+        public static string redisKey = ConfigurationManager.AppSettings["redisKey"];
+
+        /// <summary>
         /// Redis保存用户信息
         /// </summary>
         public static int RedisUserDB = int.Parse(ConfigurationManager.AppSettings["RedisUserDB"]);
@@ -70,6 +65,22 @@ namespace DapperCommonMethod.CommonConfig
         /// Redis保存公共信息
         /// </summary>
         public static int RedisCommonDB = int.Parse(ConfigurationManager.AppSettings["RedisCommonDB"]);
+
+        /// <summary>
+        /// 数据对比过滤字段
+        /// </summary>
+        public static string Filtration = ConfigurationManager.AppSettings["Filtration"];
+
+        /// <summary>
+        /// 银行归属地JSON文件
+        /// </summary>
+        public static string BankJsonName = ConfigurationManager.AppSettings["BankJsonName"];
+
+        /// <summary>
+        /// 获取银行归属地接口地址
+        /// </summary>
+        public static string BankNameApi = ConfigurationManager.AppSettings["BankNameApi"];
+
 
         #endregion
 

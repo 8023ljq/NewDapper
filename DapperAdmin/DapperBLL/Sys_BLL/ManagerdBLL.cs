@@ -120,7 +120,7 @@ namespace DapperBLL.Sys_BLL
             }
 
             managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
-            managerModel.Password = DESEncryptMethod.Encrypt(CommonConfigs.PublicPwd, managerModel.RandomCode);
+            managerModel.Password = DESEncryptMethod.Encrypt(AppSettingsConfig.PublicPwd, managerModel.RandomCode);
             managerModel.AddTime = DateTime.Now;
             managerModel.IsLocking = false;
             managerModel.IsDelete = false;
