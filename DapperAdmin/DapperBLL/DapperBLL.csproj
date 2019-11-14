@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BaseBLL\BaseBLLS.cs" />
     <Compile Include="CommonBLL\GetRedisDataBLL.cs" />
+    <Compile Include="LoginBLL\LoginBLL.cs" />
     <Compile Include="Sys_BLL\ManagerdBLL.cs" />
     <Compile Include="Sys_BLL\ManagerGroupBLL.cs" />
     <Compile Include="Sys_BLL\ManagerRoledBLL.cs" />
@@ -78,6 +79,9 @@
       <Project>{6C3C3A00-8705-4FFA-B1B9-2C5469CA8C24}</Project>
       <Name>DapperThirdHelps</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

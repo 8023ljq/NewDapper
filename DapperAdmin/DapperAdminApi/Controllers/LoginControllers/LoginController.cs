@@ -1,9 +1,7 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperBLL.Sys_BLL;
-using DapperCommonMethod.CommonEnum;
+using DapperBLL;
 using DapperCommonMethod.CommonMethod;
-using DapperModel.ViewModel.RequestModel;
-using System;
+using DapperModel.ViewModel;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.LoginControllers
@@ -14,11 +12,10 @@ namespace DapperAdminApi.Controllers.LoginControllers
     [RoutePrefix("api/login")]
     public class LoginController : BaseController
     {
-        private ManagerdBLL managerdBLL = new ManagerdBLL();
-        private ManagerRoledBLL managerRoledBLL = new ManagerRoledBLL();
+        private LoginBLL loginBLL = new LoginBLL();
 
         /// <summary>
-        /// Author：Geek Dog  Content：后台管理员登录 AddTime：2019-5-22 15:32:55  
+        /// 后台管理员登录 
         /// </summary>
         /// <param name="dynamic"></param>
         /// <returns></returns>
@@ -34,7 +31,7 @@ namespace DapperAdminApi.Controllers.LoginControllers
                 return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
             }
 
-            return Ok(managerdBLL.ManagerLogin(Model, GetIPAddress));
+            return Ok(loginBLL.LoginAct(Model, GetIPAddress));
         }
 
         /// <summary>
@@ -46,19 +43,7 @@ namespace DapperAdminApi.Controllers.LoginControllers
         [Route("logout")]
         public IHttpActionResult LogOut()
         {
-            if (String.IsNullOrEmpty(GetToken))
-            {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005));
-            }
-            if (!redis.KeyExists(GetToken))
-            {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005));
-            }
-            if (!redis.KeyDelete(GetToken))
-            {
-                return Ok(ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1007));
-            }
-            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1006));
+            return Ok(loginBLL.LogOut(GetToken));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DapperModel.ViewModel.ReturnModel
+namespace DapperModel.ViewModel
 {
     /// <summary>
     /// Author：Geek Dog  Content：返回系统管理员信息 AddTime：2019-5-27 10:15:14  

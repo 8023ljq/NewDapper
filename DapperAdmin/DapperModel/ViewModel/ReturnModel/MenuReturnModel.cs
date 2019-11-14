@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DapperModel.DataModel;
+using System.Collections.Generic;
 
 namespace DapperModel.ViewModel
 {

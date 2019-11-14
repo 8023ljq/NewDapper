@@ -13,14 +13,14 @@ namespace DapperCommonMethod.CommonMethod
     /// <summary>
     /// 公共调用方法
     /// </summary>
-    public class CommonMethod
+    public static class CommonMethod
     {
         /// <summary>
         /// 返回银行卡归属银行
         /// </summary>
         /// <param name="GetBankNum">银行卡号</param>
         /// <returns></returns>
-        public ResultMsg GetBankName(string GetBankNum)
+        public static ResultMsg GetBankName(string GetBankNum)
         {
             ResultMsg msg = new ResultMsg();
             string str = String.Empty;
@@ -93,5 +93,7 @@ namespace DapperCommonMethod.CommonMethod
                 //File.Delete(@"b.hhp");
             }
         }
+
+       
     }
 }

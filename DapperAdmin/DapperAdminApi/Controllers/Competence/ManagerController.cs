@@ -2,8 +2,8 @@
 using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
-using DapperModel;
 using DapperModel.CommonModel;
+using DapperModel.DataModel;
 using System;
 using System.Web.Http;
 
@@ -27,8 +27,6 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList(SelectModel selectModel)
         {
-            //基础验证后期加
-
             return Ok(managerdBLL.GetManagerList(selectModel));
         }
 

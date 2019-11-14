@@ -2,9 +2,10 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
+using DapperDAL;
 using DapperHelp.Dapper;
-using DapperModel;
 using DapperModel.CommonModel;
+using DapperModel.DataModel;
 using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;
 using DapperModel.ViewModel.RequestModel;
@@ -20,20 +21,18 @@ namespace DapperBLL.Sys_BLL
     /// </summary>
     public class ManagerRoledBLL : BaseBLLS
     {
+        private ManagerRoleDAL managerRoleDAL = new ManagerRoleDAL();
+        private RolePurviewDAL rolePurviewDAL = new RolePurviewDAL();
+        private MenuButtonPowerDAL buttonPowerDAL = new MenuButtonPowerDAL();
+        private ManagerdDAL managerdDAL = new ManagerdDAL();
+
         /// <summary>
         /// 获取管理员角色下拉框列表
         /// </summary>
         /// <returns></returns>
         public ResultMsg GetRoleSelectList(Sys_Manager ManagerModel)
         {
-            string whereStr = $"IsDelete=@IsDelete";
-
-            if (!ManagerModel.IsDefault)
-            {
-                whereStr += " and Id=@Id";
-            }
-
-            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>(whereStr, null, new { IsDelete = 0, Id = ManagerModel.RelationId });
+            List<Sys_ManagerRole> ManagerRoleList = managerRoleDAL.GetManagerRoleList(ManagerModel.IsDefault, ManagerModel.RelationId);
 
             List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
             if (ManagerRoleList.Count > 0)
@@ -59,14 +58,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetManagerRoleList(SelectModel selectModel)
         {
-            string sql = Sys_ManagerRoleSql.getPageList;
-
-            if (!String.IsNullOrEmpty(selectModel.Keyword))
-            {
-                sql += $@" and A.RoleName=@Keyword";
-            }
-
-            List<Sys_ManagerRoleViewModel> ManagerRoleList = baseDALS.GetPageJoinList<Sys_ManagerRoleViewModel>(sql, selectModel);
+            List<Sys_ManagerRole> ManagerRoleList = managerRoleDAL.GetManagerRolePageList(selectModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = ManagerRoleList, pageModel = selectModel });
         }
@@ -79,7 +71,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg AddNewRole(AddRoleRequest addRoleRequestModel, Sys_Manager UserModel)
         {
-            List<Sys_ManagerRole> ManagerRoleList = baseDALS.GetListAll<Sys_ManagerRole>("RoleName=@RoleName", null, addRoleRequestModel);
+            List<Sys_ManagerRole> ManagerRoleList = managerRoleDAL.GetManagerRoleModel(addRoleRequestModel.RoleName);
 
             if (ManagerRoleList.Count > 0)
             {
@@ -98,7 +90,7 @@ namespace DapperBLL.Sys_BLL
                 Remarks = addRoleRequestModel.Remarks
             };
 
-            string Id = baseDALS.InsertModelGuid<Sys_ManagerRole>(managerRoleModel);
+            string Id = managerRoleDAL.InsertModelGuid<Sys_ManagerRole>(managerRoleModel);
 
             if (!String.IsNullOrEmpty(Id))
             {
@@ -124,9 +116,9 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            List<string> RoleArray = baseDALS.GetList<Sys_RolePurview>(Sys_ManagerRoleSql.getMenuPurview, null, new { RoleId = managerRoleModel.Id }).Select(p => p.ResourceId).ToList();
+            List<string> RoleArray = rolePurviewDAL.GetMenuPurview(managerRoleModel.Id).Select(p => p.ResourceId).ToList();
 
-            List<string> PowerArray = baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId", null, new { RelationRoleId = managerRoleModel.Id }).Select(p => p.RelationButtonId).ToList();
+            List<string> PowerArray = buttonPowerDAL.GetMenuButtonList(managerRoleModel.Id).Select(p => p.RelationButtonId).ToList();
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { Model = managerRoleModel, RoleArray = RoleArray, PowerArray = PowerArray }); ;
         }
@@ -146,7 +138,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+            View_ManagerRoleDetails view_ManagerRoleModel = managerRoleDAL.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
 
             if (!view_ManagerRoleModel.IsDefault)
             {
@@ -157,7 +149,9 @@ namespace DapperBLL.Sys_BLL
             managerRoleModel.IsDelete = UpdateRoleRequestModel.IsDelete;
             managerRoleModel.Remarks = UpdateRoleRequestModel.Remarks;
 
-            return baseDALS.UpdateModel<Sys_ManagerRole>(managerRoleModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603); ;
+            bool bo = managerRoleDAL.UpdateModel<Sys_ManagerRole>(managerRoleModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603); ;
         }
 
         /// <summary>
@@ -177,7 +171,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+            View_ManagerRoleDetails view_ManagerRoleModel = managerRoleDAL.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
 
             if (!view_ManagerRoleModel.IsDefault)
             {
@@ -186,7 +180,7 @@ namespace DapperBLL.Sys_BLL
 
             //检查权限数据
             //角色权限处理
-            List<Sys_RolePurview> ExistRolePurviewList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = managerRoleModel.Id });
+            List<Sys_RolePurview> ExistRolePurviewList = rolePurviewDAL.GetRolePurviewByRoleId(managerRoleModel.Id);
 
             List<Sys_RolePurview> RolePurviewList = new List<Sys_RolePurview>();
 
@@ -209,7 +203,7 @@ namespace DapperBLL.Sys_BLL
             }
 
             //按钮权限处理
-            List<Sys_MenuButtonPower> ExistMenuButtonPowersList = baseDALS.GetListAll<Sys_MenuButtonPower>("RelationRoleId=@RelationRoleId and IsDelete=0", null, new { RelationRoleId = managerRoleModel.Id });
+            List<Sys_MenuButtonPower> ExistMenuButtonPowersList = buttonPowerDAL.GetMenuButtonList(managerRoleModel.Id);
 
             List<Sys_MenuButtonPower> MenuButtonPowerList = new List<Sys_MenuButtonPower>();
 
@@ -232,26 +226,7 @@ namespace DapperBLL.Sys_BLL
                 }
             }
 
-            DapperHelps dapperHelps = new DapperHelps();
-
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                if (ExistRolePurviewList.Count > 0)
-                {
-                    dapperHelps.DeleteList(ExistRolePurviewList, tran);
-                }
-
-                if (ExistMenuButtonPowersList.Count > 0)
-                {
-                    dapperHelps.DeleteList(ExistMenuButtonPowersList, tran);
-                }
-
-                dapperHelps.ExecuteInsertList(RolePurviewList, tran);
-
-                dapperHelps.ExecuteInsertList(MenuButtonPowerList, tran);
-
-                tran.Commit();
-            }
+            managerRoleDAL.UpdateManagerRole(ExistRolePurviewList, ExistMenuButtonPowersList, RolePurviewList, MenuButtonPowerList);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602);
         }
@@ -276,7 +251,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1019);
             }
 
-            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+            View_ManagerRoleDetails view_ManagerRoleModel = managerRoleDAL.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
 
             if (!view_ManagerRoleModel.IsDefault)
             {
@@ -285,7 +260,9 @@ namespace DapperBLL.Sys_BLL
 
             managerRoleModel.IsLocking = managerRoleModel.IsLocking ? false : true;
 
-            return baseDALS.UpdateModel<Sys_ManagerRole>(managerRoleModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_603);
+            bool bo = managerRoleDAL.UpdateModel<Sys_ManagerRole>(managerRoleModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_603);
 
         }
 
@@ -309,31 +286,23 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1019);
             }
 
-            View_ManagerRoleDetails view_ManagerRoleModel = baseDALS.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
+            View_ManagerRoleDetails view_ManagerRoleModel = managerRoleDAL.GetModelById<View_ManagerRoleDetails>(UserModel.Id);
 
             if (!view_ManagerRoleModel.IsDefault)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
             }
 
-            List<Sys_Manager> ManagerList = baseDALS.GetListAll<Sys_Manager>("RelationId=@RelationId", null, new { RelationId = managerRoleModel.Id });
+            List<Sys_Manager> ManagerList = managerdDAL.GetManagerListByRelationId(managerRoleModel.Id );
 
             if (ManagerList.Count > 0)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1018);
             }
 
-            List<Sys_RolePurview> ExistRolePurviewList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = managerRoleModel.Id });
+            List<Sys_RolePurview> ExistRolePurviewList = rolePurviewDAL.GetRolePurviewByRoleId(managerRoleModel.Id);
 
-            DapperHelps dapperHelps = new DapperHelps();
-
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                dapperHelps.DeleteModel(managerRoleModel, tran);
-
-                dapperHelps.DeleteList(ExistRolePurviewList, tran);
-                tran.Commit();
-            }
+            managerRoleDAL.DeleteManagerRole(managerRoleModel, ExistRolePurviewList);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604);
         }
@@ -355,7 +324,7 @@ namespace DapperBLL.Sys_BLL
                 return false;
             }
 
-            managerRoleModel = baseDALS.GetModelById<Sys_ManagerRole>(RoleId);
+            managerRoleModel = managerRoleDAL.GetModelById<Sys_ManagerRole>(RoleId);
 
             if (managerRoleModel == null)
             {

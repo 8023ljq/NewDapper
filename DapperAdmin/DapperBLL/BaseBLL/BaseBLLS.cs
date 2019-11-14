@@ -1,4 +1,5 @@
-﻿using DapperDAL.BaseDAL;
+﻿using DapperCommonMethod.CommonConfig;
+using DapperDAL;
 using DapperThirdHelps.RedisHelper;
 
 namespace DapperBLL.BaseBLL
@@ -13,11 +14,11 @@ namespace DapperBLL.BaseBLL
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper();
+        public static RedisHelper redis = new RedisHelper(AppSettingsConfig.RedisUserDB);
 
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper Commonredis = new RedisHelper(1);
+        public static RedisHelper Commonredis = new RedisHelper(AppSettingsConfig.RedisCommonDB);
     }
 }

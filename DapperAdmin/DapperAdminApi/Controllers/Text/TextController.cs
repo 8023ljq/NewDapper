@@ -2,9 +2,9 @@
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperHelp.Dapper;
-using DapperModel;
+using DapperModel.CommonModel;
+using DapperModel.DataModel;
 using DapperSql.MySql_SQL;
-using DapperThirdHelps.RedisHelper;
 using System;
 using System.Web.Http;
 
@@ -13,13 +13,16 @@ namespace DapperAdminApi.Controllers.Text
     /// <summary>
     /// 测试控制器
     /// </summary>
-    [RoutePrefix("v1/api/text")]
+    [RoutePrefix("api/text")]
     public class TextController : BaseController
     {
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
         private LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
+
+        private ManagerdBLL managerdBLL = new ManagerdBLL();
+
         /// <summary>
         /// 添加菜单
         /// </summary>
@@ -29,8 +32,6 @@ namespace DapperAdminApi.Controllers.Text
         [Route("addmenu")]
         public IHttpActionResult AddMenu()
         {
-
-
             Sys_ManagerGroup managerGroup = new Sys_ManagerGroup()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -77,6 +78,16 @@ namespace DapperAdminApi.Controllers.Text
             string Code = "666888";
             bool Sendbo = SMSHelpMethod.Send("15072137573", "SMS_97040028", "{'code':'" + Code + "'}");
             return Ok(Sendbo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("exportdata")]
+        public IHttpActionResult ExportData(SelectModel selectModel)
+        {
+            byte[] byteData = (managerdBLL.ExportData(selectModel).ResultDataTable).DataTable2Excel("测试导出");
+
+            return ResponseMessage(GetHttpResponseMessage(byteData, "测试导出"));
         }
     }
 }

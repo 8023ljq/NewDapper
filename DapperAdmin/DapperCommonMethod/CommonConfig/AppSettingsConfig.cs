@@ -61,6 +61,16 @@ namespace DapperCommonMethod.CommonConfig
         /// </summary>
         public static string ENJsonAddress = ConfigurationManager.AppSettings["ENJsonAddress"];
 
+        /// <summary>
+        /// Redis保存用户信息
+        /// </summary>
+        public static int RedisUserDB = int.Parse(ConfigurationManager.AppSettings["RedisUserDB"]);
+
+        /// <summary>
+        /// Redis保存公共信息
+        /// </summary>
+        public static int RedisCommonDB = int.Parse(ConfigurationManager.AppSettings["RedisCommonDB"]);
+
         #endregion
 
         #region ConnectionStrings

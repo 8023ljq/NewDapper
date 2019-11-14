@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace DapperCommonMethod.CommonModel
 {
@@ -33,6 +30,16 @@ namespace DapperCommonMethod.CommonModel
         /// 获取 返回数据
         /// </summary>
         public object ResultData { get; set; }
+
+        /// <summary>
+        /// 获取 分页总行数(单独处理分页时使用)
+        /// </summary>
+        public object ResultCount { get; set; }
+
+        /// <summary>
+        /// 返回DataTable
+        /// </summary>
+        public DataTable ResultDataTable { get; set; }
     }
 
     /// <summary>

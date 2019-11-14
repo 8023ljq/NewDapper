@@ -2,7 +2,7 @@
 using DapperBLL.Sys_BLL;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
-using DapperModel;
+using DapperModel.DataModel;
 using DapperModel.ViewModel.RequestModel;
 using System;
 using System.Web.Http;

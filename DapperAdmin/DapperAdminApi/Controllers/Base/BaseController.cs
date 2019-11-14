@@ -1,9 +1,11 @@
-﻿using DapperCommonMethod.CommonMethod;
-using DapperCommonMethod.CommonModel;
-using DapperModel;
+﻿using DapperCommonMethod.CommonConfig;
+using DapperCommonMethod.CommonMethod;
+using DapperModel.DataModel;
 using DapperThirdHelps.RedisHelper;
 using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 
@@ -17,13 +19,11 @@ namespace DapperAdminApi.Controllers
         /// <summary>
         /// 查询排序条件
         /// </summary>
-        public Dictionary<string, WhereModel> whereStr = new Dictionary<string, WhereModel>();
-        public Dictionary<string, OrderByModel> orderByStr = new Dictionary<string, OrderByModel>();
 
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper();
+        public static RedisHelper redis = new RedisHelper(AppSettingsConfig.RedisUserDB);
 
         /// <summary>
         /// 获取token
@@ -137,6 +137,25 @@ namespace DapperAdminApi.Controllers
                 }
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 处理导出数据公用方法
+        /// </summary>
+        /// <param name="byteData"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public HttpResponseMessage GetHttpResponseMessage(byte[] byteData, string fileName)
+        {
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
+            Stream stream = new MemoryStream(byteData);
+            httpResponseMessage.Content = new StreamContent(stream);
+            httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            httpResponseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = HttpUtility.UrlEncode(fileName + ".xls")
+            };
+            return httpResponseMessage;
         }
     }
 }

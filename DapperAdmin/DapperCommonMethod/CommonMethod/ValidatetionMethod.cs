@@ -42,7 +42,7 @@ namespace DapperCommonMethod.CommonMethod
                     result.IsVaild = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.IsVaild = false;
                 result.ErrorMembers = "Internal error";

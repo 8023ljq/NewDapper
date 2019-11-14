@@ -4,17 +4,19 @@ using DapperHelp.Dapper;
 using DapperModel.CommonModel;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
-namespace DapperDAL.BaseDAL
+namespace DapperDAL
 {
     /// <summary>
     /// 公共数据访问层
     /// </summary>
     public class BaseDALS
     {
-        private DapperHelps dapperHelps = new DapperHelps();
+        public DapperHelps dapperHelps = new DapperHelps();
 
-        private DynamicParameters parametersp = new DynamicParameters();
+        public DynamicParameters parametersp = new DynamicParameters();
 
         #region 增
 
@@ -145,6 +147,28 @@ namespace DapperDAL.BaseDAL
             }
             string sqlstr = string.Format("DELETE {0} WHERE Id = @ID ", typeof(T).Name.ToString());
             parametersp.Add("@ID", Id);
+
+            var result = dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
+            return result > 0;
+        }
+
+        /// <summary>
+        /// 根据sql语句删除数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereStr"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public bool DeleteBySql<T>(string whereStr, object parameter = null) where T : class
+        {
+            if (String.IsNullOrEmpty(whereStr))
+            {
+                return false;
+            }
+
+            string sqlstr = string.Format("DELETE {0} WHERE {1}", typeof(T).Name.ToString(), whereStr);
+
+            parametersp.AddDynamicParams(parameter);
 
             var result = dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
             return result > 0;
@@ -281,13 +305,8 @@ namespace DapperDAL.BaseDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="sqlStr"></param>
         /// <returns></returns>
-        public T GetModel<T>(string sqlStr, string orderbystr = null, object parameter = null)
+        public T GetModel<T>(string sqlStr, object parameter = null)
         {
-            if (!String.IsNullOrEmpty(orderbystr))
-            {
-                sqlStr += orderbystr;
-            }
-
             parametersp.AddDynamicParams(parameter);
 
             return dapperHelps.ExecuteReaderReturnT<T>(sqlStr, parametersp);
@@ -310,16 +329,75 @@ namespace DapperDAL.BaseDAL
         }
 
         /// <summary>
+        /// 获取单个实体(获取指定字段/获取所有字段)
+        /// </summary>
+        /// <typeparam name="T">查询的实体类</typeparam>
+        /// <param name="whereStr">查询条件</param>
+        /// <param name="parameter">参数化</param>
+        /// <param name="FieldStr">查询字段(默认查全部,传参与sql保持一致)</param>
+        /// <returns></returns>
+        public T GetModelAssign<T>(string whereStr, object parameter, string FieldStr = "*")
+        {
+            string sqlstr = string.Format("select {2} from {0} where {1}", typeof(T).Name.ToString(), whereStr, FieldStr);
+
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteReaderReturnT<T>(sqlstr, parametersp);
+        }
+
+        /// <summary>
+        /// 获取数据总行数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereStr"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public int GetCount<T>(string whereStr, object parameter) where T : class
+        {
+            string sqlstr = string.Format("select count(*) from {0} where {1}", typeof(T).Name.ToString(), whereStr);
+
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteSqlInt(sqlstr, parametersp);
+        }
+
+        /// <summary>
+        /// 检查数据是否存在
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereStr"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public bool IsExist<T>(string whereStr, object parameter) where T : class
+        {
+            string sqlstr = string.Format("select count(*) from {0} where {1}", typeof(T).Name.ToString(), whereStr);
+
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.ExecuteSqlInt(sqlstr, parametersp) > 0 ? true : false;
+        }
+
+        /// <summary>
         /// 获取集合对象(in查询方式,根据业务需要使用必要时需要手动分页查询)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whereArry"></param>
         /// <returns></returns>
-        public List<T> GetListByIn<T>(string[] whereArry)
+        public List<T> GetListByIn<T>(string[] whereArry, int size = 10)
         {
-            string sqlstr = string.Format("select * from {0} where GuId in @Arry", typeof(T).Name.ToString());
-            parametersp.Add("@Arry", whereArry);
-            return dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parametersp);
+            List<T> allList = new List<T>();
+            var Idlist = whereArry.ToList();
+            //总页数
+            int PageNumber = (Idlist.Count % size) > 0 ? (Idlist.Count / size) + 1 : (Idlist.Count / size);
+            for (int Page = 1; Page <= PageNumber; Page++)
+            {
+                List<string> pageinfo = Idlist.Skip((Page - 1) * size).Take(size).ToList();
+                string sqlstr = string.Format("select * from {0} where GuId in @Arry", typeof(T).Name.ToString());
+                parametersp.Add("@Arry", whereArry);
+                List<T> pagelist = dapperHelps.ExecuteReaderReturnList<T>(sqlstr, parametersp);
+                allList.AddRange(pagelist);
+            }
+            return allList;
         }
 
         /// <summary>
@@ -415,6 +493,16 @@ namespace DapperDAL.BaseDAL
             return dapperHelps.ExecuteReaderReturnList<T>(sqlpage, parametersp);
         }
 
+        /// <summary>
+        /// 获取GetDatatableData数据集
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetDatatableData<T>(string sqlstr, object parameter = null)
+        {
+            parametersp.AddDynamicParams(parameter);
+
+            return dapperHelps.GetDatatableData(sqlstr, parametersp);
+        }
         #endregion
 
     }

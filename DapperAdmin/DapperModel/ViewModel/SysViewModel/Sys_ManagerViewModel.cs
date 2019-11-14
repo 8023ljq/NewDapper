@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DapperModel.ViewModel.DBViewModel
+namespace DapperModel.ViewModel
 {
     /// <summary>
     /// 后台管理员

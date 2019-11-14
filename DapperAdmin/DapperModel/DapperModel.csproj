@@ -55,19 +55,22 @@
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
-    <Compile Include="DBModel\L_Model\L_AdminLoginLog.cs" />
-    <Compile Include="DBModel\L_Model\L_AdminOperateLog.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_Article.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_ArticleCategory.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_Manager.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_ManagerGroup.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_ManagerRelatedGroup.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_ManagerRelatedRole.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_ManagerRole.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_Menu.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_MenuButtonPower.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_RolePurview.cs" />
-    <Compile Include="DBModel\Sys_Model\Sys_RoleRelatedGroup.cs" />
+    <Compile Include="DataModel\DBModel\L_Model\L_AdminLoginLog.cs" />
+    <Compile Include="DataModel\DBModel\L_Model\L_AdminOperateLog.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_Article.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_ArticleCategory.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_Manager.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_ManagerGroup.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_ManagerRelatedGroup.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_ManagerRelatedRole.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_ManagerRole.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_Menu.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_MenuButtonPower.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_RolePurview.cs" />
+    <Compile Include="DataModel\DBModel\Sys_Model\Sys_RoleRelatedGroup.cs" />
+    <Compile Include="DataModel\DBPartModel\Sys_Model\Sys_Manager.cs" />
+    <Compile Include="DataModel\DBPartModel\Sys_Model\Sys_ManagerGroup.cs" />
+    <Compile Include="DataModel\DBPartModel\Sys_Model\Sys_ManagerRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextModel\Text.cs" />
     <Compile Include="ViewModel\DBViewModel\View_ManagerRoleDetails.cs" />
@@ -89,6 +92,8 @@
     <Compile Include="ViewModel\SysViewModel\Sys_RoleRelatedGroupViewModel.cs" />
     <Compile Include="ViewModel\ReturnModel\RoleSelectReturnModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\RequestModel\SelectModel\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

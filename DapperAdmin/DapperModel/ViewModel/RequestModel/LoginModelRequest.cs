@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DapperModel.ViewModel.RequestModel
+namespace DapperModel.ViewModel
 {
     /// <summary>
     /// Author：Geek Dog  

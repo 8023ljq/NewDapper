@@ -45,8 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAL\BaseDALS.cs" />
+    <Compile Include="LoginDAL\LoginDAL.cs" />
     <Compile Include="Sys_DAL\ManagerdDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sys_DAL\ManagerGroupDAL.cs" />
+    <Compile Include="Sys_DAL\ManagerRoleDAL.cs" />
+    <Compile Include="Sys_DAL\MenuButtonPowerDAL.cs" />
+    <Compile Include="Sys_DAL\MenuDAL.cs" />
+    <Compile Include="Sys_DAL\RolePurviewDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperCommonMethod\DapperCommonMethod.csproj">
@@ -66,5 +72,6 @@
       <Name>DapperSql</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

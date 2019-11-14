@@ -1,6 +1,6 @@
 ﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using DapperCommonMethod.CommonMethod;
-using DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -339,13 +339,13 @@ namespace DapperHelp.Dapper
                 {
                     OpenConnect(conn);
                     var a = conn.Insert<T>(item, commandTimeout: commandTimeout);
-                    return a;
+                    return a.ToString();
                 }
             }
             else
             {
                 var conn = transaction.Connection;
-                return conn.Insert(item, transaction: transaction, commandTimeout: commandTimeout);
+                return conn.Insert(item, transaction: transaction, commandTimeout: commandTimeout).ToString();
             }
         }
 
@@ -363,7 +363,7 @@ namespace DapperHelp.Dapper
                 {
                     OpenConnect(conn);
 
-                    conn.Insert<T>(list, commandTimeout: commandTimeout);
+                    conn.Insert(list, commandTimeout: commandTimeout);
                 }
             }
             else
@@ -702,7 +702,23 @@ namespace DapperHelp.Dapper
             return result.ToArray();
         }
 
-        #endregion
+        /// <summary>
+        /// 获取DataTable数据
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetDatatableData(string sql, object param = null)
+        {
+            using (IDbConnection conn = GetConnection(true))
+            {
+                OpenConnect(conn);
 
+                DataTable table = new DataTable();
+                var reader = conn.ExecuteReader(sql, param);
+                table.Load(reader);
+                return table;
+            }
+        }
+
+        #endregion
     }
 }
