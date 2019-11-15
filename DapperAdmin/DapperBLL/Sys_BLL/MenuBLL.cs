@@ -6,7 +6,6 @@ using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperDAL;
 using DapperHelp.Dapper;
-using DapperModel;
 using DapperModel.DataModel;
 using DapperModel.ViewModel;
 using DapperModel.ViewModel.DBViewModel;

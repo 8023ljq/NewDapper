@@ -1,12 +1,10 @@
 ﻿using Dapper;
 using DapperCommonMethod.CommonMethod;
-using DapperExtensions;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace DapperHelp.Dapper

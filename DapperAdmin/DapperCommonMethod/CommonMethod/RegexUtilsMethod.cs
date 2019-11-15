@@ -2,14 +2,14 @@
 
 namespace DapperCommonMethod.CommonMethod
 {
-    public  class RegexUtilsMethod
+    public static class RegexUtilsMethod
     {
         /// <summary>
         /// Author：Geek Dog  Content：验证邮箱 AddTime：2019-1-8 15:43:44  
         /// </summary>
         /// <param name="email">邮箱</param>
         /// <returns></returns>
-        public static bool CheckEmail(string email)
+        public static bool CheckEmail(this string email)
         {
             Regex reg = new Regex(@"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+([\,\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+)*$");
             return reg.IsMatch(email);
@@ -20,7 +20,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="Phone">手机号</param>
         /// <returns></returns>
-        public static bool CheckPhone(string Phone)
+        public static bool CheckPhone(this string Phone)
         {
             Regex reg = new Regex(@"^0{0,1}(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])[0-9]{8}$");
             return reg.IsMatch(Phone);
@@ -31,7 +31,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="Pwd">用户密码</param>
         /// <returns></returns>
-        public static bool CheckPwd(string Pwd)
+        public static bool CheckPwd(this string Pwd)
         {
             Regex reg = new Regex(@"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$");
             return reg.IsMatch(Pwd);
@@ -42,7 +42,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="UserName">用户名</param>
         /// <returns></returns>
-        public static bool CheckUserName(string UserName)
+        public static bool CheckUserName(this string UserName)
         {
             Regex reg = new Regex(@"^[A-Za-z0-9]{6,16}$");
             return reg.IsMatch(UserName);
@@ -53,7 +53,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="UserName"></param>
         /// <returns></returns>
-        public static bool CheckContact(string UserName)
+        public static bool CheckContact(this string UserName)
         {
             Regex reg = new Regex(@"^[\u4e00-\u9fa5_a-zA-Z0-9_]{0,10}$");
             return reg.IsMatch(UserName);
@@ -64,7 +64,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="UserName"></param>
         /// <returns></returns>
-        public static bool CheckRealName(string UserName)
+        public static bool CheckRealName(this string UserName)
         {
             Regex reg = new Regex(@"^[\u4E00-\u9FA5]{2,6}$");
             return reg.IsMatch(UserName);
@@ -75,7 +75,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="IDCode"></param>
         /// <returns></returns>
-        public static bool CheckIDCode(string IDCode)
+        public static bool CheckIDCode(this string IDCode)
         {
             Regex reg = new Regex(@"^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$");
             return reg.IsMatch(IDCode);
@@ -86,7 +86,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="PayPwd"></param>
         /// <returns></returns>
-        public static bool CheckPayPwd(string PayPwd)
+        public static bool CheckPayPwd(this string PayPwd)
         {
             Regex reg = new Regex(@"^\d{6}$");
             return reg.IsMatch(PayPwd);
@@ -97,7 +97,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="GuID"></param>
         /// <returns></returns>
-        public static bool CheckGuID(string GuID)
+        public static bool CheckGuID(this string GuID)
         {
             Regex reg = new Regex(@"^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$");
             return reg.IsMatch(GuID);
@@ -108,20 +108,18 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="IP"></param>
         /// <returns></returns>
-        public static bool CheckIP(string IP)
+        public static bool CheckIP(this string IP)
         {
             Regex reg = new Regex(@"^d{1,3}[.]d{1,3}[.]d{1,3}[.]d{1,3}$");
             return reg.IsMatch(IP);
         }
-
-
 
         /// <summary>
         /// Author：Geek Dog  Content：sql注入验证 AddTime：2019-2-13 18:06:29 
         /// </summary>
         /// <param name="SqlStr"></param>
         /// <returns></returns>
-        public static bool CheckSql(string SqlStr)
+        public static bool CheckSql(this string SqlStr)
         {
             Regex reg = new Regex(@"^[^(and|or|exec|insert|select|union|update|count|*|%)]*$");
             return reg.IsMatch(SqlStr);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DapperModel.ViewModel.RequestModel
+﻿namespace DapperModel.ViewModel.RequestModel
 {
     /// <summary>
     /// 添加用户组请求实体

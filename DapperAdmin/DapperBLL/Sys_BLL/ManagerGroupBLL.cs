@@ -1,5 +1,4 @@
-﻿using DapperBLL.BaseBLL;
-using DapperCommonMethod.CommonEnum;
+﻿using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
 using DapperDAL;

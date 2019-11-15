@@ -1,9 +1,7 @@
-﻿using DapperCommonMethod.CommonJson;
-using DapperCommonMethod.CommonLog;
+﻿using DapperCommonMethod.CommonLog;
 using DapperCommonMethod.CommonModel;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Web.Http;
 using System.Web.Http.Filters;
 

@@ -13,14 +13,14 @@ namespace DapperCommonMethod.CommonMethod
     /// <summary>
     /// 公共调用方法
     /// </summary>
-    public static class CommonMethod
+    public class CommonMethod
     {
         /// <summary>
         /// 返回银行卡归属银行
         /// </summary>
         /// <param name="GetBankNum">银行卡号</param>
         /// <returns></returns>
-        public static ResultMsg GetBankName(string GetBankNum)
+        public ResultMsg GetBankName(string GetBankNum)
         {
             ResultMsg msg = new ResultMsg();
             string str = String.Empty;
@@ -65,7 +65,7 @@ namespace DapperCommonMethod.CommonMethod
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static void ReadInfoFromFile(string filePath = "")
+        public void ReadInfoFromFile(string filePath = "")
         {
             filePath = "G:\\GIT\\NewDapper\\DapperAdmin\\DapperAdmin\\File\\DBModel.txt";
             if (File.Exists(filePath))

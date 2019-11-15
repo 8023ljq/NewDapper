@@ -40,7 +40,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("deletemenu")]
         public IHttpActionResult DeleteMenu(string guId)
         {
-            if (!RegexUtilsMethod.CheckGuID(guId))
+            if (!guId.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
             }
@@ -68,7 +68,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenumodel")]
         public IHttpActionResult GetMenuModel(string guid)
         {
-            if (!RegexUtilsMethod.CheckGuID(guid))
+            if (!guid.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
             }
@@ -133,7 +133,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("deletemenupower")]
         public IHttpActionResult DeleteMenuPower(string guid)
         {
-            if (!RegexUtilsMethod.CheckGuID(guid))
+            if (!guid.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
             }
@@ -174,7 +174,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmenupower")]
         public IHttpActionResult GetMenuPower(string guid)
         {
-            if (!RegexUtilsMethod.CheckGuID(guid))
+            if (!guid.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_606));
             }

@@ -75,6 +75,7 @@ namespace DapperAdminApi.Controllers.Text
         [Route("sendsms")]
         public IHttpActionResult SendSMS()
         {
+            string NumberStr = ((int)NumberPrefixEnum.Apply).GetNumber();
             string Code = "666888";
             bool Sendbo = SMSHelpMethod.Send("15072137573", "SMS_97040028", "{'code':'" + Code + "'}");
             return Ok(Sendbo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200) : ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200));

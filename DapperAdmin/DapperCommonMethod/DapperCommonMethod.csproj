@@ -80,10 +80,10 @@
     <Compile Include="CommonConfig\LogDescribeConfig.cs" />
     <Compile Include="CommonConfig\RedisPrefixConfig.cs" />
     <Compile Include="CommonEnum\HttpCodeEnum.cs" />
+    <Compile Include="CommonEnum\NumberPrefixEnum.cs" />
     <Compile Include="CommonEnum\OperateEnum.cs" />
     <Compile Include="CommonEnum\ResourceTypeEnum.cs" />
     <Compile Include="CommonEnum\RoleTypeEnum.cs" />
-    <Compile Include="CommonEnum\SqlTypeEnum.cs" />
     <Compile Include="CommonEnum\RandNumEnum.cs" />
     <Compile Include="CommonEnum\ResultTypeEnum.cs" />
     <Compile Include="CommonJson\JosnHelp.cs" />
@@ -91,14 +91,12 @@
     <Compile Include="CommonMethod\CommonMethod.cs" />
     <Compile Include="CommonMethod\DESEncryptMethod.cs" />
     <Compile Include="CommonMethod\EnumMethod.cs" />
-    <Compile Include="CommonMethod\ExpandMethod.cs" />
     <Compile Include="CommonMethod\ExtendMethod.cs" />
     <Compile Include="CommonMethod\RegexUtilsMethod.cs" />
     <Compile Include="CommonMethod\ReturnHelpMethod.cs" />
     <Compile Include="CommonMethod\SMSHelpMethod.cs" />
     <Compile Include="CommonMethod\ValidatetionMethod.cs" />
     <Compile Include="CommonMethod\WriteLogMethod.cs" />
-    <Compile Include="CommonSqlMethod\SqlMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -104,7 +104,7 @@ namespace DapperAdminApi.Controllers
                             string[] temparyip = result.Split(",;".ToCharArray());
                             for (int i = 0; i < temparyip.Length; i++)
                             {
-                                if (RegexUtilsMethod.CheckIP(temparyip[i])
+                                if (temparyip[i].CheckIP()
                                         && temparyip[i].Substring(0, 3) != "10."
                                         && temparyip[i].Substring(0, 7) != "192.168"
                                         && temparyip[i].Substring(0, 7) != "172.16.")
@@ -113,7 +113,7 @@ namespace DapperAdminApi.Controllers
                                 }
                             }
                         }
-                        else if (RegexUtilsMethod.CheckIP(result))//代理即是IP格式
+                        else if (result.CheckIP())//代理即是IP格式
                         {
                             return result;
                         }

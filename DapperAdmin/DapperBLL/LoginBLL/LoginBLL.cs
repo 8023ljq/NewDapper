@@ -55,7 +55,7 @@ namespace DapperBLL
             };
 
             //登录成功报存管理员信息
-            string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(), ExpandMethod.GetTimeStamp());
+            string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(),DateTime.Now.GetTimeStamp());
 
             //处理单点登录问题
             if (!String.IsNullOrEmpty(managerModel.TokenId))

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace DapperCommonMethod.CommonMethod
 {
+    /// <summary>
+    /// 枚举处理方法
+    /// </summary>
     public static class EnumMethod
     {
         /// <summary>

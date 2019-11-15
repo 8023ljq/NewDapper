@@ -1,5 +1,4 @@
-﻿
-using DapperModel.CommonModel;
+﻿using DapperModel.CommonModel;
 using DapperModel.DataModel;
 using DapperSql.Sys_Sql;
 using System;

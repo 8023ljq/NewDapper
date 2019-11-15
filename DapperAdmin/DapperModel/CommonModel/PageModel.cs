@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DapperModel.CommonModel
+﻿namespace DapperModel.CommonModel
 {
     /// <summary>
     /// 分页查询实体类

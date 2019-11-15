@@ -119,7 +119,7 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1012);
             }
 
-            managerModel.RandomCode = ExpandMethod.GetRandNum(6, true, (int)RandNumEnum.NumberAndLetter);
+            managerModel.RandomCode = ((int)RandNumEnum.NumberAndLetter).GetRandNum(6, true);
             managerModel.Password = DESEncryptMethod.Encrypt(AppSettingsConfig.PublicPwd, managerModel.RandomCode);
             managerModel.AddTime = DateTime.Now;
             managerModel.IsLocking = false;

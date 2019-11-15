@@ -79,7 +79,7 @@ namespace DapperAdminApi.Controllers.Competence
         {
             //数据格式验证
             managerModel.Id = Guid.NewGuid().ToString();
-            if (!RegexUtilsMethod.CheckPwd(managerModel.Password))
+            if (!managerModel.Password.CheckPwd())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_Format_5002));
             }
@@ -104,7 +104,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("disorenamanager")]
         public IHttpActionResult DisOrEnaManager(string mangaerId)
         {
-            if (!RegexUtilsMethod.CheckGuID(mangaerId))
+            if (!mangaerId.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
             }
@@ -121,7 +121,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("deletemanager")]
         public IHttpActionResult DeleteManager(string mangaerId)
         {
-            if (!RegexUtilsMethod.CheckGuID(mangaerId))
+            if (!mangaerId.CheckGuID())
             {
                 return Ok(ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400));
             }
