@@ -87,7 +87,9 @@ namespace DapperBLL.Sys_BLL
             AddModel.Remarks = managerModel.Remarks;
             AddModel.UpdateTime = DateTime.Now;
 
-            return managerdDAL.UpdateModel<Sys_Manager>(AddModel) ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
+            bool bo = managerdDAL.UpdateModel<Sys_Manager>(AddModel);
+
+            return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
 
         /// <summary>
