@@ -17,7 +17,7 @@ namespace DapperDAL
         /// <returns></returns>
         public List<Sys_ManagerGroup> GetManagerGroupList(SelectModel selectModel)
         {
-            return GetList<Sys_ManagerGroup>(Sys_ManagerGroupSql.selectListSql, "order by A.AddTime desc", selectModel);
+            return GetList<Sys_ManagerGroup>(Sys_ManagerGroupSql.selectListSql, "A.AddTime desc", selectModel);
         }
 
         /// <summary>

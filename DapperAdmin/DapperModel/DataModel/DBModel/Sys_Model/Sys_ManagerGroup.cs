@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 
 namespace DapperModel.DataModel
@@ -5,11 +6,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 管理员组表
     /// </summary>
+    [Table("Sys_ManagerGroup")]
     public partial class Sys_ManagerGroup
     {
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,7 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 后台管理员
     /// </summary>
+    [Table("Sys_Manager")]
     public partial class Sys_Manager
     {
 
