@@ -149,6 +149,7 @@
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
+    <Compile Include="Controllers\Common\GenerateDataController.cs" />
     <Compile Include="Controllers\Common\UploadFileController.cs" />
     <Compile Include="Controllers\Competence\ManagerGroupController.cs" />
     <Compile Include="Controllers\Competence\ManagerRoleController.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="Controllers\LoginControllers\LoginController.cs" />
     <Compile Include="Controllers\Competence\ManagerController.cs" />
     <Compile Include="Controllers\SysControllers\SysLogController.cs" />
-    <Compile Include="Controllers\Text\TextController.cs" />
+    <Compile Include="Controllers\Test\TextController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

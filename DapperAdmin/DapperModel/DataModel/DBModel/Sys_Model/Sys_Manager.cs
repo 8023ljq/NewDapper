@@ -10,7 +10,6 @@ namespace DapperModel.DataModel
     [Table("Sys_Manager")]
     public partial class Sys_Manager
     {
-
         /// <summary>
         /// 主键Id
         /// </summary>	

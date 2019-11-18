@@ -67,8 +67,9 @@ namespace DapperCommonMethod.CommonMethod
         /// <returns></returns>
         public void ReadInfoFromFile(string filePath = "")
         {
-            filePath = "G:\\GIT\\NewDapper\\DapperAdmin\\DapperAdmin\\File\\DBModel.txt";
-            if (File.Exists(filePath))
+            var templeturl = HostingEnvironment.MapPath("~/") + "\\File\\DBModel.txt";//模板文件路径
+
+            if (File.Exists(templeturl))
             {
                 StreamReader reader = new StreamReader(filePath, Encoding.Default);
                 String a = reader.ReadToEnd();

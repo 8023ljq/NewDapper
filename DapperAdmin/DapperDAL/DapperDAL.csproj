@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAL\BaseDALS.cs" />
+    <Compile Include="CommonDAL\GenerateDataDAL.cs" />
     <Compile Include="LoginDAL\LoginDAL.cs" />
     <Compile Include="Sys_DAL\ManagerdDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 
 namespace DapperModel.DataModel
@@ -5,11 +6,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 管理员登录日志
     /// </summary>
+    [Table("L_AdminLoginLog")]
     public class L_AdminLoginLog
     {
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
  
         /// <summary>
@@ -42,6 +45,11 @@ namespace DapperModel.DataModel
         /// </summary>	
         public string LoginIp { get; set; }
 
+        /// <summary>
+        /// 测试字段
+        /// </summary>
+        [Computed]
+        public string LoginIpStr { get; set; }
     }
 }
 

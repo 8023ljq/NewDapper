@@ -54,6 +54,7 @@
     <Compile Include="CommonModel\RedisManagerModel.cs" />
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
+    <Compile Include="CommonModel\SqlColumnModel.cs" />
     <Compile Include="CommonModel\UpdateInfo.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
     <Compile Include="DataModel\DBModel\L_Model\L_AdminLoginLog.cs" />

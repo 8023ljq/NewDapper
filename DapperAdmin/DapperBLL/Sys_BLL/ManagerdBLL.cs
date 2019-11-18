@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using DapperModel.DataModel;
 using DapperDAL;
 
-namespace DapperBLL.Sys_BLL
+namespace DapperBLL
 {
     /// <summary>
     /// 管理员业务处理层
