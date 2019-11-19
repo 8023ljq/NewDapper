@@ -95,6 +95,115 @@ namespace DapperCommonMethod.CommonMethod
             }
         }
 
-       
+        /// <summary>
+        /// 处理字段属性转换
+        /// </summary>
+        /// <param name="dbType"></param>
+        /// <returns></returns>
+        public static string DBTypeToCSharpType(string dbType)
+        {
+            string cSharpType = string.Empty;
+            switch (dbType.ToLower())
+            {
+                case "bit":
+                    cSharpType = "bool";
+                    break;
+                case "tinyint":
+                    cSharpType = "byte";
+                    break;
+                case "smallint":
+                    cSharpType = "short";
+                    break;
+                case "int":
+                    cSharpType = "int";
+                    break;
+                case "bigint":
+                    cSharpType = "long";
+                    break;
+                case "real":
+                    cSharpType = "float";
+                    break;
+                case "float":
+                    cSharpType = "double";
+                    break;
+                case "smallmoney":
+                case "money":
+                case "decimal":
+                case "numeric":
+                    cSharpType = "decimal";
+                    break;
+                case "char":
+                case "varchar":
+                case "nchar":
+                case "nvarchar":
+                case "text":
+                case "ntext":
+                    cSharpType = "string";
+                    break;
+                case "samlltime":
+                case "date":
+                case "smalldatetime":
+                case "datetime":
+                case "datetime2":
+                case "datetimeoffset":
+                    cSharpType = "DateTime";
+                    break;
+                case "timestamp":
+                case "image":
+                case "binary":
+                case "varbinary":
+                    cSharpType = "byte[]";
+                    break;
+                case "uniqueidentifier":
+                    cSharpType = "System.Guid";
+                    break;
+                case "variant":
+                case "sql_variant":
+                    cSharpType = "object";
+                    break;
+                default:
+                    cSharpType = "string";
+                    break;
+            }
+            return cSharpType;
+        }
+
+        /// <summary>
+        /// 生成文件
+        /// </summary>
+        /// <param name="Path">文件路径</param>
+        /// <param name="str">文件内容</param>
+        public static void CreateFile(string Path, string str)
+        {
+            //创建对文件的引用
+            FileInfo file = new FileInfo(Path);
+            //获取父目录路径
+            var di = file.Directory;
+            //判断父目录是否存在
+            if (!di.Exists)
+                di.Create();
+            //判断文件是否存在
+            if (!file.Exists)
+            {
+                //创建文件 并释放文件资源
+                FileStream fs = file.Create();
+                fs.Close();
+                fs.Dispose();
+            }
+            else
+            {
+                file.Delete();
+                //创建文件 并释放文件资源
+                FileStream fs = file.Create();
+                fs.Close();
+                fs.Dispose();
+            }
+            //写入流、释放资源
+            StreamWriter sw = file.AppendText();
+            sw.Write(str);
+            sw.Close();
+            sw.Dispose();
+
+        }
     }
 }

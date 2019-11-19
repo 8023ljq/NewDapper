@@ -55,6 +55,8 @@
     <Compile Include="CommonModel\ResultMsg.cs" />
     <Compile Include="CommonModel\SelectModel.cs" />
     <Compile Include="CommonModel\SqlColumnModel.cs" />
+    <Compile Include="CommonModel\SqlTableModel.cs" />
+    <Compile Include="CommonModel\TestModel.cs" />
     <Compile Include="CommonModel\UpdateInfo.cs" />
     <Compile Include="CommonModel\WhereModel.cs" />
     <Compile Include="DataModel\DBModel\L_Model\L_AdminLoginLog.cs" />

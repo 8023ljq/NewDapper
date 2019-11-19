@@ -266,6 +266,12 @@ namespace DapperCommonMethod.CommonEnum
         /// </summary>
         [Description("请勿修改顶级菜单等级")]
         Http_1028 = 1028,
+
+        /// <summary>
+        /// 未找到当前生成数据模板,请检查后重新提交
+        /// </summary>
+        [Description("未找到当前生成数据模板,请检查后重新提交")]
+        Http_1029 = 1029,
         #endregion
 
         // ******************************************************************************
