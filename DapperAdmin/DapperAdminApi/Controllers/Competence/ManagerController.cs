@@ -27,6 +27,7 @@ namespace DapperAdminApi.Controllers.Competence
         [Route("getmanagerlist")]
         public IHttpActionResult GetManagerList(SelectModel selectModel)
         {
+            var model = GetUserInfo();
             return Ok(managerdBLL.GetManagerList(selectModel));
         }
 
@@ -65,7 +66,7 @@ namespace DapperAdminApi.Controllers.Competence
 
             managerModel.UpdateUserId = GetUserId;
 
-            return Ok(managerdBLL.UpdateManagerInfo(managerModel,GetUserInfo()));
+            return Ok(managerdBLL.UpdateManagerInfo(managerModel, GetUserInfo()));
         }
 
         /// <summary>

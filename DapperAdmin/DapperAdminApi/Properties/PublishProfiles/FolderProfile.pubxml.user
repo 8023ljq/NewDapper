@@ -9,11 +9,17 @@
     <_PublishTargetUrl>E:\发布文件\DapperApi</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="bin/aliyun-net-sdk-core.dll">
+      <publishTime>04/23/2019 13:45:48</publishTime>
+    </File>
+    <File Include="bin/aliyun-net-sdk-dysmsapi.dll">
+      <publishTime>04/23/2019 13:45:48</publishTime>
+    </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/23/2019 08:54:32</publishTime>
+      <publishTime>12/13/2019 14:40:03</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/23/2019 08:54:32</publishTime>
+      <publishTime>12/13/2019 14:40:03</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Crypto.dll">
       <publishTime>10/18/2019 17:35:08</publishTime>
@@ -27,20 +33,26 @@
     <File Include="bin/CommonJson/JsonFile/zh-CN.json">
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
+    <File Include="bin/Dapper.Contrib.dll">
+      <publishTime>10/18/2019 17:35:08</publishTime>
+    </File>
     <File Include="bin/Dapper.dll">
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
     <File Include="bin/DapperAdminApi.dll">
-      <publishTime>10/23/2019 08:54:20</publishTime>
+      <publishTime>12/13/2019 14:39:50</publishTime>
     </File>
     <File Include="bin/DapperAdminApi.pdb">
-      <publishTime>10/23/2019 08:54:20</publishTime>
+      <publishTime>12/13/2019 14:39:50</publishTime>
     </File>
     <File Include="bin/DapperBLL.dll">
-      <publishTime>10/23/2019 08:54:19</publishTime>
+      <publishTime>12/12/2019 18:37:28</publishTime>
+    </File>
+    <File Include="bin/DapperBLL.dll.config">
+      <publishTime>11/14/2019 11:25:28</publishTime>
     </File>
     <File Include="bin/DapperBLL.pdb">
-      <publishTime>10/23/2019 08:54:19</publishTime>
+      <publishTime>12/12/2019 18:37:28</publishTime>
     </File>
     <File Include="bin/DapperCacheHelps.dll">
       <publishTime>10/21/2019 14:17:30</publishTime>
@@ -52,16 +64,16 @@
       <publishTime>10/21/2019 14:17:30</publishTime>
     </File>
     <File Include="bin/DapperCommonMethod.dll">
-      <publishTime>10/22/2019 16:42:30</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
     </File>
     <File Include="bin/DapperCommonMethod.pdb">
-      <publishTime>10/22/2019 16:42:30</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
     </File>
     <File Include="bin/DapperDAL.dll">
-      <publishTime>10/22/2019 16:42:31</publishTime>
+      <publishTime>12/12/2019 18:37:28</publishTime>
     </File>
     <File Include="bin/DapperDAL.pdb">
-      <publishTime>10/22/2019 16:42:31</publishTime>
+      <publishTime>12/12/2019 18:37:28</publishTime>
     </File>
     <File Include="bin/DapperExtensions.dll">
       <publishTime>10/18/2019 17:35:08</publishTime>
@@ -70,31 +82,49 @@
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
     <File Include="bin/DapperHelp.dll">
-      <publishTime>10/22/2019 16:42:30</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
     </File>
     <File Include="bin/DapperHelp.pdb">
-      <publishTime>10/22/2019 16:42:30</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
     </File>
     <File Include="bin/DapperModel.dll">
-      <publishTime>10/22/2019 16:42:29</publishTime>
+      <publishTime>12/12/2019 18:37:26</publishTime>
     </File>
     <File Include="bin/DapperModel.pdb">
-      <publishTime>10/22/2019 16:42:29</publishTime>
+      <publishTime>12/12/2019 18:37:26</publishTime>
     </File>
     <File Include="bin/DapperSql.dll">
-      <publishTime>10/22/2019 16:42:31</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
     </File>
     <File Include="bin/DapperSql.pdb">
-      <publishTime>10/22/2019 16:42:31</publishTime>
+      <publishTime>12/12/2019 18:37:27</publishTime>
+    </File>
+    <File Include="bin/DapperThirdHelps.dll">
+      <publishTime>12/12/2019 18:37:26</publishTime>
+    </File>
+    <File Include="bin/DapperThirdHelps.dll.config">
+      <publishTime>10/28/2019 11:11:17</publishTime>
+    </File>
+    <File Include="bin/DapperThirdHelps.pdb">
+      <publishTime>12/12/2019 18:37:26</publishTime>
     </File>
     <File Include="bin/Google.Protobuf.dll">
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>08/15/2018 17:16:34</publishTime>
+    </File>
     <File Include="bin/log4net.dll">
       <publishTime>10/18/2019 17:35:09</publishTime>
     </File>
+    <File Include="bin/Microsoft.AspNetCore.Rewrite.dll">
+      <publishTime>05/14/2019 10:38:04</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>10/18/2019 17:35:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Diagnostics.Tracing.EventSource.dll">
+      <publishTime>12/01/2015 14:31:46</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>10/18/2019 17:35:09</publishTime>
@@ -111,8 +141,14 @@
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/18/2019 17:35:09</publishTime>
     </File>
+    <File Include="bin/NPOI.dll">
+      <publishTime>12/17/2018 19:15:12</publishTime>
+    </File>
     <File Include="bin/Pipelines.Sockets.Unofficial.dll">
       <publishTime>10/18/2019 17:35:09</publishTime>
+    </File>
+    <File Include="bin/RabbitMQ.Client.dll">
+      <publishTime>10/11/2019 17:17:02</publishTime>
     </File>
     <File Include="bin/Renci.SshNet.dll">
       <publishTime>10/18/2019 17:35:09</publishTime>
@@ -516,6 +552,9 @@
     <File Include="bin/System.Text.RegularExpressions.dll">
       <publishTime>04/16/2019 18:07:55</publishTime>
     </File>
+    <File Include="bin/System.Threading.Channels.dll">
+      <publishTime>10/18/2019 17:35:09</publishTime>
+    </File>
     <File Include="bin/System.Threading.dll">
       <publishTime>04/16/2019 18:07:55</publishTime>
     </File>
@@ -601,13 +640,16 @@
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
     <File Include="Configs/AppSettings.config">
-      <publishTime>10/18/2019 17:35:08</publishTime>
+      <publishTime>11/14/2019 17:24:40</publishTime>
     </File>
     <File Include="Configs/ConnectionStrings.config">
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
     <File Include="Configs/Log4net.config">
       <publishTime>10/18/2019 17:35:08</publishTime>
+    </File>
+    <File Include="File/DBModel.txt">
+      <publishTime>11/19/2019 14:35:06</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>10/18/2019 17:35:08</publishTime>
@@ -616,10 +658,10 @@
       <publishTime>10/18/2019 17:35:08</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/23/2019 08:54:21</publishTime>
+      <publishTime>12/13/2019 14:39:51</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/21/2019 14:18:05</publishTime>
+      <publishTime>12/12/2019 18:37:30</publishTime>
     </File>
   </ItemGroup>
 </Project>
