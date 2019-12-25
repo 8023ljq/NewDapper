@@ -17,10 +17,6 @@ namespace DapperAdminApi.Controllers
     public class BaseController : ApiController
     {
         /// <summary>
-        /// 查询排序条件
-        /// </summary>
-
-        /// <summary>
         /// 缓存管理员信息
         /// </summary>
         public static RedisHelper redis = new RedisHelper(AppSettingsConfig.RedisUserDB);

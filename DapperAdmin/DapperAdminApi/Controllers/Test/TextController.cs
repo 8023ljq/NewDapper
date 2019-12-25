@@ -4,8 +4,11 @@ using DapperCommonMethod.CommonMethod;
 using DapperHelp.Dapper;
 using DapperModel.CommonModel;
 using DapperModel.DataModel;
+using DapperModel.TextModel;
 using DapperSql.MySql_SQL;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Test
@@ -104,6 +107,26 @@ namespace DapperAdminApi.Controllers.Test
         {
             //return Ok(testBll.AddModel());
             return Ok(testBll.GetDataBases());
+        }
+
+        /// <summary>
+        /// 添加用户(事物处理)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("getarr")]
+        public IHttpActionResult GetArr(List<dynamic> dynamic)
+        {
+            foreach (var item in dynamic)
+            {
+                TextModel employerModel = new TextModel();
+                employerModel.Code = item.Code;
+                employerModel.Name = item.Name;
+                employerModel.province = item.province;
+                employerModel.city = item.city;
+            }
+            return Ok(ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = dynamic }));
         }
     }
 }
