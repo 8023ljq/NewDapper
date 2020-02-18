@@ -5,6 +5,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Web.Hosting;
 
 namespace DapperCommonMethod.CommonJson
@@ -90,6 +93,28 @@ namespace DapperCommonMethod.CommonJson
             {
                return jsonfile = "未找到错误编码文字码,请检查ENUM与JSON是否一一对应";
             }
+        }
+
+        public static List<T> JsonTurnEntity<T>()
+        {
+            string path = "json.json";
+
+            String linee = "";
+
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
+            {
+
+                linee = sr.ReadToEnd();
+
+            }
+
+            // 实例化DataContractJsonSerializer对象，需要待序列化的对象类型
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<T>));
+            //把Json传入内存流中保存
+            MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(linee));
+            // 使用ReadObject方法反序列化成对象
+            object ob = serializer.ReadObject(stream);
+            return (List<T>)ob;
         }
 
         #endregion
