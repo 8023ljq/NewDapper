@@ -19,7 +19,7 @@ namespace DapperAdminApi.Controllers
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper(AppSettingsConfig.RedisUserDB);
+        public static RedisHelpers redis = new RedisHelpers(AppSettingsConfig.RedisUserDB);
 
         /// <summary>
         /// 获取token

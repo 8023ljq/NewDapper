@@ -14,11 +14,11 @@ namespace DapperBLL.BaseBLL
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper(AppSettingsConfig.RedisUserDB);
+        public static RedisHelpers redis = new RedisHelpers(AppSettingsConfig.RedisUserDB);
 
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper Commonredis = new RedisHelper(AppSettingsConfig.RedisCommonDB);
+        public static RedisHelpers Commonredis = new RedisHelpers(AppSettingsConfig.RedisCommonDB);
     }
 }

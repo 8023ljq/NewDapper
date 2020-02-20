@@ -21,7 +21,7 @@ namespace DapperAdminApi.App_Start
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelper redis = new RedisHelper();    
+        public static RedisHelpers redis = new RedisHelpers();    
 
         /// <summary>
         /// 指示指定的控件是否已获得授权
