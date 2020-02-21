@@ -8,26 +8,43 @@ namespace DapperCacheHelps.CSRedisHelper
 {
     public class RedisCoreHelper : RedisHelper
     {
-        //static string redislink = "139.9.167.151:6379,password=admin@2019,defaultDatabase=13,prefix=Text";
-        static readonly string redislink = ConfigurationManager.ConnectionStrings["CSRedisExchangeHosts"].ConnectionString;
-        static CSRedisClient redisManger = null;
+        private static readonly string redislink = ConfigurationManager.ConnectionStrings["CSRedisExchangeHosts"].ConnectionString;
+
+        //示例所有的DB便于切换
+        protected static CSRedisClient[] CSRedisClient = new CSRedisClient[16];
+
+        protected static CSRedisClient redisManger = null;
+
+        private static object _lockObj_write = new object();
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        static RedisCoreHelper()
+        public RedisCoreHelper()
         {
             try
             {
-                redisManger = new CSRedisClient(redislink);      //Redis的连接字符串
-                RedisHelper.Initialization(redisManger);
+                for (int i = 0; i < CSRedisClient.Length; i++)
+                {
+                    if (CSRedisClient[i] == null)
+                    {
+                        lock (_lockObj_write)
+                        {
+                            if (CSRedisClient[i] == null)
+                            {
+                                CSRedisClient[i] = new CSRedisClient(string.Format(redislink, i));
+                                Initialization(CSRedisClient[i]);
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 LogHelper.Log("logsys").WriteError(ex.Message);
             }
-
         }
+
 
         #region T,String类
 
