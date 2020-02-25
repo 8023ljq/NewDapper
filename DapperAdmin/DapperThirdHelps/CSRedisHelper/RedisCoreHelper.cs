@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DapperCacheHelps.CSRedisHelper
 {
+    /// <summary>
+    /// CSRedis缓存帮助类(解决StackExchange.Redis连接超时问题)
+    /// </summary>
     public class RedisCoreHelper : RedisHelper
     {
         private static readonly string redislink = ConfigurationManager.ConnectionStrings["CSRedisExchangeHosts"].ConnectionString;

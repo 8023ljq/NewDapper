@@ -5,6 +5,9 @@ using System.Configuration;
 
 namespace DapperThirdHelps.RedisHelper
 {
+    /// <summary>
+    /// 注册redis
+    /// </summary>
     public class RedisConnectionHelp
     {
         //系统自定义Key前缀
