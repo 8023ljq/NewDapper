@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 
 namespace DapperModel.DataModel
@@ -5,12 +6,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 角色与管理员组关联表
     /// </summary>
+    [Table("Sys_RoleRelatedGroup")]
     public class Sys_RoleRelatedGroup
     {
-	     
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
  
         /// <summary>

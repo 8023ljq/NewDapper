@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 
 namespace DapperModel.DataModel
@@ -5,11 +6,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 文章内容表
     /// </summary>
+    [Table("Sys_Article")]
     public class Sys_Article
     {
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
 
         /// <summary>

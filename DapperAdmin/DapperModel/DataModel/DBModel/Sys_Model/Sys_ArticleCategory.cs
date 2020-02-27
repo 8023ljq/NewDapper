@@ -1,13 +1,17 @@
+using Dapper.Contrib.Extensions;
+
 namespace DapperModel.DataModel
 {
     /// <summary>
     /// 文章类别
     /// </summary>
+    [Table("Sys_ArticleCategory")]
     public class Sys_ArticleCategory
     {
         /// <summary>
         /// 主键
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
  
         /// <summary>

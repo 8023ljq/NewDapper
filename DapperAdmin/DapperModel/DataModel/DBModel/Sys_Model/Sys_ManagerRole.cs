@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 
 namespace DapperModel.DataModel
@@ -5,12 +6,14 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 后台管理员角色表
     /// </summary>
+    [Table("L_AdminLoginLog")]
     public partial class Sys_ManagerRole
     {
 
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
 
         /// <summary>

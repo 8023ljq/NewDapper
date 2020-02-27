@@ -5,12 +5,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 菜单按钮权限表
     /// </summary>
+    [Table("Sys_MenuButtonPower")]
     public class Sys_MenuButtonPower
     {
-	     
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
 
         /// <summary>

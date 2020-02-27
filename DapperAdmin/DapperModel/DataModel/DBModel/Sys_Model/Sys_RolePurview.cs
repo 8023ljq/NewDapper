@@ -5,12 +5,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 角色权限表
     /// </summary>
+    [Table("Sys_RolePurview")]
     public class Sys_RolePurview
     {
-
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
 
         /// <summary>
