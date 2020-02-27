@@ -345,7 +345,9 @@ namespace DapperHelp.Dapper
             else
             {
                 var conn = transaction.Connection;
-                return conn.Insert(item, transaction: transaction, commandTimeout: commandTimeout).ToString();
+                var a = conn.Insert(item, transaction: transaction, commandTimeout: commandTimeout);
+
+                return a.ToString();
             }
         }
 

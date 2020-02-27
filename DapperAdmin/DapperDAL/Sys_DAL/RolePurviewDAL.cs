@@ -28,5 +28,15 @@ namespace DapperDAL
         {
            return  GetListAll<Sys_RolePurview>("RoleId=@RoleId and IsLocking=0 and IsDelete=0", null, new { RoleId = RoleId });
         }
+
+        /// <summary>
+        /// 根据角色查询不同的菜单权限
+        /// </summary>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public List<Sys_RolePurview> GetMenuPurviewList(string RoleId)
+        {
+            return GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = RoleId });
+        }
     }
 }

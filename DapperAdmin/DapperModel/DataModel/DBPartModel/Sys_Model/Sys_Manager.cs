@@ -10,7 +10,7 @@ namespace DapperModel.DataModel
         /// <summary>
         /// 角色名字    
         /// </summary>
-        [Computed]
+        [Write(false)]
         public string RoleName { get; set; }
     }
 }

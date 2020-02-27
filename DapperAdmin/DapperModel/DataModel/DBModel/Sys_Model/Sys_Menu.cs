@@ -1,3 +1,4 @@
+using Dapper.Contrib.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,11 +7,13 @@ namespace DapperModel.DataModel
     /// <summary>
     /// 系统菜单
     /// </summary>
+    [Table("Sys_Menu")]
     public partial class Sys_Menu
     {
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public int Id { get; set; }
 
         /// <summary>

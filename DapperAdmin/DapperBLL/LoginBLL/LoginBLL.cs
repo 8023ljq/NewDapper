@@ -84,10 +84,22 @@ namespace DapperBLL
                 Remarks = managerModel.Remarks,
             };
 
+            L_AdminLoginLog adminLoginLog = new L_AdminLoginLog()
+            {
+                Id = Guid.NewGuid().ToString(),
+                RoleId = managerroleModel.Id,
+                RoleIdName = managerroleModel.RoleName,
+                AdminId = adminModel.UserId,
+                AdminName = adminModel.AdminName,
+                LoginTime = DateTime.Now,
+                LoginIp = "127.0.0.1"
+            };
+
             redis.StringSet(Token, redisManagerModel, TimeSpan.FromMinutes(30));
 
             //修改的成功与否不与登录成功有关系
-            managerdDAL.UpdateModel<Sys_Manager>(managerModel);
+             //var asd=  managerdDAL.UpdateModel<Sys_Manager>(managerModel);
+            loginDAL.UpdateLoginInfo(managerModel, adminLoginLog);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token });
         }

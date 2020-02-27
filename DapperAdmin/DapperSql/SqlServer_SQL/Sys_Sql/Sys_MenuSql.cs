@@ -23,6 +23,6 @@ namespace DapperSql.Sys_Sql
         /// <summary>
         /// 查询添加按钮时是否已存在
         /// </summary>
-        public static string selectMenuPowerSql = "select * from Sys_Menu where ParentId=@MenuId and (FullName=@PowerName or Purview=@PowerMark)";
+        public static string selectMenuPowerSql = "select * from Sys_Menu where ParentId=@ParentId and (FullName=@FullName or Purview=@Purview)";
     }
 }

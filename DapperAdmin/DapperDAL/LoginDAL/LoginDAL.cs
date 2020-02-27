@@ -15,5 +15,22 @@ namespace DapperDAL
         {
            return GetModelAll<Sys_Manager>("Name=@Name", new { Name = Name });
         }
+
+        /// <summary>
+        /// 修改登录信息
+        /// </summary>
+        /// <param name="managerModel"></param>
+        /// <param name="adminLoginLog"></param>
+        public void UpdateLoginInfo(Sys_Manager managerModel, L_AdminLoginLog adminLoginLog)
+        {
+            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
+            {
+                dapperHelps.ExecuteUpdate(managerModel, tran);
+
+                dapperHelps.ExecuteInsertGuid(adminLoginLog, tran);
+
+                tran.Commit();
+            }
+        }
     }
 }

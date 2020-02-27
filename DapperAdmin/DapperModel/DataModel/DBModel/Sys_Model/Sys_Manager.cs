@@ -13,6 +13,7 @@ namespace DapperModel.DataModel
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         [RegularExpression(@"^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$", ErrorMessage = "5000")]
         public string Id { get; set; }
 
@@ -105,12 +106,12 @@ namespace DapperModel.DataModel
         /// 是否锁定(0:否1:是)
         /// </summary>	
         public bool IsLocking { get; set; }
- 
+
         /// <summary>
         /// 是否删除(0:否1:是)
         /// </summary>	
         public bool IsDelete { get; set; }
- 
+
         /// <summary>
         /// 备注
         /// </summary>	

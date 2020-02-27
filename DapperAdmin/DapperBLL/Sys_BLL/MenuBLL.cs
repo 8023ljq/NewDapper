@@ -23,7 +23,9 @@ namespace DapperBLL.Sys_BLL
     public class MenuBLL : BaseBLLS
     {
         private MenuDAL menuDAL = new MenuDAL();
-        private DapperHelps dapperHelps = new DapperHelps();
+       
+        private GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
+        private RolePurviewDAL purviewDAL = new RolePurviewDAL();
 
         /// <summary>
         /// 添加菜单信息
@@ -40,6 +42,7 @@ namespace DapperBLL.Sys_BLL
 
             //检查菜单数据是否存在
             List<Sys_Menu> MenuList = menuDAL.GetMenuIsExistList(menuModel);
+
             if (MenuList.Count > 0)
             {
                 if (menuModel.ParentId == "0" && MenuList.Find(p => p.GuId == menuModel.ParentId) == null)
@@ -104,13 +107,15 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
             }
 
-            Sys_Menu menuModel = menuDAL.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = guId });
-            if (menuModel == null) 
+            Sys_Menu menuModel = menuDAL.GetMenuModel(guId);
+
+            if (menuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            List<Sys_Menu> menuList = baseDALS.GetListAll<Sys_Menu>("ParentId=@ParentId", null, new { ParentId = guId });
+            List<Sys_Menu> menuList = menuDAL.GetMenuPowerList(guId, (int)ResourceTypeEnum.Menu);
+
             if (menuList.Count > 0)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1027);
@@ -126,14 +131,7 @@ namespace DapperBLL.Sys_BLL
                 OperateDepict = string.Format(LogDescribeConfig.DeleteDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + menuModel.FullName),
             };
 
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                dapperHelps.DeleteModel(menuModel, tran);
-
-                dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
-
-                tran.Commit();
-            }
+            menuDAL.DeleteMenuThing(menuModel, adminOperateLogModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604);
         }
@@ -151,24 +149,25 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
             }
 
-            Sys_Menu formerMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = menuModel.GuId });
-            if (formerMenuModel == null)
+            Sys_Menu MenuModel = menuDAL.GetMenuModel(menuModel.GuId);
+
+            if (MenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
             }
 
-            if (formerMenuModel.ParentId == "0" && menuModel.ParentId != "0")
+            if (MenuModel.ParentId == "0" && menuModel.ParentId != "0")
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1028);
             }
 
-            formerMenuModel.ParentId = menuModel.ParentId;
-            formerMenuModel.FullName = menuModel.FullName;
-            formerMenuModel.AddressUrl = menuModel.AddressUrl;
-            formerMenuModel.IconUrl = menuModel.IconUrl;
-            formerMenuModel.IsShow = menuModel.IsShow;
-            formerMenuModel.Sort = menuModel.Sort;
-            formerMenuModel.Remarks = menuModel.Remarks;
+            MenuModel.ParentId = menuModel.ParentId;
+            MenuModel.FullName = menuModel.FullName;
+            MenuModel.AddressUrl = menuModel.AddressUrl;
+            MenuModel.IconUrl = menuModel.IconUrl;
+            MenuModel.IsShow = menuModel.IsShow;
+            MenuModel.Sort = menuModel.Sort;
+            MenuModel.Remarks = menuModel.Remarks;
 
             L_AdminOperateLog adminOperateLogModel = new L_AdminOperateLog()
             {
@@ -180,14 +179,7 @@ namespace DapperBLL.Sys_BLL
                 OperateDepict = string.Format(LogDescribeConfig.UpdateDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + menuModel.FullName),
             };
 
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                dapperHelps.UpdateModel(formerMenuModel, tran);
-
-                dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
-
-                tran.Commit();
-            }
+            menuDAL.UpdateMenuThing(menuModel, adminOperateLogModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602);
         }
@@ -200,7 +192,8 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetMenuList(Sys_Manager userModel)
         {
             //根据角色查询不同的菜单权限
-            List<Sys_RolePurview> rolePurviewsList = baseDALS.GetListAll<Sys_RolePurview>("RoleId=@RoleId", null, new { RoleId = userModel.RelationId });
+            List<Sys_RolePurview> rolePurviewsList = purviewDAL.GetMenuPurviewList( userModel.RelationId);
+
             string[] menuarray = rolePurviewsList.Select(p => p.ResourceId).ToArray();
 
             //菜单超过三十个需要手动分页查询
@@ -211,8 +204,8 @@ namespace DapperBLL.Sys_BLL
             }
 
             //查询当前用户的菜单权限
-            GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
             var menuAllList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, menuarray);
+
             List<Sys_MenuViewModel> menuList = menuAllList.Where(p => menuarray.Contains(p.GuId)).ToList();
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
@@ -225,7 +218,6 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetAllMenuList()
         {
             //查询当前用户的菜单权限
-            GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
             List<Sys_MenuViewModel> menuList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, null);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
@@ -238,9 +230,9 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuModel(string guid)
         {
-            Sys_Menu menuModel = baseDALS.GetModel<Sys_Menu>(Sys_MenuSql.getmodel, new { Guid = guid });
+            Sys_Menu menuModel = menuDAL.GetMenuModel(guid);
 
-            List<Sys_Menu> menuList = baseDALS.GetListAll<Sys_Menu>("ParentId=@ParentId and ResourceType=@ResourceType", null, new { ParentId = guid, ResourceType = (int)ResourceTypeEnum.Button });
+            List<Sys_Menu> menuList = menuDAL.GetMenuPowerList(guid, (int)ResourceTypeEnum.Button);
 
             if (menuModel == null)
             {
@@ -268,9 +260,10 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
             }
 
-            List<Sys_Menu> MenuList = baseDALS.GetList<Sys_Menu>(Sys_MenuSql.selectMenuPowerSql, null, addMenuPower);
+            List<Sys_Menu> MenuList = menuDAL.GetMenuPowerList(addMenuPower);
 
-            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = addMenuPower.ParentId });
+            Sys_Menu NowMenuModel = menuDAL.GetMenuModel(addMenuPower.ParentId);
+
             if (NowMenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
@@ -315,14 +308,7 @@ namespace DapperBLL.Sys_BLL
                 OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + NowMenuModel.FullName + "的" + addMenuPower.FullName + "权限"),
             };
 
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                dapperHelps.ExecuteInsert(MenuModel, tran);
-
-                dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
-
-                tran.Commit();
-            }
+            menuDAL.AddMenuPowerThing(MenuModel, adminOperateLogModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200);
         }
@@ -340,7 +326,8 @@ namespace DapperBLL.Sys_BLL
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1017);
             }
 
-            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = guid });
+            Sys_Menu NowMenuModel = menuDAL.GetMenuModel(guid);
+
             if (NowMenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
@@ -356,14 +343,7 @@ namespace DapperBLL.Sys_BLL
                 OperateDepict = string.Format(LogDescribeConfig.DeleteDescribe, userModel.Name, DateTime.Now.ToString(), "" + NowMenuModel.FullName + "权限"),
             };
 
-            using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
-            {
-                dapperHelps.DeleteModel(NowMenuModel, tran);
-
-                dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
-
-                tran.Commit();
-            }
+            menuDAL.DeleteMenuPowerThing(NowMenuModel, adminOperateLogModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Delete_604);
         }
@@ -376,7 +356,8 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg UpdateMenuPower(AddMenuPowerRequest addMenuPower, Sys_Manager userModel)
         {
-            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = addMenuPower.GuId });
+            Sys_Menu NowMenuModel = menuDAL.GetMenuModel(addMenuPower.GuId);
+
             if (NowMenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);
@@ -387,7 +368,7 @@ namespace DapperBLL.Sys_BLL
             NowMenuModel.UpdateTime = DateTime.Now;
             NowMenuModel.UpdateUserId = userModel.Id;
 
-            bool bo = baseDALS.UpdateModel<Sys_Menu>(NowMenuModel);
+            bool bo = menuDAL.UpdateModel<Sys_Menu>(NowMenuModel);
 
             return bo ? ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Update_602) : ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_Update_603);
         }
@@ -399,7 +380,8 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetMenuPower(string guid)
         {
-            Sys_Menu NowMenuModel = baseDALS.GetModelAll<Sys_Menu>("GuId=@GuId", new { GuId = guid });
+            Sys_Menu NowMenuModel = menuDAL.GetMenuModel(guid);
+
             if (NowMenuModel == null)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_400);

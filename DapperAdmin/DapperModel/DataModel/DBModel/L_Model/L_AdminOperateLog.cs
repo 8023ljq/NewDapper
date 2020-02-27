@@ -1,15 +1,18 @@
 using System;
+using Dapper.Contrib.Extensions;
 
 namespace DapperModel.DataModel
 {
     /// <summary>
     /// 管理员操作日志
     /// </summary>
+    [Table("L_AdminOperateLog")]
     public class L_AdminOperateLog
     {
         /// <summary>
         /// 主键Id
         /// </summary>	
+        [ExplicitKey]
         public string Id { get; set; }
  
         /// <summary>
