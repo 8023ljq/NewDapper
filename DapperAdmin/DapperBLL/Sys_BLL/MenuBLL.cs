@@ -23,7 +23,7 @@ namespace DapperBLL.Sys_BLL
     public class MenuBLL : BaseBLLS
     {
         private MenuDAL menuDAL = new MenuDAL();
-       
+
         private GetRedisDataBLL redisDataBLL = new GetRedisDataBLL();
         private RolePurviewDAL purviewDAL = new RolePurviewDAL();
 
@@ -192,7 +192,7 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetMenuList(Sys_Manager userModel)
         {
             //根据角色查询不同的菜单权限
-            List<Sys_RolePurview> rolePurviewsList = purviewDAL.GetMenuPurviewList( userModel.RelationId);
+            List<Sys_RolePurview> rolePurviewsList = purviewDAL.GetMenuPurviewList(userModel.RelationId);
 
             string[] menuarray = rolePurviewsList.Select(p => p.ResourceId).ToArray();
 
@@ -204,9 +204,9 @@ namespace DapperBLL.Sys_BLL
             }
 
             //查询当前用户的菜单权限
-            var menuAllList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, menuarray);
+            var menuAllList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, (int)MenuEnum.LeftSide, menuarray);
 
-            List<Sys_MenuViewModel> menuList = menuAllList.Where(p => menuarray.Contains(p.GuId)).ToList();
+            List<Sys_MenuViewModel> menuList = menuAllList.Where(p => menuarray.Contains(p.GuId) && p.IsShow).ToList();
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
         }
@@ -218,7 +218,7 @@ namespace DapperBLL.Sys_BLL
         public ResultMsg GetAllMenuList()
         {
             //查询当前用户的菜单权限
-            List<Sys_MenuViewModel> menuList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, null);
+            List<Sys_MenuViewModel> menuList = redisDataBLL.GetAllMenuList(RedisPrefixConfig.RedisMenuList, (int)MenuEnum.Authority, null);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = menuList });
         }
@@ -388,6 +388,27 @@ namespace DapperBLL.Sys_BLL
             }
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = NowMenuModel });
+        }
+
+        /// <summary>
+        /// 清除菜单缓存
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public ResultMsg CleanCache()
+        {
+            bool bo = false;
+
+            if (Commonredis.ListGet<Sys_MenuViewModel>(RedisPrefixConfig.RedisMenuList).Count <= 0)
+            {
+                bo = true;
+            }
+            else
+            {
+                bo = Commonredis.KeyDelete(RedisPrefixConfig.RedisMenuList);
+            }
+
+            return ReturnHelpMethod.ReturnSuccess(bo ? (int)HttpCodeEnum.Http_Clean_607 : (int)HttpCodeEnum.Http_Clean_608);
         }
     }
 }

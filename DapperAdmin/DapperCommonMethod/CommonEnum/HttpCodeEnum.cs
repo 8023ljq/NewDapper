@@ -85,6 +85,18 @@ namespace DapperCommonMethod.CommonEnum
         [Description("请求参数有误")]
         Http_606 = 606,
 
+        /// <summary>
+        /// 清理成功
+        /// </summary>
+        [Description("清理成功")]
+        Http_Clean_607 = 607,
+
+        /// <summary>
+        /// 清理失败
+        /// </summary>
+        [Description("清理失败")]
+        Http_Clean_608 = 608,
+
         // ******************************************************************************
         // Author：Geek Dog  
         // Content：程序错误提示标识(1000--1999匹配json文件中的key值一一对应)  

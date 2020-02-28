@@ -81,6 +81,7 @@
     <Compile Include="CommonConfig\LogDescribeConfig.cs" />
     <Compile Include="CommonConfig\RedisPrefixConfig.cs" />
     <Compile Include="CommonEnum\HttpCodeEnum.cs" />
+    <Compile Include="CommonEnum\MenuEnum.cs" />
     <Compile Include="CommonEnum\NumberPrefixEnum.cs" />
     <Compile Include="CommonEnum\OperateEnum.cs" />
     <Compile Include="CommonEnum\ResourceTypeEnum.cs" />

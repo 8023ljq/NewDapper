@@ -13,8 +13,8 @@ namespace DapperModel.DataModel
         /// <summary>
         /// 主键Id
         /// </summary>	
-        [ExplicitKey]
-        public int Id { get; set; }
+        [System.ComponentModel.DataAnnotations.Key]
+        public string Id { get; set; }
 
         /// <summary>
         /// 自增标识

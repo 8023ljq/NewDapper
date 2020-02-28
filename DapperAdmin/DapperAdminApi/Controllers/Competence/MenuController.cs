@@ -180,5 +180,16 @@ namespace DapperAdminApi.Controllers.Competence
             }
             return Ok(menuBLL.GetMenuPower(guid));
         }
+
+        /// <summary>
+        /// Author：Geek Dog  Content：清除菜单缓存 AddTime：2019-10-16 10:15:57  
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("cleancache")]
+        public IHttpActionResult CleanCache()
+        {
+            return Ok(menuBLL.CleanCache());
+        }
     }
 }

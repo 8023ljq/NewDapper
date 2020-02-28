@@ -18,7 +18,7 @@ namespace DapperBLL.CommonBLL
         /// </summary>
         /// <param name="redisPrefix">key前缀</param>
         /// <returns></returns>
-        public List<Sys_MenuViewModel> GetAllMenuList(string redisPrefix, string[] menuarray = null)
+        public List<Sys_MenuViewModel> GetAllMenuList(string redisPrefix, int MenuType, string[] menuarray = null)
         {
             List<Sys_MenuViewModel> menuViewModelsList = new List<Sys_MenuViewModel>();
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
@@ -27,13 +27,18 @@ namespace DapperBLL.CommonBLL
 
             if (menuViewModelsList.Count <= 0)
             {
-                menuViewModelsList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, null, new { IsDelete = 0 });
+                menuViewModelsList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, "Layers,Sort desc", new { IsDelete = 0 });
                 Commonredis.ListSet<Sys_MenuViewModel>(redisPrefix, menuViewModelsList, TimeSpan.FromHours(12));
+            }
+
+            if (MenuType == (int)MenuEnum.LeftSide)
+            {
+                menuViewModelsList= menuViewModelsList.Where(p => p.IsShow==true).ToList();
             }
 
             if (menuarray != null && menuarray.Length > 0)
             {
-                menuViewModelsList= menuViewModelsList.Where(p => menuarray.Contains(p.GuId)).ToList();
+                menuViewModelsList = menuViewModelsList.Where(p => menuarray.Contains(p.GuId)).ToList();
                 orderlist = GetMenuListNew(menuViewModelsList, orderlist, null);
             }
             else
@@ -55,9 +60,9 @@ namespace DapperBLL.CommonBLL
         {
             if (!string.IsNullOrEmpty(parentid))
             {
-                var MenuList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Menu).ToList();
+                var MenuList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Menu).OrderByDescending(p=>p.Sort).ToList();
 
-                var ButtonList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Button).ToList();
+                var ButtonList = menuList.Where(p => p.ParentId == parentid && p.ResourceType == (int)ResourceTypeEnum.Button).OrderByDescending(p => p.AddTime).ToList();
 
                 Sys_MenuViewModel parten = menuList.Find(p => p.GuId == parentid);
 
