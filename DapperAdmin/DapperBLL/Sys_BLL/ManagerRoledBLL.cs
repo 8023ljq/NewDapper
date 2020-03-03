@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DapperBLL.Sys_BLL
+namespace DapperBLL
 {
     /// <summary>
     /// 管理员角色业务层
@@ -30,21 +30,7 @@ namespace DapperBLL.Sys_BLL
         /// <returns></returns>
         public ResultMsg GetRoleSelectList(Sys_Manager ManagerModel)
         {
-            List<Sys_ManagerRole> ManagerRoleList = managerRoleDAL.GetManagerRoleList(ManagerModel.IsDefault, ManagerModel.RelationId);
-
-            List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
-            if (ManagerRoleList.Count > 0)
-            {
-                foreach (var item in ManagerRoleList)
-                {
-                    RoleSelectViewList.Add(new SelectViewModel
-                    {
-                        value = item.Id,
-                        label = item.RoleName,
-                        disabled = item.IsDelete,
-                    });
-                }
-            }
+            List<SelectViewModel> RoleSelectViewList = managerRoleDAL.GetSelectRoleList(ManagerModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = RoleSelectViewList });
         }

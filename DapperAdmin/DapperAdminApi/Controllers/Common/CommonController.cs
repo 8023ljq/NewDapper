@@ -1,5 +1,5 @@
 ﻿using DapperAdminApi.App_Start;
-using DapperBLL.Sys_BLL;
+using DapperBLL;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.Common

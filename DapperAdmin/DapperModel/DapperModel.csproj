@@ -85,6 +85,7 @@
     <Compile Include="ViewModel\RequestModel\AddRoleRequest.cs" />
     <Compile Include="ViewModel\RequestModel\LoginModelRequest.cs" />
     <Compile Include="ViewModel\ReturnModel\ManagerReturnModel.cs" />
+    <Compile Include="ViewModel\ReturnModel\ManagerRoleReturnModel.cs" />
     <Compile Include="ViewModel\ReturnModel\MenuReturnModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleCategoryViewModel.cs" />
     <Compile Include="ViewModel\SysViewModel\Sys_ArticleViewModel.cs" />

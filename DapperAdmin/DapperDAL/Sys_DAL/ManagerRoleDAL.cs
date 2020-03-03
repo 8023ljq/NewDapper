@@ -1,5 +1,6 @@
 ﻿using DapperModel.CommonModel;
 using DapperModel.DataModel;
+using DapperModel.ViewModel;
 using DapperSql.Sys_Sql;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,52 @@ namespace DapperDAL
         /// <param name="IsDefault"></param>
         /// <param name="RelationId"></param>
         /// <returns></returns>
-        public List<Sys_ManagerRole> GetManagerRoleList(bool IsDefault, string RelationId)
+        public List<Sys_ManagerRole> GetManagerRoleList(Sys_Manager ManagerModel)
         {
             string whereStr = $"IsDelete=@IsDelete";
 
-            if (IsDefault)
+            if (ManagerModel.IsDefault)
             {
                 whereStr += " and Id=@Id";
             }
-            return GetListAll<Sys_ManagerRole>(whereStr, null, new { IsDelete = 0, Id = RelationId });
+            return GetListAll<Sys_ManagerRole>(whereStr, null, new { IsDelete = 0, Id = ManagerModel.RelationId });
+        }
+
+        /// <summary>
+        /// 获取所有角色下拉列表数据
+        /// </summary>
+        /// <param name="ManagerModel"></param>
+        /// <returns></returns>
+        public List<SelectViewModel> GetSelectRoleList(Sys_Manager ManagerModel)
+        {
+            string whereStr = $"IsDelete=@IsDelete";
+
+            if (ManagerModel.IsDefault)
+            {
+                whereStr += " and Id=@Id";
+            }
+            else
+            {
+                whereStr += " and IsDefault=0";
+            }
+
+            List<Sys_ManagerRole> ManagerRoleList = GetListAll<Sys_ManagerRole>(whereStr, null, new { IsDelete = 0, Id = ManagerModel.RelationId });
+
+            List<SelectViewModel> RoleSelectViewList = new List<SelectViewModel>();
+            if (ManagerRoleList.Count > 0)
+            {
+                foreach (var item in ManagerRoleList)
+                {
+                    RoleSelectViewList.Add(new SelectViewModel
+                    {
+                        value = item.Id,
+                        label = item.RoleName,
+                        disabled = item.IsDelete,
+                    });
+                }
+            }
+
+            return RoleSelectViewList;
         }
 
         /// <summary>

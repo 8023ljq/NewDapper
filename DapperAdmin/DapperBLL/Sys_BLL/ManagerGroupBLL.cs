@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DapperBLL.Sys_BLL
+namespace DapperBLL
 {
     /// <summary>
     /// 管理员组业务层

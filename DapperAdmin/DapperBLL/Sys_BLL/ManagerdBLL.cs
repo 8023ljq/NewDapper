@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using DapperModel.DataModel;
 using DapperDAL;
+using DapperModel.ViewModel;
 
 namespace DapperBLL
 {
@@ -49,6 +50,8 @@ namespace DapperBLL
         /// <returns></returns>
         public ResultMsg GetManagerModel(string mangaerId)
         {
+            ManagerRoleReturnModel roleReturnModel = new ManagerRoleReturnModel();
+
             Sys_Manager managerModel = new Sys_Manager();
 
             if (!DataCheck(mangaerId, out managerModel))
@@ -56,7 +59,12 @@ namespace DapperBLL
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_400);
             }
 
-            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = managerModel });
+            ManagerRoleDAL managerRoledDAL = new ManagerRoleDAL();
+
+            roleReturnModel.ManagerModel = managerModel;
+            roleReturnModel.RoleSelectViewList = managerRoledDAL.GetSelectRoleList(managerModel);
+
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_200, new { data = roleReturnModel });
         }
 
         /// <summary>
@@ -199,13 +207,6 @@ namespace DapperBLL
         /// <returns></returns>
         public bool DataCheck(string mangaerId, out Sys_Manager managerModel)
         {
-            managerModel = new Sys_Manager();
-
-            if (String.IsNullOrEmpty(mangaerId))
-            {
-                return false;
-            }
-
             managerModel = managerdDAL.GetModelById<Sys_Manager>(mangaerId);
 
             if (managerModel == null)
