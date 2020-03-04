@@ -13,7 +13,7 @@ namespace DapperCacheHelps.CSRedisHelper
     {
         private static readonly string redislink = ConfigurationManager.ConnectionStrings["CSRedisExchangeHosts"].ConnectionString;
 
-        //示例所有的DB便于切换
+        //实例所有的DB便于切换
         protected static CSRedisClient[] CSRedisClient = new CSRedisClient[16];
 
         protected static CSRedisClient redisManger = null;
