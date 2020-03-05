@@ -3,6 +3,7 @@ using DapperBLL;
 using DapperCommonMethod.CommonMethod;
 using DapperModel.ViewModel;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace DapperAdminApi.Controllers.LoginControllers
 {
