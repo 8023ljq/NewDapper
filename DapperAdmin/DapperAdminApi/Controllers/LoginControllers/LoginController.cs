@@ -1,9 +1,7 @@
 ﻿using DapperAdminApi.App_Start;
 using DapperBLL;
-using DapperCommonMethod.CommonMethod;
 using DapperModel.ViewModel;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace DapperAdminApi.Controllers.LoginControllers
 {
@@ -25,14 +23,16 @@ namespace DapperAdminApi.Controllers.LoginControllers
         [Route("loginact")]
         public IHttpActionResult LoginAct(LoginModelRequest Model)
         {
-            //数据验证
-            var IsValidStr = ValidatetionMethod.IsValid(Model);
-            if (!IsValidStr.IsVaild)
-            {
-                return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
-            }
 
-            return Ok(loginBLL.LoginAct(Model, GetIPAddress));
+            //数据验证
+            //var IsValidStr = ValidatetionMethod.IsValid(Model);
+            //if (!IsValidStr.IsVaild)
+            //{
+            //    return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
+            //}
+
+            //return Ok(loginBLL.LoginAct(Model, GetIPAddress));
+            return Ok("接口是通的");
         }
 
         /// <summary>

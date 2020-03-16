@@ -35,7 +35,9 @@ namespace DapperAdminApi
             ).RouteHandler = new SessionControllerRouteHandler();
 
             //添加过滤器
-            config.Filters.Add(new WebApiExceptionFilterAttribute()); 
+            config.Filters.Add(new WebApiExceptionFilterAttribute());
+
+         
         }
 
         public class SessionRouteHandler : HttpControllerHandler, IRequiresSessionState
