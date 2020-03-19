@@ -1,5 +1,5 @@
 ﻿using CSRedis;
-using DapperCommonMethod.CommonLog;
+using DapperCommonMethod.CommonMethod;
 using System;
 using System.Configuration;
 using System.Threading.Tasks;
@@ -7,18 +7,36 @@ using System.Threading.Tasks;
 namespace DapperCacheHelps.CSRedisHelper
 {
     /// <summary>
-    /// CSRedis缓存帮助类(解决StackExchange.Redis连接超时问题)
+    /// CSRedis帮助类
     /// </summary>
     public class RedisCoreHelper : RedisHelper
     {
         private static readonly string redislink = ConfigurationManager.ConnectionStrings["CSRedisExchangeHosts"].ConnectionString;
 
-        //实例所有的DB便于切换
-        protected static CSRedisClient[] CSRedisClient = new CSRedisClient[16];
-
         protected static CSRedisClient redisManger = null;
 
+        //示例所有的DB便于切换
+        protected static CSRedisClient[] CSRedisClient = new CSRedisClient[16];
+
         private static object _lockObj_write = new object();
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        //public RedisCoreHelper()
+        //{
+        //    if (redisManger == null)
+        //    {
+        //        lock (_lockObj_write)
+        //        {
+        //            if (redisManger == null)
+        //            {
+        //                redisManger = new CSRedisClient(redislink);
+        //                Initialization(redisManger);
+        //            }
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 构造函数
@@ -36,7 +54,7 @@ namespace DapperCacheHelps.CSRedisHelper
                             if (CSRedisClient[i] == null)
                             {
                                 CSRedisClient[i] = new CSRedisClient(string.Format(redislink, i));
-                                Initialization(CSRedisClient[i]);
+                                Initialization(redisManger);
                             }
                         }
                     }
@@ -44,10 +62,11 @@ namespace DapperCacheHelps.CSRedisHelper
             }
             catch (Exception ex)
             {
-                LogHelper.Log("logsys").WriteError(ex.Message);
+                WriteLogMethod.WriteLogs(ex);
+                throw;
             }
-        }
 
+        }
 
         #region T,String类
 
@@ -59,11 +78,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="key">key值</param>
         /// <param name="obj">value</param>
         /// <param name="expiry">过期时间(单位秒-1永不过期)</param>
-        public bool StringSet(string key, string obj, int expiry = -1)
+        public bool StringSet(int dbNum, string key, string obj, int expiry = -1)
         {
             try
             {
-                bool bo = Set(key, obj, expiry);
+                bool bo = CSRedisClient[dbNum].Set(key, obj, expiry);
                 return bo;
             }
             catch (Exception)
@@ -79,11 +98,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <typeparam name="T"></typeparam>
         /// <param name="key">key值</param>
         /// <returns></returns>
-        public string StringGet(string key)
+        public string StringGet(int dbNum, string key)
         {
             try
             {
-                return Get(key);
+                return CSRedisClient[dbNum].Get(key);
             }
             catch (Exception)
             {
@@ -98,11 +117,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="key">key值</param>
         /// <param name="obj">实体类</param>
         /// <param name="expiry">过期时间(单位秒-1永不过期)</param>
-        public bool StringSet<T>(string key, T obj, int expiry = -1)
+        public bool StringSet<T>(int dbNum, string key, T obj, int expiry = -1)
         {
             try
             {
-                return Set(key, obj, expiry);
+                return CSRedisClient[dbNum].Set(key, obj, expiry);
             }
             catch (Exception)
             {
@@ -117,11 +136,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <typeparam name="T"></typeparam>
         /// <param name="key">key值</param>
         /// <returns></returns>
-        public T StringGet<T>(string key)
+        public T StringGet<T>(int dbNum, string key)
         {
             try
             {
-                return Get<T>(key);
+                return CSRedisClient[dbNum].Get<T>(key);
             }
             catch (Exception)
             {
@@ -139,11 +158,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="key">key值</param>
         /// <param name="obj">value</param>
         /// <param name="expiry">过期时间(单位秒-1永不过期)</param>
-        public async Task<bool> StringSetAsync(string key, string obj, int expiry = -1)
+        public async Task<bool> StringSetAsync(int dbNum, string key, string obj, int expiry = -1)
         {
             try
             {
-                return await SetAsync(key, obj, expiry);
+                return await CSRedisClient[dbNum].SetAsync(key, obj, expiry);
             }
             catch (Exception)
             {
@@ -158,11 +177,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <typeparam name="T"></typeparam>
         /// <param name="key">key值</param>
         /// <returns></returns>
-        public async Task<string> StringGetAsync(string key)
+        public async Task<string> StringGetAsync(int dbNum, string key)
         {
             try
             {
-                return await GetAsync(key);
+                return await CSRedisClient[dbNum].GetAsync(key);
             }
             catch (Exception)
             {
@@ -177,11 +196,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="key">key值</param>
         /// <param name="obj">实体类</param>
         /// <param name="expiry">过期时间(单位秒-1永不过期)</param>
-        public async Task<bool> StringSetAsync<T>(string key, T obj, int expiry = -1)
+        public async Task<bool> StringSetAsync<T>(int dbNum, string key, T obj, int expiry = -1)
         {
             try
             {
-                return await SetAsync(key, obj, expiry);
+                return await CSRedisClient[dbNum].SetAsync(key, obj, expiry);
             }
             catch (Exception)
             {
@@ -196,11 +215,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <typeparam name="T"></typeparam>
         /// <param name="key">key值</param>
         /// <returns></returns>
-        public async Task<T> StringGetAsync<T>(string key)
+        public async Task<T> StringGetAsync<T>(int dbNum, string key)
         {
             try
             {
-                return await GetAsync<T>(key);
+                return await CSRedisClient[dbNum].GetAsync<T>(key);
             }
             catch (Exception)
             {
@@ -219,11 +238,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="key">key值</param>
         /// <param name="obj">实体类</param>
         /// <param name="expiry">过期时间(单位秒-1永不过期)</param>
-        public bool LPushX<T>(string key, T obj, int expiry = -1)
+        public bool LPushX<T>(int dbNum, string key, T obj, int expiry = -1)
         {
             try
             {
-                var log = LPush(key, obj);
+                var log = CSRedisClient[dbNum].LPush(key, obj);
                 return log > 0L ? true : false;
             }
             catch (Exception)
@@ -242,11 +261,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public bool KeyExists(string Key)
+        public bool KeyExists(int dbNum, string Key)
         {
             try
             {
-                return Exists(Key);
+                return CSRedisClient[dbNum].Exists(Key);
             }
             catch (Exception)
             {
@@ -260,11 +279,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public bool KeyDelete(string Key)
+        public bool KeyDelete(int dbNum, string Key)
         {
             try
             {
-                var logbool = Del(Key);
+                var logbool = CSRedisClient[dbNum].Del(Key);
                 return logbool > 0L ? true : false;
             }
             catch (Exception)
@@ -279,11 +298,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public bool KeyDelete(string[] Key)
+        public bool KeyDelete(int dbNum, string[] Key)
         {
             try
             {
-                var logbool = Del(Key);
+                var logbool = CSRedisClient[dbNum].Del(Key);
                 return logbool > 0L ? true : false;
             }
             catch (Exception)
@@ -299,11 +318,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="Key">旧key值</param>
         /// <param name="newKey">新的key值</param>
         /// <returns></returns>
-        public bool KeyRename(string Key, string newKey)
+        public bool KeyRename(int dbNum, string Key, string newKey)
         {
             try
             {
-                return Rename(Key, newKey);
+                return CSRedisClient[dbNum].Rename(Key, newKey);
             }
             catch (Exception)
             {
@@ -318,11 +337,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="Key">Key值</param>
         /// <param name="Expiry">过期时间(单位秒-1永不过期)</param>
         /// <returns></returns>
-        public bool KeyExpire(string Key, int Expiry)
+        public bool KeyExpire(int dbNum, string Key, int Expiry)
         {
             try
             {
-                return Expire(Key, Expiry);
+                return CSRedisClient[dbNum].Expire(Key, Expiry);
             }
             catch (Exception)
             {
@@ -338,11 +357,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public async Task<bool> KeyExistsAsync(string Key)
+        public async Task<bool> KeyExistsAsync(int dbNum, string Key)
         {
             try
             {
-                return await ExistsAsync(Key);
+                return await CSRedisClient[dbNum].ExistsAsync(Key);
             }
             catch (Exception)
             {
@@ -356,11 +375,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// </summary>
         /// <param name="Key"></param>
         /// <returns></returns>
-        public async Task<bool> KeyDeleteAsync(string Key)
+        public async Task<bool> KeyDeleteAsync(int dbNum, string Key)
         {
             try
             {
-                var logbool = await DelAsync(Key);
+                var logbool = await CSRedisClient[dbNum].DelAsync(Key);
                 return logbool > 0L ? true : false;
             }
             catch (Exception)
@@ -376,11 +395,11 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <param name="Key">旧key值</param>
         /// <param name="newKey">新的key值</param>
         /// <returns></returns>
-        public async Task<bool> KeyRenameAsync(string Key, string newKey)
+        public async Task<bool> KeyRenameAsync(int dbNum, string Key, string newKey)
         {
             try
             {
-                return await RenameAsync(Key, newKey);
+                return await CSRedisClient[dbNum].RenameAsync(Key, newKey);
             }
             catch (Exception)
             {

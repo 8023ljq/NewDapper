@@ -169,8 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ApiAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebApiExceptionFilterAttribute.cs" />
+    <Compile Include="Common\SignalR\MessageHub.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Common\CommonController.cs" />
     <Compile Include="Controllers\Common\GenerateDataController.cs" />
@@ -210,7 +212,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Common\Help\" />
-    <Folder Include="Common\SignalR\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperBLL\DapperBLL.csproj">
