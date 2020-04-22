@@ -23,16 +23,7 @@ namespace DapperAdminApi.Controllers.LoginControllers
         [Route("loginact")]
         public IHttpActionResult LoginAct(LoginModelRequest Model)
         {
-
-            //数据验证
-            //var IsValidStr = ValidatetionMethod.IsValid(Model);
-            //if (!IsValidStr.IsVaild)
-            //{
-            //    return Ok(ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers));
-            //}
-
-            //return Ok(loginBLL.LoginAct(Model, GetIPAddress));
-            return Ok("接口是通的");
+            return Ok(loginBLL.LoginAct(Model, GetIPAddress));
         }
 
         /// <summary>

@@ -27,6 +27,13 @@ namespace DapperBLL
         /// <returns></returns>
         public ResultMsg LoginAct(LoginModelRequest Model, string IPAddress)
         {
+            //数据检查
+            var IsValidStr = ValidatetionMethod.IsValid(Model);
+            if (!IsValidStr.IsVaild)
+            {
+                return ReturnHelpMethod.ReturnError(IsValidStr.ErrorMembers);
+            }
+
             //检查用户是否存在
             Sys_Manager managerModel = loginDAL.GetModelByName(Model.UserName);
 
@@ -55,7 +62,7 @@ namespace DapperBLL
             };
 
             //登录成功报存管理员信息
-            string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(),DateTime.Now.GetTimeStamp());
+            string Token = DESEncryptMethod.Encrypt(managerModel.Id.ToString(), DateTime.Now.GetTimeStamp());
 
             //处理单点登录问题
             if (!String.IsNullOrEmpty(managerModel.TokenId))
@@ -98,7 +105,7 @@ namespace DapperBLL
             redis.StringSet(Token, redisManagerModel, TimeSpan.FromMinutes(30));
 
             //修改的成功与否不与登录成功有关系
-             //var asd=  managerdDAL.UpdateModel<Sys_Manager>(managerModel);
+            //var asd=  managerdDAL.UpdateModel<Sys_Manager>(managerModel);
             loginDAL.UpdateLoginInfo(managerModel, adminLoginLog);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_1001, new { Data = adminModel, Token = Token });
