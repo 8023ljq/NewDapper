@@ -9,7 +9,7 @@ namespace DapperDAL
     /// <summary>
     /// 菜单数据处理层
     /// </summary>
-    public class MenuDAL: BaseDALS
+    public class MenuDAL : BaseDALS
     {
         /// <summary>
         /// 获取菜单数据
@@ -26,9 +26,9 @@ namespace DapperDAL
         /// </summary>
         /// <param name="ParentId"></param>
         /// <returns></returns>
-        public List<Sys_Menu> GetMenuPowerList(string ParentId,int ResourceType)
+        public List<Sys_Menu> GetMenuPowerList(string ParentId, int ResourceType)
         {
-            return GetListAll<Sys_Menu>("ParentId=@ParentId and ResourceType=@ResourceType",null, new { ParentId = ParentId, ResourceType= ResourceType });
+            return GetListAll<Sys_Menu>("ParentId=@ParentId and ResourceType=@ResourceType", null, new { ParentId = ParentId, ResourceType = ResourceType });
         }
 
         /// <summary>
@@ -56,13 +56,18 @@ namespace DapperDAL
         /// </summary>
         /// <param name="MenuModel"></param>
         /// <param name="operateLogModel"></param>
-        public void AddMenuThing(Sys_Menu MenuModel, L_AdminOperateLog operateLogModel)
+        public void AddMenuThing(Sys_Menu MenuModel, L_AdminOperateLog operateLogModel, Sys_RolePurview rolePurviewModel)
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.ExecuteInsert<Sys_Menu>(MenuModel, tran);
+                dapperHelps.ExecuteInsert(MenuModel, tran);
 
-                dapperHelps.ExecuteInsertGuid<L_AdminOperateLog>(operateLogModel, tran);
+                dapperHelps.ExecuteInsertGuid(operateLogModel, tran);
+
+                if (rolePurviewModel != null)
+                {
+                    dapperHelps.ExecuteInsertGuid(rolePurviewModel, tran);
+                }
 
                 tran.Commit();
             }

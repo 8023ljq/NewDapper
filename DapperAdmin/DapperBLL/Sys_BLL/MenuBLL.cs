@@ -43,19 +43,22 @@ namespace DapperBLL
             //检查菜单数据是否存在
             List<Sys_Menu> MenuList = menuDAL.GetMenuIsExistList(menuModel);
 
-            if (MenuList.Count > 0)
+            if (menuModel.ParentId != "0")
             {
-                if (menuModel.ParentId == "0" && MenuList.Find(p => p.GuId == menuModel.ParentId) == null)
+                if (MenuList.Count > 0)
                 {
-                    return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1024);
-                }
-                if (MenuList.Find(p => p.FullName == menuModel.FullName) != null)
-                {
-                    return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1025);
-                }
-                if (MenuList.Find(p => p.AddressUrl == menuModel.AddressUrl) != null)
-                {
-                    return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1026);
+                    if (menuModel.ParentId == "0" && MenuList.Find(p => p.GuId == menuModel.ParentId) == null)
+                    {
+                        return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1024);
+                    }
+                    if (MenuList.Find(p => p.FullName == menuModel.FullName) != null)
+                    {
+                        return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1025);
+                    }
+                    if (MenuList.Find(p => p.AddressUrl == menuModel.AddressUrl) != null)
+                    {
+                        return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1026);
+                    }
                 }
             }
 
@@ -88,9 +91,24 @@ namespace DapperBLL
                 OperateDepict = string.Format(LogDescribeConfig.AddDescribe, userModel.Name, DateTime.Now.ToString(), "菜单" + menuModel.FullName),
             };
 
+            //检查是否是系统用户并添加权限数据
+            Sys_RolePurview rolePurviewModel = new Sys_RolePurview();
+
+            if (userModel.IsDefault)
+            {
+                rolePurviewModel.Id = Guid.NewGuid().ToString();
+                rolePurviewModel.RoleId = userModel.RelationId;
+                rolePurviewModel.ResourceId = MenuModel.GuId;
+                rolePurviewModel.ResourceType = (int)ResourceTypeEnum.Menu;
+                rolePurviewModel.AddUserId = userModel.Id;
+                rolePurviewModel.AddTime = DateTime.Now;
+                rolePurviewModel.IsLocking = false;
+                rolePurviewModel.IsDelete = false;
+            }
+
             Commonredis.ListSet(RedisPrefixConfig.RedisMenuList, MenuList, TimeSpan.FromHours(24));
 
-            menuDAL.AddMenuThing(MenuModel, adminOperateLogModel);
+            menuDAL.AddMenuThing(MenuModel, adminOperateLogModel, rolePurviewModel);
 
             return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Add_600);
         }
