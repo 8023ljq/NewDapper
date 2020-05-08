@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSRedisCore">
+      <HintPath>..\packages\CSRedisCore.3.4.1\lib\net45\CSRedisCore.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
     </Reference>
@@ -45,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAL\BaseDALS.cs" />
+    <Compile Include="BuilderDAL\BuilderBaseDAL.cs" />
+    <Compile Include="BuilderDAL\BuilderDAL.cs" />
     <Compile Include="CommonDAL\GenerateDataDAL.cs" />
     <Compile Include="LoginDAL\LoginDAL.cs" />
     <Compile Include="Sys_DAL\ManagerdDAL.cs" />
@@ -71,6 +76,10 @@
     <ProjectReference Include="..\DapperSql\DapperSql.csproj">
       <Project>{FA72447A-912F-4EAC-98C3-A57ADBEEF972}</Project>
       <Name>DapperSql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DapperThirdHelps\DapperThirdHelps.csproj">
+      <Project>{6C3C3A00-8705-4FFA-B1B9-2C5469CA8C24}</Project>
+      <Name>DapperThirdHelps</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

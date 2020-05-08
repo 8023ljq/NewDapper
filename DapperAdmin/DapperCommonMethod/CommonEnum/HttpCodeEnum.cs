@@ -97,6 +97,18 @@ namespace DapperCommonMethod.CommonEnum
         [Description("清理失败")]
         Http_Clean_608 = 608,
 
+         /// <summary>
+        /// 连接失败
+        /// </summary>
+        [Description("连接失败")]
+        Http_Connection_609 = 609,
+
+         /// <summary>
+        /// 连接成功
+        /// </summary>
+        [Description("连接成功")]
+        Http_Connection_610 = 610,
+
         // ******************************************************************************
         // Author：Geek Dog  
         // Content：程序错误提示标识(1000--1999匹配json文件中的key值一一对应)  

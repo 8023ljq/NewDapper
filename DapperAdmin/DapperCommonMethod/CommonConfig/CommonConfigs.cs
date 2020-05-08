@@ -5,6 +5,6 @@
     /// </summary>
     public class CommonConfigs
     {
-      
+        public static string BuilderRedis = "Builder";
     }
 }

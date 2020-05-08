@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuilderModel\ConnectionModel.cs" />
     <Compile Include="CodeGenerateModel\DataBaseTable.cs" />
     <Compile Include="CommonModel\PageModel.cs" />
     <Compile Include="CommonModel\RedisManagerModel.cs" />

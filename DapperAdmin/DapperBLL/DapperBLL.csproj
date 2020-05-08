@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSRedisCore, Version=3.4.1.0, Culture=neutral, PublicKeyToken=fb2a0756a708937a" />
     <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
@@ -47,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBLL\BaseBLLS.cs" />
+    <Compile Include="BuilderBLL\BuilderBaseBLL.cs" />
+    <Compile Include="BuilderBLL\BuilderBLL.cs" />
     <Compile Include="CommonBLL\GenerateDataBLL.cs" />
     <Compile Include="CommonBLL\GetRedisDataBLL.cs" />
     <Compile Include="LoginBLL\LoginBLL.cs" />

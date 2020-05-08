@@ -23,24 +23,6 @@ namespace DapperCacheHelps.CSRedisHelper
         /// <summary>
         /// 构造函数
         /// </summary>
-        //public RedisCoreHelper()
-        //{
-        //    if (redisManger == null)
-        //    {
-        //        lock (_lockObj_write)
-        //        {
-        //            if (redisManger == null)
-        //            {
-        //                redisManger = new CSRedisClient(redislink);
-        //                Initialization(redisManger);
-        //            }
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         public RedisCoreHelper()
         {
             try

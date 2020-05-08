@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dapper\BuilderSqlHelps.cs" />
     <Compile Include="Dapper\DapperHelps.cs" />
     <Compile Include="Dapper\LinkMySqlDapperHelps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
