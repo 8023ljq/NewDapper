@@ -97,17 +97,23 @@ namespace DapperCommonMethod.CommonEnum
         [Description("清理失败")]
         Http_Clean_608 = 608,
 
-         /// <summary>
+        /// <summary>
         /// 连接失败
         /// </summary>
         [Description("连接失败")]
         Http_Connection_609 = 609,
 
-         /// <summary>
+        /// <summary>
         /// 连接成功
         /// </summary>
         [Description("连接成功")]
         Http_Connection_610 = 610,
+
+        /// <summary>
+        /// 连接超时,请重新连接
+        /// </summary>
+        [Description("连接超时,请重新连接")]
+        Http_Connection_611 = 611,
 
         // ******************************************************************************
         // Author：Geek Dog  

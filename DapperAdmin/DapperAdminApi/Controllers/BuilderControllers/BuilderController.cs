@@ -1,10 +1,5 @@
 ﻿using DapperBLL;
 using DapperModel.BuilderModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DapperAdminApi.Controllers.BuilderControllers
@@ -27,6 +22,17 @@ namespace DapperAdminApi.Controllers.BuilderControllers
         public IHttpActionResult ConnectionAct(ConnectionModel connectionModel)
         {
             return Ok(builderBL.ConnectionAct(connectionModel));
+        }
+
+        /// <summary>
+        /// 获取数据库数据树结构
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getdatelist")]
+        public IHttpActionResult GetDateList()
+        {
+            return Ok(builderBL.GetDateList());
         }
     }
 }
