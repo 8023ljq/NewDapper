@@ -106,12 +106,12 @@ namespace DapperDAL
             {
                 if (rolePurviewsList.Count > 0)
                 {
-                    dapperHelps.DeleteList(rolePurviewsList, tran);
+                    dapperHelps.ExecuteDeleteList(rolePurviewsList, tran);
                 }
 
                 if (existMuttonPowersList.Count > 0)
                 {
-                    dapperHelps.DeleteList(existMuttonPowersList, tran);
+                    dapperHelps.ExecuteDeleteList(existMuttonPowersList, tran);
                 }
 
                 dapperHelps.ExecuteInsertList(rolePurviewList, tran);
@@ -131,9 +131,10 @@ namespace DapperDAL
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.DeleteModel(managerRoleModel, tran);
+                dapperHelps.ExecuteDeleteModel(managerRoleModel, tran);
 
-                dapperHelps.DeleteList(ExistRolePurviewList, tran);
+                dapperHelps.ExecuteDeleteList(ExistRolePurviewList, tran);
+
                 tran.Commit();
             }
         }

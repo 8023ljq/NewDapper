@@ -25,7 +25,7 @@ namespace DapperDAL
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.ExecuteUpdate(managerModel, tran);
+                dapperHelps.ExecuteUpdateModel(managerModel, tran);
 
                 dapperHelps.ExecuteInsertGuid(adminLoginLog, tran);
 

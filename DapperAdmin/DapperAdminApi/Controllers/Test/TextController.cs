@@ -19,11 +19,11 @@ namespace DapperAdminApi.Controllers.Test
     [RoutePrefix("api/test")]
     public class TextController : ApiController
     {
-        /// <summary>
-        /// 缓存管理员信息
-        /// </summary>
         private LinkMySqlDapperHelps linkMySqlDapper = new LinkMySqlDapperHelps();
 
+         /// <summary>
+        /// 缓存管理员信息
+        /// </summary>
         private ManagerdBLL managerdBLL = new ManagerdBLL();
 
         private TestBLL testBll = new TestBLL();

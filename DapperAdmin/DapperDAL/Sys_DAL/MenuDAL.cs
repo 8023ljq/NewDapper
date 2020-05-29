@@ -82,7 +82,7 @@ namespace DapperDAL
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.DeleteModel(menuModel, tran);
+                dapperHelps.ExecuteDeleteModel(menuModel, tran);
 
                 dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
 
@@ -99,7 +99,7 @@ namespace DapperDAL
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.ExecuteUpdate(MenuModel, tran);
+                dapperHelps.ExecuteUpdateModel(MenuModel, tran);
 
                 dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
 
@@ -134,7 +134,7 @@ namespace DapperDAL
         {
             using (var tran = dapperHelps.GetOpenConnection().BeginTransaction())
             {
-                dapperHelps.DeleteModel(MenuModel, tran);
+                dapperHelps.ExecuteDeleteModel(MenuModel, tran);
 
                 dapperHelps.ExecuteInsertGuid(adminOperateLogModel, tran);
 

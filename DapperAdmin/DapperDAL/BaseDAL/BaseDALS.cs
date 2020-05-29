@@ -192,7 +192,7 @@ namespace DapperDAL
                 {
                     return false;
                 }
-                return dapperHelps.ExecuteUpdate<T>(model);
+                return dapperHelps.ExecuteUpdateModel<T>(model);
             }
             catch (Exception ex)
             {
@@ -504,6 +504,5 @@ namespace DapperDAL
             return dapperHelps.GetDatatableData(sqlstr, parametersp);
         }
         #endregion
-
     }
 }

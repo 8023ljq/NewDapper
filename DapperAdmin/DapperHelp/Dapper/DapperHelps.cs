@@ -382,7 +382,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public bool ExecuteUpdate<T>(T item, IDbTransaction transaction = null) where T : class
+        public bool ExecuteUpdateModel<T>(T item, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -438,28 +438,6 @@ namespace DapperHelp.Dapper
                 }
             }
             return true;
-        }
-
-        /// <summary>
-        /// 修改单个实体
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="item"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        public bool UpdateModel<T>(T item, IDbTransaction transaction = null, params string[] fields) where T : class
-        {
-            DynamicParameters parameters = new DynamicParameters();
-
-            if (fields.Length == 0)
-            {
-                fields = GetReflectionProperties(item, out parameters);
-            }
-            var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
-
-            var sql = String.Format("update {0} set {1} where Id = '{2}'", typeof(T).Name.ToString(), fieldsSql, typeof(T).GetProperty("Id").GetValue(item));
-
-            return ExecuteSqlInt(sql, parameters) > 0 ? true : false;
         }
 
         /// <summary>
@@ -541,7 +519,7 @@ namespace DapperHelp.Dapper
         /// <param name="item"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public bool DeleteModel<T>(T item, IDbTransaction transaction = null) where T : class
+        public bool ExecuteDeleteModel<T>(T item, IDbTransaction transaction = null) where T : class
         {
             if (transaction == null)
             {
@@ -566,7 +544,7 @@ namespace DapperHelp.Dapper
         /// <param name="list"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public bool DeleteList<T>(IEnumerable<T> list, IDbTransaction transaction = null) where T : class
+        public bool ExecuteDeleteList<T>(IEnumerable<T> list, IDbTransaction transaction = null) where T : class
         {
             bool isOk = true;
 
@@ -608,7 +586,7 @@ namespace DapperHelp.Dapper
         /// <param name="list"></param>
         /// <param name="transaction"></param>
         /// <returns></returns>
-        public int DeleteListReturnNum<T>(IEnumerable<T> list, out int ErrorCount, IDbTransaction transaction = null) where T : class
+        public int ExecuteDeleteList<T>(IEnumerable<T> list, out int ErrorCount, IDbTransaction transaction = null) where T : class
         {
             bool isOk = false;
             int SuccessCount = 0;
@@ -658,7 +636,7 @@ namespace DapperHelp.Dapper
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool DeleteListBySql<T>(string wherestr, object param = null, IDbTransaction transaction = null) where T : class
+        public bool ExecuteDeleteList<T>(string wherestr, object param = null, IDbTransaction transaction = null) where T : class
         {
             string sql = string.Format("delete {0} where {1}", typeof(T).Name.ToString(), wherestr);
 
