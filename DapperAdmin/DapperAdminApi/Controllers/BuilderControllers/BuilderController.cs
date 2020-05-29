@@ -34,5 +34,13 @@ namespace DapperAdminApi.Controllers.BuilderControllers
         {
             return Ok(builderBL.GetDateList());
         }
+
+
+        [HttpPost]
+        [Route("text")]
+        public IHttpActionResult Text(ConnectionModel connectionModel)
+        {
+            return Ok(builderBL.Text(connectionModel));
+        }
     }
 }

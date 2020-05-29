@@ -91,6 +91,7 @@
     <Compile Include="CommonEnum\ResultTypeEnum.cs" />
     <Compile Include="CommonJson\JosnHelp.cs" />
     <Compile Include="CommonLog\LogHelper.cs" />
+    <Compile Include="CommonMethod\AESMethod.cs" />
     <Compile Include="CommonMethod\CommonMethod.cs" />
     <Compile Include="CommonMethod\DESEncryptMethod.cs" />
     <Compile Include="CommonMethod\EnumMethod.cs" />

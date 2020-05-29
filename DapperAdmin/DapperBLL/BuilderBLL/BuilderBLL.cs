@@ -121,6 +121,16 @@ namespace DapperBLL
             }
         }
 
+        /// <summary>
+        /// 测试接口
+        /// </summary>
+        /// <param name="connectionModel"></param>
+        /// <returns></returns>
+        public ResultMsg Text(ConnectionModel connectionModel)
+        {
+            var asd = AESMethod.DecryptByAES(connectionModel.Pwd);
 
+            return ReturnHelpMethod.ReturnSuccess((int)HttpCodeEnum.Http_Connection_610,asd);
+        }
     }
 }

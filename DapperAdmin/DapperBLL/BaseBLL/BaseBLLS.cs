@@ -1,4 +1,5 @@
-﻿using DapperCommonMethod.CommonConfig;
+﻿using DapperCacheHelps.CSRedisHelper;
+using DapperCommonMethod.CommonConfig;
 using DapperDAL;
 using DapperThirdHelps.RedisHelper;
 
@@ -20,5 +21,10 @@ namespace DapperBLL.BaseBLL
         /// 缓存管理员信息
         /// </summary>
         public static RedisHelpers Commonredis = new RedisHelpers(AppSettingsConfig.RedisCommonDB);
+
+        /// <summary>
+        /// CSRedis缓存
+        /// </summary>
+        public static RedisCoreHelper CSRedis = new RedisCoreHelper();
     }
 }
