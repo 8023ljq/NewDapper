@@ -29,7 +29,7 @@ namespace DapperCommonMethod.CommonMethod
         /// <returns></returns>
         public static string AesEncrypt(string clearTxt)
         {
-            string secretKey = "WaHVZNHZYX3v4si1bBTVseIwEMPMcKzL";
+            string secretKey = "I15TMSLO0KXUWTHO";
 
             byte[] keyBytes = Encoding.UTF8.GetBytes(secretKey);
 
@@ -57,7 +57,10 @@ namespace DapperCommonMethod.CommonMethod
 
                             StringBuilder sb = new StringBuilder();
                             for (int i = 0; i < encrypted.Length; i++)
+                            {
                                 sb.Append(Convert.ToString(encrypted[i], 16).PadLeft(2, '0'));
+                            }
+
                             return sb.ToString().ToUpperInvariant();
                         }
                     }
@@ -87,7 +90,9 @@ namespace DapperCommonMethod.CommonMethod
 
                 List<byte> lstBytes = new List<byte>();
                 for (int i = 0; i < encrypted.Length; i += 2)
+                {
                     lstBytes.Add(Convert.ToByte(encrypted.Substring(i, 2), 16));
+                }
 
                 using (ICryptoTransform decryptor = cipher.CreateDecryptor())
                 {
@@ -117,15 +122,17 @@ namespace DapperCommonMethod.CommonMethod
             byte[] keyArray = UTF8Encoding.UTF8.GetBytes(secretKey);
             byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
 
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
+            using (var rDel = new RijndaelManaged())
+            {
+                rDel.Key = keyArray;
+                rDel.Mode = CipherMode.ECB;
+                rDel.Padding = PaddingMode.PKCS7;
 
-            ICryptoTransform cTransform = rDel.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                ICryptoTransform cTransform = rDel.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
 
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+                return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
         }
 
         /// <summary>
@@ -140,15 +147,17 @@ namespace DapperCommonMethod.CommonMethod
             byte[] keyArray = UTF8Encoding.UTF8.GetBytes(secretKey);
             byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);
 
-            RijndaelManaged rDel = new RijndaelManaged();
-            rDel.Key = keyArray;
-            rDel.Mode = CipherMode.ECB;
-            rDel.Padding = PaddingMode.PKCS7;
+            using (var rDel = new RijndaelManaged())
+            {
+                rDel.Key = keyArray;
+                rDel.Mode = CipherMode.ECB;
+                rDel.Padding = PaddingMode.PKCS7;
 
-            ICryptoTransform cTransform = rDel.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                ICryptoTransform cTransform = rDel.CreateDecryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
 
-            return UTF8Encoding.UTF8.GetString(resultArray);
+                return UTF8Encoding.UTF8.GetString(resultArray);
+            }
         }
 
         #region 配合VUE做关键数据加密传输
@@ -215,6 +224,10 @@ namespace DapperCommonMethod.CommonMethod
             }
         }
 
+        #endregion
+
+        #region 公用方法
+
         /// <summary>
         /// 将指定的16进制字符串转换为byte数组
         /// </summary>
@@ -225,7 +238,9 @@ namespace DapperCommonMethod.CommonMethod
             s = s.Replace(" ", "");
             byte[] buffer = new byte[s.Length / 2];
             for (int i = 0; i < s.Length; i += 2)
+            {
                 buffer[i / 2] = (byte)Convert.ToByte(s.Substring(i, 2), 16);
+            }
             return buffer;
         }
 
@@ -245,7 +260,21 @@ namespace DapperCommonMethod.CommonMethod
                 //sb.Append(Convert.ToString(b, 16).PadLeft(2, '0').PadRight(3, ' '));
             }
             return sb.ToString().ToUpper();
-        } 
+        }
+
+        /// <summary>
+        /// 将字符串转换为byte数组
+        /// </summary>
+        /// <param name="secretKey"></param>
+        /// <returns></returns>
+        public static byte[] SHA1(string secretKey)
+        {
+            using (var sha1 = new SHA1CryptoServiceProvider())
+            {
+                byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(secretKey));
+                return sha1.ComputeHash(hash).Take(16).ToArray();
+            }
+        }
 
         #endregion
     }
