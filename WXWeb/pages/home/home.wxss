@@ -1,0 +1,32 @@
+/**home.wxss**/
+/* "tabBar": {
+  "color": "#666",
+  "selectedColor": "#e98f36",
+  "backgroundColor": "#fff",
+  "borderStyle":"black",
+  "list": [{
+    "pagePath": "pages/home/home",
+    "iconPath": "images/tabbar/homeno.png",
+    "selectedIconPath": "images/tabbar/home.png",
+    "text": "天气预报"
+  }, {
+    "pagePath": "pages/order/order",
+    "iconPath": "images/tabbar/orderno.png",
+    "selectedIconPath": "images/tabbar/order.png",
+    "text": "设置城市"
+  }, {
+    "pagePath": "pages/center/center",
+    "iconPath": "images/tabbar/meno.png",
+    "selectedIconPath": "images/tabbar/me.png",
+    "text": "关于我"
+  }],
+  "position":"bottom"
+}, */
+.main{
+  height: 100%;
+}
+.localCity{
+  line-height: 30px;
+  width: 100%;
+ background-color: aquamarine;
+}

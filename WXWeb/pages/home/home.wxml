@@ -1,0 +1,11 @@
+<view style="background-image: url(/images/img/bgimg.jpg);background-repeat:round;" class="main">
+	<view>
+		<view class="localCity" scroll-y="true" scroll-top="{{scrollTop}}">
+			<text>{{localCity}}，{{district}}</text>
+		</view>
+		<view class="text-box" scroll-y="true" scroll-top="{{scrollTop}}">
+			<text>详细地址:{{address}}</text>
+		</view>
+	<button class="mini-btn" type="default" bindtap="getQuery">获取天气</button>
+	</view>
+</view>
