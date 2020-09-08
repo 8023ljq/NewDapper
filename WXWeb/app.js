@@ -34,6 +34,9 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    // 头部的自定义的高度
+    statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],
+    headerBtnPosi : wx.getMenuButtonBoundingClientRect()
   }
 })

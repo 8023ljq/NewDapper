@@ -1,32 +1,25 @@
 /**home.wxss**/
-/* "tabBar": {
-  "color": "#666",
-  "selectedColor": "#e98f36",
-  "backgroundColor": "#fff",
-  "borderStyle":"black",
-  "list": [{
-    "pagePath": "pages/home/home",
-    "iconPath": "images/tabbar/homeno.png",
-    "selectedIconPath": "images/tabbar/home.png",
-    "text": "天气预报"
-  }, {
-    "pagePath": "pages/order/order",
-    "iconPath": "images/tabbar/orderno.png",
-    "selectedIconPath": "images/tabbar/order.png",
-    "text": "设置城市"
-  }, {
-    "pagePath": "pages/center/center",
-    "iconPath": "images/tabbar/meno.png",
-    "selectedIconPath": "images/tabbar/me.png",
-    "text": "关于我"
-  }],
-  "position":"bottom"
-}, */
-.main{
+page{
   height: 100%;
+  background-image: url(http://121.36.213.19:8082/upload/img/bgimg.jpg);
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
 }
-.localCity{
-  line-height: 30px;
+.custom_nav {
   width: 100%;
- background-color: aquamarine;
+}
+/* .custom_nav_box {
+  text-align:center;
+  border-radius: 15px;
+  opacity:0.8;
+  background: #fff;
+} */
+.place{
+  height: 36px;
+  line-height:36px ;
+  width: 95%;
+  margin: auto;
+  opacity:0.5;
+  border-radius: 5px;
+  background: #fff;
 }

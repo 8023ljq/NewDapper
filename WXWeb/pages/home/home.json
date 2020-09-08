@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "",
-  "usingComponents": {}
+  "navigationBarTitleText": "玖悦天气中心",
+  "navigationBarTextStyle":"black",
+  "usingComponents": {},
+  "navigationStyle":"custom"
 }

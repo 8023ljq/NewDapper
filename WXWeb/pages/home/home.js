@@ -14,6 +14,9 @@ var demo = new QQMapWX({
 
 Page({
   data: {
+    statusBarHeight: app.globalData.statusBarHeight, // 头部导航栏的高度
+    headerBtnPosi:app.globalData.headerBtnPosi,
+    cusnavH:0,
     latitude:'',//纬度
     longitude:'',//经度
     localCity:'',//城市
@@ -26,6 +29,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.statusBarHeight)
+    console.log(this.data.headerBtnPosi)
+    this.data.cusnavH=this.data.headerBtnPosi.height + this.data.headerBtnPosi.top + this.data.headerBtnPosi.bottom;
+    console.log(this.data.cusnavH)
     var that = this
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
@@ -55,7 +62,6 @@ Page({
             console.log(res);
           }
         })
-        console.log(res);
       }
     })
   },
@@ -104,13 +110,24 @@ Page({
 
   },
   getQuery:function(){//获取天气数据
-    let queryDate={
-      city:'上海',
-      key:'18c17c84096147d980cb621905327ec5',
-    };
-    Request.getThird("http://apis.juhe.cn/simpleWeather/query",queryDate).then(res=>{
-      console.log(res);
-
-    })
+//     let queryDate={
+//       city:'上海',
+//       key:'18c17c84096147d980cb621905327ec5',
+//     };
+//     Request.getThird("http://apis.juhe.cn/simpleWeather/query",queryDate).then(res=>{
+//       console.log(res);
+//     })
+     let queryDate={
+      showapi_appid:'360955',
+      showapi_sign:'1bb16982ec0d4e878c0334e86d179020',
+      area:'上海',
+      needMoreDay:0,
+      needIndex:0,
+      need3HourForcast:0,
+      needAlarm:0,
+     };
+     Request.getThird("https://route.showapi.com/9-2",queryDate).then(res=>{
+       console.log(res);
+     })
   },
 });
