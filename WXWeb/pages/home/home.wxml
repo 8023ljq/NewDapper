@@ -1,10 +1,28 @@
 <view class="custom_nav" style="height:{{headerBtnPosi.height}}px;">
 	<!-- <view class="custom" style="margin-top: {{statusBarHeight+headerBtnPosi.height}}px;padding-top:20rpx">实时天气</view> -->
-	<view class="custom_nav_box" style="margin-top:{{headerBtnPosi.top}}px;height:{{headerBtnPosi.height}}px;width:{{headerBtnPosi.width}}px;line-height:{{headerBtnPosi.height}}px;"> 
-	
+	<view class="custom_nav_box"
+		style="margin-top:{{headerBtnPosi.top}}px;height:{{headerBtnPosi.height}}px;width:{{headerBtnPosi.width}}px;line-height:{{headerBtnPosi.height}}px;">
+
 	</view>
 	<view class="place" style="margin-top: 10px;">
 		{{localCity}},{{district}}
 	</view>
-	<button type="default" bindtap='getQuery'>获取天气</button>
+	<view class="weather">
+		<view class="weather_left"></view>
+		<view class="weather_right"></view>
+	</view>
+	<view style="width:95%;margin:auto">
+		<van-collapse accordion value="{{ activeName }}" bind:change="onChange">
+			<van-collapse-item title="有赞微商城" name="1">
+				提供多样店铺模板，快速搭建网上商城
+			</van-collapse-item>
+			<van-collapse-item title="有赞零售" name="2">
+				网店吸粉获客、会员分层营销、一机多种收款，告别经营低效和客户流失
+			</van-collapse-item>
+			<van-collapse-item title="有赞美业" name="2">
+				线上拓客，随时预约，贴心顺手的开单收银
+			</van-collapse-item>
+		</van-collapse>
+	</view>
+	<!-- <button type="default" bindtap='getQuery'>获取天气</button> -->
 </view>

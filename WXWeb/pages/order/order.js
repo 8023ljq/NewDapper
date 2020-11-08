@@ -7,8 +7,32 @@ var call = require("../../utils/http/request.js")
 
 Page({
   data: {
-    OrderList: [],
-    IsShow: false
+    OrderList: [
+      {
+        "name":"标题一",
+        "date":"阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股阿萨德股份的观点个人股",
+      },
+      {
+        "name":"标题二",
+        "date":"阿萨德股份的观点个人股",
+      },
+      {
+        "name":"标题三",
+        "date":"阿飞洒发顺啊实打实的撒3丰撒打算",
+      },
+      {
+        "name":"标题四",
+        "date":"阿飞洒发顺丰撒打算",
+      }
+    ],
+    IsShow: false,
+    activeName: '1',
+  },
+  onChange(event) {
+    console.log(event)
+    this.setData({
+      activeName: event.detail,
+    });
   },
   LoginAct() {
     var that = this;

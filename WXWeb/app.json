@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/home/home",
     "pages/order/order",
+    "pages/home/home",
     "pages/center/center"
   ],
   "window":{
@@ -10,7 +10,6 @@
     "navigationBarTitleText": "玖悦数据中心",
     "navigationBarTextStyle":"black"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json",
   "permission": {
     "scope.userLocation": {

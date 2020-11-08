@@ -8,18 +8,34 @@ page{
 .custom_nav {
   width: 100%;
 }
-/* .custom_nav_box {
-  text-align:center;
-  border-radius: 15px;
-  opacity:0.8;
-  background: #fff;
-} */
 .place{
   height: 36px;
   line-height:36px ;
   width: 95%;
   margin: auto;
   opacity:0.5;
+  border-radius: 5px;
+  background: #fff;
+}
+.weather{
+  height: 150px;
+  margin: auto;
+  margin-top: 10px;
+  width: 95%;
+}
+.weather_left{
+  height: 150px;
+  width: 49%;
+  opacity:0.5;
+  float: left;
+  border-radius: 5px;
+  background: #fff;
+}
+.weather_right{
+  height: 150px;
+  width: 49%;
+  opacity:0.5;
+  float: right;
   border-radius: 5px;
   background: #fff;
 }

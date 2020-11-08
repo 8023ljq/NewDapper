@@ -20,11 +20,18 @@ Page({
     latitude:'',//纬度
     longitude:'',//经度
     localCity:'',//城市
-    district:'',
+    district:'',//区
     address:'',//详细地址
     systemunfo: {},
     accuracy: {}, //微信获取位置信息
+    activeName: '1',
   },
+  onChange(event) {
+    this.setData({
+      activeName: event.detail,
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

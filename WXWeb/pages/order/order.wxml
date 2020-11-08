@@ -1,9 +1,28 @@
-<view>
-	<h1>我的订单</h1>
-</view>
-<view style="width:100%;height:50px; ">
-	<button type="primary" bindtap="LoginAct">授权登录</button>
-	<view wx:if="{{IsShow}}" wx:for="{{OrderList}}" wx:key="*this">
-		{{index}}: {{item.UserName}}
+<view class="main">
+	<view class="">
+		<i-card>
+			<view slot="content">内容不错</view>
+			<view slot="footer">尾部内容</view>
+		</i-card>
+	</view>
+	<view class="collapse">
+		<van-divider contentPosition="left">跟进需求</van-divider>
+		<van-collapse accordion value="{{ activeName }}" custom-class="count" bind:change="onChange">
+			<view wx:for="{{OrderList}}" class="datelist">
+				<van-swipe-cell right-width="{{ 120 }}" class="group">
+					<van-cell-group content-class="accordion">
+						<van-collapse-item content-class="reveal" title="{{item.name}}" name="{{index}}">
+							{{item.date}}
+						</van-collapse-item>
+					</van-cell-group>
+					<view slot="right">
+						<view style="margin-left:5px">
+							<button class="but" type="primary" size="mini">删除</button>
+							<button class="but" type="warn" size="mini">删除</button>
+						</view>
+					</view>
+				</van-swipe-cell>
+			</view>
+		</van-collapse>
 	</view>
 </view>
