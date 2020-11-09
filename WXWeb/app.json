@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/list/list",
     "pages/order/order",
     "pages/home/home",
     "pages/center/center"
@@ -10,6 +11,33 @@
     "navigationBarTitleText": "玖悦数据中心",
     "navigationBarTextStyle":"black"
   },
+  "tabBar": {
+    "color": "",
+    "selectedColor": "#e56b3e",
+    "backgroundColor": "",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "正在跟进",
+        "iconPath": "icons/a.png",
+        "selectedIconPath": "icons/aa-o.png"
+      },
+      {
+        "pagePath": "pages/mypage/mypage",
+        "text": "我的跟进",
+        "iconPath": "icons/my.png",
+        "selectedIconPath": "icons/my-o.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
+        "iconPath": "icons/d.png",
+        "selectedIconPath": "icons/dd-o.png"
+      }
+    ]
+  }, 
   "sitemapLocation": "sitemap.json",
   "permission": {
     "scope.userLocation": {
