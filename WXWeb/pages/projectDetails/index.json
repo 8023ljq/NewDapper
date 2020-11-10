@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "订单信息",
+  "usingComponents": {
+    "i-card": "../../iview/card/index",
+    "i-swipeout": "../../iview/swipeout/index",
+
+    "van-divider": "../../vantweapp/divider/index",
+    "van-collapse": "../../vantweapp/collapse/index",
+    "van-collapse-item": "../../vantweapp/collapse-item/index",
+    "van-nav-bar": "../../vantweapp/nav-bar/index",
+    "van-swipe-cell": "../../vantweapp/swipe-cell/index",
+    "van-dialog": "../../vantweapp/dialog/index",
+    "van-empty": "../../vantweapp/empty/index"
+  }
+}

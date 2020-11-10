@@ -1,0 +1,12 @@
+<!--pages/authorize/index.wxml-->
+<view class="main">
+    <view class="logo">
+        <image class="image" src="../../images/png/Logo.png" mode="widthFix" />
+    </view>
+    <view class="but">
+        <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权登录</button>
+        <text style="font-size:13px">
+            注:授权登录将获取您的手机号权限，仅限于内部员工使用。
+        </text>
+    </view>
+</view>

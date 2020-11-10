@@ -1,0 +1,54 @@
+{
+  "pages":[
+    "pages/blank/index",
+    "pages/list/index",
+    "pages/authorize/index",
+    "pages/addproject/index",
+    "pages/projectDetails/index",
+    "pages/editproject/index",
+    "pages/addneeds/index",
+    "pages/editneeds/index",
+    "pages/myfollow/index",
+    "pages/mine/index",
+    "pages/home/home"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "玖悦数据中心",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#29B104",
+    "backgroundColor": "",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/list/index",
+        "text": "项目列表",
+        "iconPath": "/images/icon/png/chazhaobiaodanliebiao-copy.png",
+        "selectedIconPath": "/images/icon/png/chazhaobiaodanliebiao.png"
+      },
+      {
+        "pagePath": "pages/myfollow/index",
+        "text": "我的跟进",
+        "iconPath": "/images/icon/png/genjin.png",
+        "selectedIconPath": "/images/icon/png/genjin-copy.png"
+      },
+      {
+        "pagePath": "pages/home/home",
+        "text": "个人中心",
+        "iconPath": "/images/icon/png/mine.png",
+        "selectedIconPath": "/images/icon/png/mine-copy.png"
+      }
+    ]
+  }, 
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+    }
+  }
+}

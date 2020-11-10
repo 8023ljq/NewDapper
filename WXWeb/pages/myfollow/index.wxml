@@ -1,0 +1,74 @@
+<view class="main">
+	<van-dialog id="van-dialog" />
+	<van-divider contentPosition="left">项目详情</van-divider>
+	<view class="">
+		<i-card title="等级{{OrderDetail.ClientLevel}}" extra="{{OrderDetail.CreateTime}}">
+			<view slot="content" class="content">
+				<view class="left">联系人:{{OrderDetail.ContactPerson}}</view>
+				<view class="right">联系方式:{{OrderDetail.ContactDetails}}</view>
+			</view>
+			<view slot="content" class="content">
+				<view class="left">项目对接人:{{OrderDetail.FirstDockingPeople}}</view>
+				<view class="right">项目创建人:{{OrderDetail.CreatorId}}</view>
+			</view>
+			<view slot="content" class="content">
+				<view class="left">客户来源:{{OrderDetail.CustomerSource}}</view>
+				<view class="right">来源方式:{{OrderDetail.SourceMethod}}</view>
+			</view>
+			<view slot="content" class="content">
+				<view class="left">产品类型:{{OrderDetail.ProductType}}</view>
+				<!-- <view class="right">来源方式:{{OrderDetail.SourceMethod}}</view> -->
+			</view>
+			<view slot="content" class="content">
+				公司地址:{{OrderDetail.CompanyAddress}}
+			</view>
+			<view slot="content" class="content">
+				基本需求:{{OrderDetail.BasicNeeds}}
+			</view>
+		</i-card>
+	</view>
+	<view class="collapse">
+		<van-divider contentPosition="left">跟进需求</van-divider>
+		<van-collapse accordion value="{{ activeName }}" custom-class="count" bind:change="onChange">
+			<view wx:for="{{DemandList}}" data-item='{{item}}' data-index='{{index}}' wx:key='Id' class="datelist">
+				<van-swipe-cell right-width="{{ 120 }}" class="group">
+					<van-cell-group content-class="accordion">
+						<van-collapse-item content-class="reveal" title="创建人:{{item.CreatorId}}" name="{{index}}">
+							<view class="datacard" data-id="{{item.Feedback}}" wx:if="{{item.Feedback.length<100}}"	bindtap="showDialog">
+								<view class="titlecard">跟进反馈:</view>
+								<view class="contentcard">{{item.Feedback}}</view>
+							</view>
+							<view class="datacard" wx:else>
+								<view class="titlecard">跟进反馈:</view>
+								<view class="contentcard">{{item.Feedback}}</view>
+							</view>
+							<view class="datacard" data-id="{{item.NewDemand}}" wx:if="{{item.NewDemand.length<100}}"	bindtap="showDialog">
+								<view class="titlecard">新的需求:</view>
+								<view class="contentcard">{{item.NewDemand}}</view>
+							</view>
+							<view class="datacard" wx:else>
+								<view class="titlecard">新的需求:</view>
+								<view class="contentcard">{{item.NewDemand}}</view>
+							</view>
+						</van-collapse-item>
+					</van-cell-group>
+					<view slot="right">
+						<view style="margin-left:5px">
+							<button class="but" type="primary" size="mini">删除</button>
+							<button class="but" type="warn" size="mini">删除</button>
+						</view>
+					</view>
+				</van-swipe-cell>
+			</view>
+		</van-collapse>
+	</view>
+	<!-- 按钮 -->
+<view class="btnStyle">
+    <button type="primary" data-id="{{Model.Id}}" bindtap="handelfollow" id="{{1}}" style="width:49%;float:left;height:70rpx;font-size:15px;margin:0 5rpx">
+        需求跟进
+    </button>
+    <button type="warn" data-item="{{Model}}" bindtap="modifyclient" id="{{2}}" style="width:49%;height:70rpx;font-size:15px;background-color: #b1b1b1 !important;">
+        修改
+    </button>
+</view>
+</view>

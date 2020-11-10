@@ -1,0 +1,15 @@
+/* pages/addproject/index.wxss */
+.main{
+  width: 95%;
+  margin: auto;
+}
+.margin-top{
+  border-radius: 10px;
+  margin-top: 10rpx !important;
+}
+.btnStyle {
+  position: fixed;
+  bottom: 20rpx;
+  width: 95%;
+  background-color: #fbf4f4;
+}

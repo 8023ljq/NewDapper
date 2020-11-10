@@ -1,0 +1,61 @@
+<!--pages/addproject/index.wxml-->
+<view class="main">
+  <form catchsubmit="formSubmit" >
+    <view class="cu-form-group margin-top">
+      <view class="title">联系人:</view>
+      <input placeholder="请输入联系人" name="ContactPerson" value="{{dataModel.ContactPerson}}"></input>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">联系方式:</view>
+      <input placeholder="请输入联系方式" name="ContactDetails" value="{{dataModel.ContactDetails}}"></input>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">客户来源:</view>
+      <input placeholder="请输入客户来源" name="CustomerSource" value="{{dataModel.CustomerSource}}"></input>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">来源方式:</view>
+      <input placeholder="请输入方式" name="SourceMethod" value="{{dataModel.SourceMethod}}"></input>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">产品类型:</view>
+      <input placeholder="请输入产品类型" name="ProductType" value="{{dataModel.ProductType}}"></input>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">对接人:</view>
+      <!-- <input placeholder="选择项目对接人"></input> -->
+      <picker bindchange="PickerChange" name="FirstDockingPeople" value="{{picker[pickerindex]}}" range="{{picker}}">
+        <view class="picker">
+          {{pickerindex?picker[pickerindex]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group margin-top">
+      <view class="title">项目等级:</view>
+      <!-- <input placeholder="选择项目等级" disabled=""></input> -->
+      <picker bindchange="LevelChange" name="ClientLevel" value="{{level[levelindex]}}" range="{{level}}">
+        <view class="picker">
+          {{levelindex?level[levelindex]:'请选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group align-start margin-top">
+      <view class="title">公司地址:</view>
+      <textarea maxlength="-1" disabled="{{modalName!=null}}"  name="CompanyAddress" value="{{dataModel.CompanyAddress}}"
+        bindinput="textareaBInput" placeholder="多行文本输入框"></textarea>
+    </view>
+    <view class="cu-form-group align-start margin-top">
+      <view class="title">基本需求:</view>
+      <textarea maxlength="-1" disabled="{{modalName!=null}}" name="BasicNeeds" value="{{dataModel.BasicNeeds}}"
+        bindinput="textareaBInput" placeholder="多行文本输入框"></textarea>
+    </view>
+    <!-- <view class="btnStyle">
+      <button formType="submit" type="primary" style="height:70rpx;font-size:15px;margin:0 5rpx">确认发布</button>
+    </view> -->
+    <view class="btnStyle">
+      <button formType="submit" type="primary" bindtap="handelfollow" style="height:70rpx;font-size:15px;margin:0 5rpx">
+        确认发布
+      </button>
+    </view>
+  </form>
+</view>

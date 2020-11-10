@@ -1,0 +1,64 @@
+.main{
+  width: 100%;
+}
+
+.collapse{
+  width: 98%;
+  margin: auto;
+}
+
+.count .van-collapse-item{
+  margin-top: 10px;
+  box-shadow: 0px 1px 5px #888888;
+  border-radius:1px 1px 1px 1px;
+  border: #888888 0.2px solid;
+}
+/* .i-swipeout-demo-item .i-swipeout-demo-item .i-swipeout-item{
+  padding: 0px !important;
+} */
+
+ .datelist .group .van-swipe-cell {
+  overflow: visible !important;
+}
+.content{
+  width: 100%;
+  height: 30px;
+  margin: 5px;
+  line-height: 30px;
+}
+.content .left{
+  width: 50%;
+  height: 30px;
+  float: left;
+  
+}
+.content .right{
+  width: 50%;
+  height: 30px;
+  float: right; 
+}
+.datacard{
+  width: 100%;
+  height: 60px;
+  margin-top: 5px;
+}
+.datacard .titlecard{
+  width: 20%;
+  height: 60px;
+  float: left;
+  color:#000;
+  /* background-color: yellowgreen; */
+}
+.datacard .contentcard{
+  width: 80%;
+  height: 60px;
+  float: left;
+  color:#000;
+  overflow: hidden;
+}
+.btnStyle {
+  position: fixed;
+  bottom: 20rpx;
+  width: 100%;
+  background-color: #fbf4f4;
+}

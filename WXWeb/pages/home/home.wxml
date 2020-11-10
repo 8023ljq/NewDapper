@@ -1,0 +1,15 @@
+<view class="custom_nav" style="height:{{headerBtnPosi.height}}px;">
+	<!-- <view class="custom" style="margin-top: {{statusBarHeight+headerBtnPosi.height}}px;padding-top:20rpx">实时天气</view> -->
+	<view class="custom_nav_box"
+		style="margin-top:{{headerBtnPosi.top}}px;height:{{headerBtnPosi.height}}px;width:{{headerBtnPosi.width}}px;line-height:{{headerBtnPosi.height}}px;">
+
+	</view>
+	<view class="place" style="margin-top: 10px;">
+		{{localCity}},{{district}}
+	</view>
+	<view class="weather">
+		<view class="weather_left"></view>
+		<view class="weather_right"></view>
+	</view>
+	<!-- <button type="default" bindtap='getQuery'>获取天气</button> -->
+</view>

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-nav-bar": "../../vantweapp/nav-bar/index",
+    "van-field": "../../vantweapp/field/index",
+    "van-dropdown-menu": "../../vantweapp/dropdown-menu/index",
+    "van-dropdown-item": "../../vantweapp/dropdown-item/index"
+  },
+  "navigationBarTitleText": ""
+}

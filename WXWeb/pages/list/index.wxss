@@ -1,0 +1,60 @@
+/* pages/list/list.wxss */
+.topselect{
+  line-height:61px ;
+}
+.list-card{
+  padding-top: 10px;
+}
+.navtab{
+ /* border: 1px solid #b1b1b1 !important; */
+ border: 0px solid #b1b1b1 !important;
+ border-right:0px !important;
+}
+.navtab .van-tab--active
+{
+  background-color: #29B104 !important;
+}
+.tab{
+  background-color: #b1b1b1;
+  /* border-right: 1px solid #b1b1b1 !important; */
+  border-right: 0px solid #b1b1b1 !important;
+}
+.tab .van-ellipsis{
+  color: #ffffff !important;
+}
+.searchbtn{
+  width: 100%;
+  color: #ffffff !important;
+  background-color: #29B104 !important;
+}
+.searchclass .van-search__action{
+  line-height: 10px !important;
+}
+.addBtn{
+  position: fixed;
+  right:5%;
+  bottom: 85rpx;
+}
+.retutop{
+  position: fixed;
+  right:6%;
+  bottom: -8rpx;
+}
+
+.content{
+  width: 100%;
+  height: 30px;
+  margin: 5px;
+  line-height: 30px;
+}
+.content .left{
+  width: 50%;
+  height: 30px;
+  float: left;
+  
+}
+.content .right{
+  width: 50%;
+  height: 30px;
+  float: right; 
+}

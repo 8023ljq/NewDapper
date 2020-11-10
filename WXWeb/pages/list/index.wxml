@@ -1,0 +1,37 @@
+<!--pages/list/list.wxml-->
+<view class="topselect">
+  <van-search value="{{ value }}" shape="round" background="#ffffff" placeholder="请输入搜索关键词" use-action-slot
+    bind:change="onChange" bind:search="onSearch" custom-class="searchclass">
+    <button slot="action" class="mini-btn" type="primary" size="mini">搜索</button>
+  </van-search>
+  <van-tabs type="card" bind:click="onClick" nav-class="navtab" tab-class="tab">
+    <van-tab title="新项目"></van-tab>
+    <van-tab title="跟进中"></van-tab>
+    <!-- <van-tab title="跟进中" info="{{Count}}"></van-tab> -->
+  </van-tabs>
+</view>
+<view class="list-card" wx:for="{{OrderList}}" data-item='{{item}}' data-index='{{index}}' wx:key='Id'>
+  <view data-id="{{item.Id}}" bindtap="navDetails">
+    <i-card title="等级{{item.ClientLevel}}" extra="{{item.CreateTime}}">
+      <view slot="content" class="content">
+        <view class="left">联系人:{{item.ContactPerson}}</view>
+        <view class="right">联系方式:{{item.ContactDetails}}</view>
+      </view>
+      <view slot="content" class="content">
+        <view class="left">项目对接人:{{item.FirstDockingPeople}}</view>
+        <view class="right">项目创建人:{{item.CreatorId}}</view>
+      </view>
+      <view slot="content" class="content">
+        公司地址:{{item.CompanyAddress}}
+      </view>
+    </i-card>
+  </view>
+</view>
+<!-- 左下角点击按钮 -->
+<navigator url="/pages/addproject/index" open-type="navigate" class="addBtn">
+  <van-icon name="add" color="#29B104" size="100rpx" />
+</navigator>
+<!-- 快速回到顶部 -->
+<view class="retutop" wx:if="{{scrollTop}}">
+  <van-icon name="back-top" bindtap='goTop' color="#29B104" size="80rpx" />
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "玖悦天气中心",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "van-collapse": "/vantweapp/collapse/index",
+    "van-collapse-item": "/vantweapp/collapse-item/index"
+  },
+  "navigationStyle": "custom"
+}

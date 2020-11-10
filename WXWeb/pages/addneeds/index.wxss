@@ -1,0 +1,24 @@
+/* pages/addneeds/index.wxss */
+page{
+  height: 100%;
+  width: 100%;
+  background-color: #fbf4f4;
+}
+.main{
+  width: 95%;
+  height: 100%;
+  margin: auto;
+  margin-top: 10px;
+}
+.align-start{
+  height: 40% !important;
+}
+.btnStyle {
+  position: fixed;
+  bottom: 20rpx;
+  width: 95%;
+  background-color: #fbf4f4;
+}
+.textcontent{
+  height: 90% !important;
+}

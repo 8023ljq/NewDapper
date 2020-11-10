@@ -1,0 +1,21 @@
+<!--pages/addneeds/index.wxml-->
+<view class="main">
+  <form catchsubmit="formSubmit">
+    <view class="cu-form-group align-start">
+      <view class="title">跟新反馈：</view>
+      <textarea maxlength="-1" name="Feedback" disabled="{{modalName!=null}}" bindinput="textareaBInput"
+        placeholder="添加跟进日期及反馈" class="textcontent"></textarea>
+    </view>
+    <view class="cu-form-group align-start">
+      <view class="title">新的需求：</view>
+      <textarea maxlength="-1" name="NewDemand" disabled="{{modalName!=null}}" bindinput="textareaBInput"
+        placeholder="添加客户进一步需求"
+        class="textcontent"></textarea>
+    </view>
+    <view class="btnStyle">
+      <button formType="submit" type="primary" bindtap="handelfollow" style="height:70rpx;font-size:15px;margin:0 5rpx">
+        添加跟进
+      </button>
+    </view>
+  </form>
+</view>

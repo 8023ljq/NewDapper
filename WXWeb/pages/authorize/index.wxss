@@ -1,0 +1,17 @@
+/* pages/authorize/index.wxss */
+page{
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+}
+.logo{
+  width: 80%;
+  height: 180px;
+  margin: auto;
+  margin-top: 80px;
+}
+.but{
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+}

@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "i-card": "../../iview/card/index",
+   
+    "van-tab": "../../vantweapp/tab/index",
+    "van-tabs": "../../vantweapp/tabs/index",
+    "van-search": "../../vantweapp/search/index",
+    "van-icon": "../../vantweapp/icon/index",
+    "van-sidebar-item": "../../vantweapp/sidebar-item/index"
+  },
+  "navigationBarTitleText": "项目列表",
+  "enablePullDownRefresh":true
+}

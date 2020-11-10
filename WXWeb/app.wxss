@@ -1,0 +1,4 @@
+/**app.wxss**/
+@import '/vantweapp/common/index.wxss';
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
