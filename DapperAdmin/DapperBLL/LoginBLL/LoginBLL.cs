@@ -44,6 +44,7 @@ namespace DapperBLL
 
             //检查密码
             string PassWord = DESEncryptMethod.Encrypt(Model.PassWord, managerModel.RandomCode);
+            string DecPassWord = DESEncryptMethod.Decrypt(managerModel.Password, managerModel.RandomCode);
             if (PassWord != managerModel.Password)
             {
                 return ReturnHelpMethod.ReturnWarning((int)HttpCodeEnum.Http_1002);
