@@ -11,5 +11,6 @@
     "van-swipe-cell": "../../vantweapp/swipe-cell/index",
     "van-dialog": "../../vantweapp/dialog/index",
     "van-empty": "../../vantweapp/empty/index"
-  }
+  },
+  "disableScroll": true
 }

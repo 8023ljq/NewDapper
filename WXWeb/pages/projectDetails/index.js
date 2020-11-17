@@ -11,7 +11,7 @@ Page({
     DemandList: [],
     IsShow: false,
     activeName: '1',
-    show:false
+    show: false
   },
   onChange(event) {
     console.log(event)
@@ -44,7 +44,6 @@ Page({
       Clientid: TranceNum
     }).then(res => {
       if (res.data.ResultCode == 200) {
-        console.log(res);
         this.setData({
           OrderDetail: res.data.ResultData.Model,
           DemandList: res.data.ResultData.DemandList,
@@ -54,7 +53,7 @@ Page({
   },
 
   //弹窗显示跟进反馈
-  showDialog(event){
+  showDialog(event) {
     console.log(event)
     Dialog.alert({
       message: event.currentTarget.dataset.id,
@@ -64,21 +63,22 @@ Page({
   },
 
   //需求跟进
-  handelfollow(event){
+  handelfollow(event) {
     var id = event.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/addneeds/index?TranceNum='+id,
-    })
-  },
-  
-  //修改项目
-  modifyclient(){
-    wx.navigateTo({
-      url: '/pages/editproject/index',
+    wx.redirectTo({
+      url: '/pages/addneeds/index?TranceNum=' + id,
     })
   },
 
-  navDetails(event){
+  //修改项目
+  modifyclient(event) {
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/addproject/index?TranceNum=' + id,
+    })
+  },
+
+  navDetails(event) {
     console.log(event)
   },
   /**
@@ -95,6 +95,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
-   
+
   },
 })

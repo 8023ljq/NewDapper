@@ -1,7 +1,7 @@
 <view class="main">
 	<van-dialog id="van-dialog" />
 	<van-divider contentPosition="left">项目详情</van-divider>
-	<view class="">
+	<view class="dataDetail">
 		<i-card title="等级{{OrderDetail.ClientLevel}}" extra="{{OrderDetail.CreateTime}}">
 			<view slot="content" class="content">
 				<view class="left">联系人:{{OrderDetail.ContactPerson}}</view>
@@ -20,6 +20,9 @@
 				<!-- <view class="right">来源方式:{{OrderDetail.SourceMethod}}</view> -->
 			</view>
 			<view slot="content" class="content">
+				参与人员:{{OrderDetail.Participant}}
+			</view>
+			<view slot="content" class="content">
 				公司地址:{{OrderDetail.CompanyAddress}}
 			</view>
 			<view slot="content" class="content">
@@ -27,8 +30,8 @@
 			</view>
 		</i-card>
 	</view>
+	<van-divider contentPosition="left">跟进需求</van-divider>
 	<view class="collapse">
-		<van-divider contentPosition="left">跟进需求</van-divider>
 		<van-collapse accordion wx:if="{{DemandList.length>0}}" value="{{ activeName }}" custom-class="count"
 			bind:change="onChange">
 			<view wx:for="{{DemandList}}" data-item='{{item}}' data-index='{{index}}' wx:key='Id' class="datelist">
@@ -73,7 +76,7 @@
 				style="width:49%;float:left;height:70rpx;font-size:15px;">
 				需求跟进
 			</button>
-			<button type="warn" data-item="{{Model}}" bindtap="modifyclient" id="{{2}}"
+			<button type="warn" data-id="{{OrderDetail.Id}}" bindtap="modifyclient" id="{{OrderDetail.Id}}"
 				style="width:49%;float:right;height:70rpx;font-size:15px;background-color: #b1b1b1 !important;">
 				修改
 			</button>

@@ -68,7 +68,6 @@ Page({
         that.setData({
           CountPage: countpage
         })
-        console.log(that.data.Count)
       } else {
         wx.showToast({
           title: '暂无数据',

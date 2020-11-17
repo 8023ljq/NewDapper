@@ -28,10 +28,19 @@ export function addclient(data){
   })
 }
 
-//添加项目
+//添加需求
 export function addfollow(data){
   return request({
     url: `${config.api_base_url}/user/addfollow`,
+    method: 'post',
+    data
+  })
+}
+
+//修改项目
+export function updateclient(data){
+  return request({
+    url: `${config.api_base_url}/user/updateclient`,
     method: 'post',
     data
   })

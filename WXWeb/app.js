@@ -13,7 +13,6 @@ App({
         if(res.code){
           http.common.wechatuserinfo({UserCode: res.code}).then(res=>{
             if(res.data.ResultCode==200){
-              console.log(res)
               wx.setStorageSync('unionid', res.data.ResultData.result.unionid)
               wx.setStorageSync('session_key', res.data.ResultData.result.session_key)
               wx.setStorageSync('openid', res.data.ResultData.result.openid)

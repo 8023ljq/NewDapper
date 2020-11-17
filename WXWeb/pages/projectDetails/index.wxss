@@ -1,10 +1,17 @@
+page{
+  height: 100%;
+}
 .main{
   width: 100%;
 }
-
+.dataDetail{
+  height: 40%;
+}
 .collapse{
   width: 98%;
+  height: 250px;
   margin: auto;
+  overflow: overlay;
 }
 
 .count .van-collapse-item{
@@ -58,7 +65,9 @@
 }
 .footbtn{
   width: 95%;
+  height: 10%;
   margin: auto;
+  margin-top:10px ;
 }
 .btnStyle {
   position: fixed;
