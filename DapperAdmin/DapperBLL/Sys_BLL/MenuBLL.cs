@@ -106,7 +106,7 @@ namespace DapperBLL
                 rolePurviewModel.IsDelete = false;
             }
 
-            Commonredis.ListSet(RedisPrefixConfig.RedisMenuList, MenuList, TimeSpan.FromHours(24));
+            //Commonredis.ListSet(RedisPrefixConfig.RedisMenuList, MenuList, TimeSpan.FromHours(24));
 
             menuDAL.AddMenuThing(MenuModel, adminOperateLogModel, rolePurviewModel);
 
@@ -417,14 +417,14 @@ namespace DapperBLL
         {
             bool bo = false;
 
-            if (Commonredis.ListGet<Sys_MenuViewModel>(RedisPrefixConfig.RedisMenuList).Count <= 0)
-            {
-                bo = true;
-            }
-            else
-            {
-                bo = Commonredis.KeyDelete(RedisPrefixConfig.RedisMenuList);
-            }
+            //if (Commonredis.ListGet<Sys_MenuViewModel>(RedisPrefixConfig.RedisMenuList).Count <= 0)
+            //{
+            //    bo = true;
+            //}
+            //else
+            //{
+            //    bo = Commonredis.KeyDelete(RedisPrefixConfig.RedisMenuList);
+            //}
 
             return ReturnHelpMethod.ReturnSuccess(bo ? (int)HttpCodeEnum.Http_Clean_607 : (int)HttpCodeEnum.Http_Clean_608);
         }

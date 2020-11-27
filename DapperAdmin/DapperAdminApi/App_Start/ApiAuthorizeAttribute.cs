@@ -1,4 +1,5 @@
-﻿using DapperCommonMethod.CommonEnum;
+﻿using DapperCacheHelps.CSRedisHelper;
+using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonJson;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
@@ -21,7 +22,8 @@ namespace DapperAdminApi.App_Start
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelpers redis = new RedisHelpers();    
+        //public static RedisHelpers redis = new RedisHelpers();   
+         public static RedisCoreHelper CSRedis = new RedisCoreHelper();
 
         /// <summary>
         /// 指示指定的控件是否已获得授权
@@ -44,7 +46,7 @@ namespace DapperAdminApi.App_Start
                     {
                         return false;
                     }
-                    if (!redis.KeyExists(token))
+                    if (!CSRedis.KeyExists((int)CSRedisEnum.Administrator,token))
                     {
                         return false;
                     }
@@ -58,7 +60,7 @@ namespace DapperAdminApi.App_Start
                 //{
                 //    return false;
                 //}
-                redis.KeyExpire(token,TimeSpan.FromMinutes(30));
+                CSRedis.KeyExpire((int)CSRedisEnum.Administrator,token,1800);
             }
             catch (Exception ex)
             {
@@ -84,7 +86,7 @@ namespace DapperAdminApi.App_Start
                 resultMsg.ResultMsgs = "您尚未登录,请先登录！";
                 response.Content = new StringContent(JosnHelp.ToJson(resultMsg), Encoding.UTF8, "application/json");
             }
-            else if (!redis.KeyExists(token))
+            else if (!CSRedis.KeyExists((int)CSRedisEnum.Administrator,token))
             {
                 resultMsg.ResultCode = (int)HttpCodeEnum.Http_700;
                 resultMsg.ResultMsgs = "当前账号已掉线或在另一端登录！";

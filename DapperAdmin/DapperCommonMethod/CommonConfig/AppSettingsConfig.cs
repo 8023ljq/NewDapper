@@ -66,6 +66,11 @@ namespace DapperCommonMethod.CommonConfig
         /// </summary>
         public static int RedisCommonDB = int.Parse(ConfigurationManager.AppSettings["RedisCommonDB"]);
 
+         /// <summary>
+        /// 账号超时时间(秒)
+        /// </summary>
+        public static int TimeOut = int.Parse(ConfigurationManager.AppSettings["TimeOut"]);
+
         /// <summary>
         /// 数据对比过滤字段
         /// </summary>

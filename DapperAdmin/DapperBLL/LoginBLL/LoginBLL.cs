@@ -1,4 +1,5 @@
 ﻿using DapperBLL.BaseBLL;
+using DapperCommonMethod.CommonConfig;
 using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperCommonMethod.CommonModel;
@@ -68,7 +69,7 @@ namespace DapperBLL
             //处理单点登录问题
             if (!String.IsNullOrEmpty(managerModel.TokenId))
             {
-                redis.KeyDelete(managerModel.TokenId);
+                CSRedis.KeyDelete((int)CSRedisEnum.Administrator,managerModel.TokenId);
             }
 
             managerModel.TokenId = Token;
@@ -103,7 +104,7 @@ namespace DapperBLL
                 LoginIp = "127.0.0.1"
             };
 
-            redis.StringSet(Token, redisManagerModel, TimeSpan.FromMinutes(30));
+            CSRedis.StringSet((int)CSRedisEnum.Administrator,Token, redisManagerModel, AppSettingsConfig.TimeOut);
 
             //修改的成功与否不与登录成功有关系
             //var asd=  managerdDAL.UpdateModel<Sys_Manager>(managerModel);
@@ -123,11 +124,11 @@ namespace DapperBLL
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005);
             }
-            if (!redis.KeyExists(GetToken))
+            if (!CSRedis.KeyExists((int)CSRedisEnum.Administrator,GetToken))
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1005);
             }
-            if (!redis.KeyDelete(GetToken))
+            if (!CSRedis.KeyDelete((int)CSRedisEnum.Administrator,GetToken))
             {
                 return ReturnHelpMethod.ReturnError((int)HttpCodeEnum.Http_1007);
             }

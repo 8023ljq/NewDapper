@@ -1,4 +1,6 @@
-﻿using DapperCommonMethod.CommonConfig;
+﻿using DapperCacheHelps.CSRedisHelper;
+using DapperCommonMethod.CommonConfig;
+using DapperCommonMethod.CommonEnum;
 using DapperCommonMethod.CommonMethod;
 using DapperModel.DataModel;
 using DapperThirdHelps.RedisHelper;
@@ -19,7 +21,8 @@ namespace DapperAdminApi.Controllers
         /// <summary>
         /// 缓存管理员信息
         /// </summary>
-        public static RedisHelpers redis = new RedisHelpers(AppSettingsConfig.RedisUserDB);
+        //public static RedisHelpers redis = new RedisHelpers(AppSettingsConfig.RedisUserDB);
+         public static RedisCoreHelper CSRedis = new RedisCoreHelper();
 
         /// <summary>
         /// 获取token
@@ -38,7 +41,7 @@ namespace DapperAdminApi.Controllers
         /// <returns></returns>
         public Sys_Manager GetUserInfo()
         {
-            return redis.StringGet<Sys_Manager>(GetToken);
+            return CSRedis.StringGet<Sys_Manager>((int)CSRedisEnum.Administrator,GetToken);
         }
 
         /// <summary>
@@ -48,7 +51,7 @@ namespace DapperAdminApi.Controllers
         {
             get
             {
-                return redis.StringGet<Sys_Manager>(GetToken).Id;
+                return CSRedis.StringGet<Sys_Manager>((int)CSRedisEnum.Administrator,GetToken).Id;
             }
         }
 

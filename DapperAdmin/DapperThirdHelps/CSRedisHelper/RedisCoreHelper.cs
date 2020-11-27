@@ -67,7 +67,7 @@ namespace DapperCacheHelps.CSRedisHelper
                 bool bo = CSRedisClient[dbNum].Set(key, obj, expiry);
                 return bo;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -86,7 +86,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Get(key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return "";
             }
@@ -105,7 +105,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Set(key, obj, expiry);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -124,7 +124,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Get<T>(key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return default(T);
             }
@@ -146,7 +146,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].SetAsync(key, obj, expiry);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -165,7 +165,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].GetAsync(key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return "";
             }
@@ -184,7 +184,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].SetAsync(key, obj, expiry);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -203,7 +203,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].GetAsync<T>(key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return default(T);
             }
@@ -227,7 +227,7 @@ namespace DapperCacheHelps.CSRedisHelper
                 var log = CSRedisClient[dbNum].LPush(key, obj);
                 return log > 0L ? true : false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -249,7 +249,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Exists(Key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -268,7 +268,7 @@ namespace DapperCacheHelps.CSRedisHelper
                 var logbool = CSRedisClient[dbNum].Del(Key);
                 return logbool > 0L ? true : false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -287,7 +287,7 @@ namespace DapperCacheHelps.CSRedisHelper
                 var logbool = CSRedisClient[dbNum].Del(Key);
                 return logbool > 0L ? true : false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -306,7 +306,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Rename(Key, newKey);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -325,7 +325,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return CSRedisClient[dbNum].Expire(Key, Expiry);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -345,7 +345,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].ExistsAsync(Key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -364,7 +364,7 @@ namespace DapperCacheHelps.CSRedisHelper
                 var logbool = await CSRedisClient[dbNum].DelAsync(Key);
                 return logbool > 0L ? true : false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -383,7 +383,7 @@ namespace DapperCacheHelps.CSRedisHelper
             {
                 return await CSRedisClient[dbNum].RenameAsync(Key, newKey);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
