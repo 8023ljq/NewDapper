@@ -44,6 +44,9 @@ Page({
       title: `点击搜索按钮`,
       icon: 'none',
     });
+    http.order.getaddress().then(res => {
+     console.log(res)
+    })
   },
 
   //获取详情

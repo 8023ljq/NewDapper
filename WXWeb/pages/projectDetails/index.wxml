@@ -32,10 +32,9 @@
 	</view>
 	<van-divider contentPosition="left">跟进需求</van-divider>
 	<view class="collapse">
-		<van-collapse accordion wx:if="{{DemandList.length>0}}" value="{{ activeName }}" custom-class="count"
+		<!-- <van-collapse accordion wx:if="{{DemandList.length>0}}" value="{{ activeName }}" custom-class="count"
 			bind:change="onChange">
 			<view wx:for="{{DemandList}}" data-item='{{item}}' data-index='{{index}}' wx:key='Id' class="datelist">
-				<van-swipe-cell right-width="{{ 120 }}" class="group">
 					<van-cell-group content-class="accordion">
 						<van-collapse-item content-class="reveal" title="创建人:{{item.CreatorId}}" name="{{index}}">
 							<view class="datacard" data-id="{{item.Feedback}}" wx:if="{{item.Feedback.length<100}}"
@@ -58,15 +57,13 @@
 							</view>
 						</van-collapse-item>
 					</van-cell-group>
-					<view slot="right">
-						<view style="margin-left:5px">
-							<button class="but" type="primary" size="mini">删除</button>
-							<button class="but" type="warn" size="mini">删除</button>
-						</view>
-					</view>
-				</van-swipe-cell>
 			</view>
-		</van-collapse>
+		</van-collapse> -->
+		<view wx:if="{{DemandList.length>0}}">
+			<van-cell-group style="margin-top:5px" wx:for="{{DemandList}}" data-item='{{item}}' data-index='{{index}}' wx:key='Id' class="datelist">
+				<van-cell title="创建人:{{item.CreatorId}}" value="创建时间:{{item.CreateTime}}" is-link />
+			</van-cell-group>
+		</view>
 		<van-empty wx:else image="search" description="未找到数据" />
 	</view>
 	<!-- 按钮 -->

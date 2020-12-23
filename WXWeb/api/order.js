@@ -45,3 +45,12 @@ export function updateclient(data){
     data
   })
 }
+
+//获取json文件
+export function getaddress(data){
+  return request({
+    url: `http://tp.yungj.icu/data/pcas-code.json`,
+    method: 'get',
+    data
+  })
+}

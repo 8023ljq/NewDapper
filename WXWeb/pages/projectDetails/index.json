@@ -10,7 +10,9 @@
     "van-nav-bar": "../../vantweapp/nav-bar/index",
     "van-swipe-cell": "../../vantweapp/swipe-cell/index",
     "van-dialog": "../../vantweapp/dialog/index",
-    "van-empty": "../../vantweapp/empty/index"
+    "van-empty": "../../vantweapp/empty/index",
+    "van-cell": "../../vantweapp/cell/index",
+    "van-cell-group": "../../vantweapp/cell-group/index"
   },
   "disableScroll": true
 }
