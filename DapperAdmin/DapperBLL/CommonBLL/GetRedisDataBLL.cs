@@ -23,13 +23,14 @@ namespace DapperBLL.CommonBLL
             List<Sys_MenuViewModel> menuViewModelsList = new List<Sys_MenuViewModel>();
             List<Sys_MenuViewModel> orderlist = new List<Sys_MenuViewModel>();
 
-            menuViewModelsList = Commonredis.ListGet<Sys_MenuViewModel>(redisPrefix);
+            //menuViewModelsList = CSRedis.ListGet<Sys_MenuViewModel>((int)CSRedisEnum.Administrator,redisPrefix);
 
-            if (menuViewModelsList.Count <= 0)
-            {
-                menuViewModelsList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, "Layers,Sort desc", new { IsDelete = 0 });
-                Commonredis.ListSet<Sys_MenuViewModel>(redisPrefix, menuViewModelsList, TimeSpan.FromHours(12));
-            }
+            //if (menuViewModelsList.Count <= 0)
+            //{
+            //    menuViewModelsList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, "Layers,Sort desc", new { IsDelete = 0 });
+            //    CSRedis.ListSet<Sys_MenuViewModel>((int)CSRedisEnum.Administrator,redisPrefix, menuViewModelsList, TimeSpan.FromHours(12));
+            //}
+              menuViewModelsList = baseDALS.GetList<Sys_MenuViewModel>(Sys_MenuSql.selectListSql, "Layers,Sort desc", new { IsDelete = 0 });
 
             if (MenuType == (int)MenuEnum.LeftSide)
             {
